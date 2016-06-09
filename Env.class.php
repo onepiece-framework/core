@@ -27,6 +27,11 @@ class Env
 	static $_is_admin;
 	static $_is_localhost;
 
+	/**
+	 * Is Admin
+	 *
+	 * @return boolean
+	 */
 	static function isAdmin()
 	{
 		if(!self::$_is_admin){
@@ -37,6 +42,11 @@ class Env
 		return self::$_is_admin;
 	}
 
+	/**
+	 * Is localhost
+	 *
+	 * @return boolean
+	 */
 	static function isLocalhost()
 	{
 		if(!self::$_is_localhost){
@@ -45,11 +55,22 @@ class Env
 		return self::$_is_localhost;
 	}
 
+	/**
+	 * Get
+	 *
+	 * @param string $key
+	 */
 	static function Get($key)
 	{
 		return ifset(self::$_env);
 	}
 
+	/**
+	 * Set
+	 *
+	 * @param string $key
+	 * @param string $var
+	 */
 	static function Set($key, $var)
 	{
 		if( $key === self::_ADMIN_IP_ ){

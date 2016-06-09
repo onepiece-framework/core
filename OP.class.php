@@ -20,12 +20,19 @@
  */
 class OP
 {
+	/**
+	 * Marking line number of file.
+	 *
+	 * @param string $var
+	 */
 	static function Mark($var=null)
 	{
+		//	If not admin will skip.
 		if(!Env::isAdmin()){
 			return;
 		}
 
+		//	Checking type of argument.
 		switch( $type = gettype($var) ){
 			case 'object':
 				$var = get_class($var);
@@ -43,15 +50,16 @@ class OP
 				print $type;
 		}
 
+		//	Get trace.
 		if( version_compare('5.4.0', PHP_VERSION) >= 1 ){
 			$temp = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT||DEBUG_BACKTRACE_IGNORE_ARGS);
 		}else{
 			$temp = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT||DEBUG_BACKTRACE_IGNORE_ARGS, 1);
 		}
 
+		//	Print.
 		$file = $temp[0]['file'];
 		$line = $temp[0]['line'];
-
 		print "<div>{$file}[$line] - $var </div>".PHP_EOL;
 	}
 }

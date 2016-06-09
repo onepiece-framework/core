@@ -22,6 +22,11 @@
  */
 class Autoloader
 {
+	/**
+	 * Autoload.
+	 *
+	 * @param string $class_name
+	 */
 	static function Autoload( $class_name )
 	{
 		global $_OP;
