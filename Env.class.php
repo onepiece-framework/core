@@ -1,0 +1,61 @@
+<?php
+/**
+ * Env.class.php
+ *
+ * @creation  2016-06-09
+ * @version   1.0
+ * @package   core7
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ */
+
+/**
+ * Env
+ *
+ * @creation  2016-06-09
+ * @version   1.0
+ * @package   core7
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ */
+class Env
+{
+	const _ADMIN_IP_	 = 'admin-ip';
+	const _ADMIN_MAIL_	 = 'admin-mail';
+
+	static $_env;
+	static $_is_admin;
+	static $_is_localhost;
+
+	static function isAdmin()
+	{
+		if(!self::$_is_admin){
+			if( self::isLocalhost() ){
+				self::$_is_admin = true;
+			}
+		}
+		return self::$_is_admin;
+	}
+
+	static function isLocalhost()
+	{
+		if(!self::$_is_localhost){
+			self::$_is_localhost = ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' or $_SERVER['REMOTE_ADDR'] === '::1' ) ? true: false;
+		}
+		return self::$_is_localhost;
+	}
+
+	static function Get($key)
+	{
+		return ifset(self::$_env);
+	}
+
+	static function Set($key, $var)
+	{
+		if( $key === self::_ADMIN_IP_ ){
+			self::$_is_admin = null;
+		}
+		self::$_env[$key] = $var;
+	}
+
+}
