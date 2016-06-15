@@ -21,6 +21,35 @@ function ifset(&$check, $alternate = NULL)
 	return (isset($check)) ? $check : $alternate;
 }
 
+/**
+ * Compress local file path.
+ * Use for only developer.
+ *
+ * @param  string $file_path
+ * @return string
+ */
+function CompressPath($path)
+{
+	global $_OP;
+
+	//	Search pipe.
+	if( strpos($path, '|') ){
+		//	Does not compress path.
+		return $path;
+	}
+
+	//	Do compress path.
+	$root['App:/'] = $_OP['APP_ROOT'];
+	$root['OP:/']  = $_OP['OP_ROOT'];
+	$root['Doc:/'] = $_SERVER['DOCUMENT_ROOT'];
+	foreach($root as $key => $var){
+		if( preg_match("|^$var|",$path) ){
+			return preg_replace("|^$var|", "$key", $path);
+		}
+	}
+
+	return $path;
+}
 
 /**
  * Check mbstring installed.
@@ -29,7 +58,6 @@ if(!function_exists('mb_language') ){
 	include(__DIR__.'/Template/introduction-php-mbstring.phtml');
 	exit;
 }
-
 
 /**
  * Security: PHP_SELF has XSS risk.

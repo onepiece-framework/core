@@ -60,6 +60,12 @@ class OP
 		//	Print.
 		$file = $temp[0]['file'];
 		$line = $temp[0]['line'];
+		$file = CompressPath($file);
 		print "<div>{$file}[$line] - $var </div>".PHP_EOL;
+	}
+
+	static function D()
+	{
+		self::Mark();
 	}
 }
