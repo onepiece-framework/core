@@ -32,69 +32,20 @@ class OP
 			return;
 		}
 
-		//	Checking type of argument.
-		$style = $styles = array();
-		switch( $type = gettype($value) ){
-			case 'object':
-				$style['color'] = "green";
-				$value = get_class($value);
-				break;
-
-			case 'array':
-				$style['color'] = "green";
-				$value = 'array';
-				break;
-
-			case 'NULL':
-				$style['color'] = "red";
-				$value = func_num_args() ? 'null': '';
-				break;
-
-			case 'boolean':
-				$style['color'] = $value ? 'blue': 'red';
-				$value = $value ? 'true': 'false';
-				break;
-
-			case 'string':
-				$style['color'] = 'black';
-				$style['font-weight'] = 'bold';
-				break;
-
-			case 'integer':
-				$style['font-style'] = "italic";
-				break;
-
-			case 'double':
-				$style['color'] = 'orange';
-				$style['font-style'] = "italic";
-			//	$value = strval($value);
-				break;
-
-			default:
-				print $type;
+		//	null is explicit.
+		if( is_null($value) ){
+			$value = func_num_args() ? null: '';
 		}
-
-		//	Generate style of span.
-		foreach( $style as $key => $var ){
-			$styles[] = "$key:$var;";
-		}
-		$style = join(" ", $styles);
-
-		//	Generate span of value.
-		$span = "<span style=\"{$style}\">$value</span>";
 
 		//	Get trace.
 		if( version_compare('5.4.0', PHP_VERSION) >= 1 ){
-			$temp = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT||DEBUG_BACKTRACE_IGNORE_ARGS);
+			$trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT||DEBUG_BACKTRACE_IGNORE_ARGS);
 		}else{
-			$temp = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT||DEBUG_BACKTRACE_IGNORE_ARGS, 1);
+			$trace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT||DEBUG_BACKTRACE_IGNORE_ARGS, 1);
 		}
 
-		//	Print.
-		$file = $temp[0]['file'];
-		$line = $temp[0]['line'];
-		$file = CompressPath($file);
-		print "<div style=\"color:#999;\">{$file} [$line] - $span </div>".PHP_EOL;
+		//	Do marking.
+		Developer::_Mark($value, $trace[0]);
 	}
 
 	static function D()
