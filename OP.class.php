@@ -25,7 +25,7 @@ class OP
 	 *
 	 * @param string $var
 	 */
-	static function Mark($var=null)
+	static function Mark($value=null)
 	{
 		//	If not admin will skip.
 		if(!Env::isAdmin()){
@@ -33,22 +33,55 @@ class OP
 		}
 
 		//	Checking type of argument.
-		switch( $type = gettype($var) ){
+		$style = $styles = array();
+		switch( $type = gettype($value) ){
 			case 'object':
-				$var = get_class($var);
+				$style['color'] = "green";
+				$value = get_class($value);
 				break;
 
 			case 'array':
-				$var = 'array';
+				$style['color'] = "green";
+				$value = 'array';
 				break;
 
 			case 'NULL':
-				$var = func_num_args() ? 'null': '';
+				$style['color'] = "red";
+				$value = func_num_args() ? 'null': '';
+				break;
+
+			case 'boolean':
+				$style['color'] = $value ? 'blue': 'red';
+				$value = $value ? 'true': 'false';
+				break;
+
+			case 'string':
+				$style['color'] = 'black';
+				$style['font-weight'] = 'bold';
+				break;
+
+			case 'integer':
+				$style['font-style'] = "italic";
+				break;
+
+			case 'double':
+				$style['color'] = 'orange';
+				$style['font-style'] = "italic";
+			//	$value = strval($value);
 				break;
 
 			default:
 				print $type;
 		}
+
+		//	Generate style of span.
+		foreach( $style as $key => $var ){
+			$styles[] = "$key:$var;";
+		}
+		$style = join(" ", $styles);
+
+		//	Generate span of value.
+		$span = "<span style=\"{$style}\">$value</span>";
 
 		//	Get trace.
 		if( version_compare('5.4.0', PHP_VERSION) >= 1 ){
@@ -61,7 +94,7 @@ class OP
 		$file = $temp[0]['file'];
 		$line = $temp[0]['line'];
 		$file = CompressPath($file);
-		print "<div>{$file}[$line] - $var </div>".PHP_EOL;
+		print "<div style=\"color:#999;\">{$file} [$line] - $span </div>".PHP_EOL;
 	}
 
 	static function D()
