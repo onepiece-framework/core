@@ -32,6 +32,7 @@ class Developer extends OP
 
 			case 'array':
 				$style['color'] = "green";
+				$array = $value;
 				$value = 'array';
 				break;
 
@@ -73,10 +74,16 @@ class Developer extends OP
 		//	Generate span of value.
 		$span = "<span style=\"{$style}\">$value</span>";
 
-		//	Print.
+		//	Print mark label.
 		$file = $trace['file'];
 		$line = $trace['line'];
 		$file = CompressPath($file);
-		print "<div style=\"color:#999;\">{$file} [$line] - $span </div>".PHP_EOL;
+		print "<div style=\"color:#999;\">{$file} [$line] $span </div>".PHP_EOL;
+
+		if( $type === 'array' ){
+			print_r($array);
+			$json = json_encode($array);
+			var_dump($json);
+		}
 	}
 }
