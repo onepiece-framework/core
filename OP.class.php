@@ -47,9 +47,4 @@ class OP
 		//	Do marking.
 		Developer::_Mark($value, $trace[0]);
 	}
-
-	static function D()
-	{
-		self::Mark();
-	}
 }
