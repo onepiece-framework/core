@@ -7,7 +7,11 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-(function(){
+
+//	Document is ready.
+document.addEventListener('DOMContentLoaded', function() {
+
+	//	Start to Dump.
 	if( dump = document.body.getElementsByClassName('OP_DUMP') ){
 		var len = dump.length;
 		for( var i=0; i<len; i++ ){
@@ -18,44 +22,52 @@
 	//	Dump each notice.
 	function __op_dump(dump){
 		var json = JSON.parse(dump.innerText);
-		console.log(dump.innerText)
-		console.dir(json);
 
-		var table = document.createElement('table');
+		//	Get table tag.
+		table = __op_table(json);
+		//	Reset inner text.
 		dump.innerText = "";
+		//	Append table to dump tag.
 		dump.appendChild(table);
+	}
+
+	function __op_table(json){
+		var table = document.createElement('table');
 
 		for( var i in json ){
-			console.log(i +': '+ json[i]);
 
 			var tr = document.createElement('tr');
 			var th = document.createElement('th');
-			var td = document.createElement('td');
+
+			th.innerText = i;
+			var td = __op_td(json[i]);
 
 			table.appendChild(tr);
 			tr.appendChild(th);
 			tr.appendChild(td);
-
-			th.innerText = i;
-			td.innerText = __op_value(json[i]);
 		}
+		return table;
 	}
 
-	function __op_value(value){
+	function __op_td(value){
+		var td   = document.createElement('td');
 		var type = typeof value;
+
 		switch(type){
 			case 'string':
 				var length = value.length;
 				break;
+			case 'object':
+				return __op_table(value);
 		}
 
-		var prefix;
 		if( length ){
-			prefix = '['+type+' ('+length+')] ';
+			head = '['+type+' ('+length+')] ';
 		}else{
-			prefix = '['+type+'] ';
+			head = '['+type+'] ';
 		}
 
-		return prefix + value;
+		td.innerText = head + value;
+		return td;
 	}
-})();
+});

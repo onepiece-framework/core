@@ -20,8 +20,22 @@
  */
 class Developer extends OP
 {
+	static $_dump;
+
+	/**
+	 * Mark
+	 *
+	 * @param mixed $value
+	 * @param array $trace
+	 */
 	static function _Mark($value, $trace)
 	{
+		if(!self::$_dump ){
+			self::$_dump = true;
+			print '<script type="text/javascript" src="/Dump.js"></script>'.PHP_EOL;
+			print '<link rel="stylesheet" type="text/css" href="/Dump.css">'.PHP_EOL;
+		}
+
 		//	Checking type of argument.
 		$style = $styles = array();
 		switch( $type = gettype($value) ){
@@ -81,9 +95,8 @@ class Developer extends OP
 		print "<div style=\"color:#999;\">{$file} [$line] $span </div>".PHP_EOL;
 
 		if( $type === 'array' ){
-			print_r($array);
 			$json = json_encode($array);
-			var_dump($json);
+			print "<div class=\"OP_DUMP\">$json</div>";
 		}
 	}
 }
