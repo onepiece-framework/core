@@ -40,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			var th = document.createElement('th');
 
 			th.innerText = i;
+			th.addEventListener("click", __op_th_click, false);
+			th.addEventListener("dblclick", __op_th_dblclick, false);
 			var td = __op_td(json[i]);
 
 			table.appendChild(tr);
@@ -69,5 +71,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		td.innerText = head + value;
 		return td;
+	}
+
+	function __op_th_click(){
+		if( this.nextSibling.style.display === "none" ){
+			this.nextSibling.style.display = "block";
+		}else{
+			this.nextSibling.style.display = "none";
+		}
+	}
+
+	function __op_th_dblclick(){
+		
 	}
 });
