@@ -1,4 +1,3 @@
-<?php
 /**
  * Template/Css/Color.css
  *
@@ -8,4 +7,36 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-include('Color.css');
+
+div.OP_DUMP *{
+	margin: 0							 !important;
+	padding: 0							 !important;
+	font-size: small					 !important;
+}
+
+div.OP_DUMP table{
+	border: 1px solid black				 !important;
+	border-color: #ccc #aaa #aaa #ccc	 !important;
+	border-collapse: separate			 !important;
+	border-spacing: 1px					 !important;
+}
+
+div.OP_DUMP th{
+	border: 1px solid black				 !important;
+	border-color: #ccc #aaa #aaa #ccc	 !important;
+	vertical-align: top					 !important;
+	padding: 0 0.2em					 !important;
+	padding-top: 0.1em					 !important;
+}
+
+div.OP_DUMP td{
+	border: 1px solid black				 !important;
+	border-color: #ccc #aaa #aaa #ccc	 !important;
+	width: 100%							 !important;
+	padding-left:  0.1em				 !important;
+	padding-right: 0.2em				 !important;
+}
+
+div.OP_DUMP > table > tr > td{
+	width: auto							 !important;
+}
