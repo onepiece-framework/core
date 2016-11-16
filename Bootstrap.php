@@ -52,6 +52,34 @@ function CompressPath($path)
 }
 
 /**
+ * Expand to local file path from meta path.
+ *
+ * <pre>
+ * print ExpandPath('App:/index.php'); // -> /www/localhost/index.php
+ * </pre>
+ *
+ * @param  string $meta_path
+ * @return string
+ */
+function ExpandPath($path)
+{
+	global $_OP;
+
+	// Do compress path.
+	$root['App:/'] = $_OP['APP_ROOT'];
+	$root['OP:/']  = $_OP['OP_ROOT'];
+	$root['Doc:/'] = $_SERVER['DOCUMENT_ROOT'];
+	foreach( $root as $key => $var ){
+		if( strpos($path, $key) === 0 ){
+			$path = substr($path, strlen($key));
+			return $var.$path;
+		}
+	}
+
+	return $path;
+}
+
+/**
  * Security: PHP_SELF has XSS risk.
  */
 $_SERVER['PHP_SELF_XSS'] = htmlentities($_SERVER['PHP_SELF'], ENT_QUOTES);
