@@ -34,19 +34,12 @@ function ifset(&$check, $alternate = NULL)
  */
 function CompressPath($path)
 {
-	global $_OP;
-
-	// Do compress path.
-	$root['App:/'] = $_OP['APP_ROOT'];
-	$root['OP:/']  = $_OP['OP_ROOT'];
-	$root['Doc:/'] = $_SERVER['DOCUMENT_ROOT'];
-	foreach( $root as $key => $var ){
+	foreach( _GetRootsPath() as $key => $var ){
 		if( strpos($path, $var) === 0 ){
 			$path = substr($path, strlen($var));
 			return $key.$path;
 		}
 	}
-
 	return $path;
 }
 
@@ -62,18 +55,25 @@ function CompressPath($path)
  */
 function ExpandPath($path)
 {
-	global $_OP;
-
-	// Do compress path.
-	$root['App:/'] = $_OP['APP_ROOT'];
-	$root['OP:/']  = $_OP['OP_ROOT'];
-	$root['Doc:/'] = $_SERVER['DOCUMENT_ROOT'];
-	foreach( $root as $key => $var ){
+	foreach( _GetRootsPath() as $key => $var ){
 		if( strpos($path, $key) === 0 ){
 			$path = substr($path, strlen($key));
 			return $var.$path;
 		}
 	}
-
 	return $path;
+}
+
+/**
+ * Return meta root path array.
+ *
+ * @return array
+ */
+function _GetRootsPath()
+{
+	global $_OP;
+	$root['App:/'] = $_OP['APP_ROOT'];
+	$root['OP:/']  = $_OP['OP_ROOT'];
+	$root['Doc:/'] = $_SERVER['DOCUMENT_ROOT'];
+	return $root;
 }
