@@ -24,8 +24,11 @@ function ifset(&$check, $alternate = NULL)
 }
 
 /**
- * Compress local file path.
- * Use for only developer.
+ * Compress to meta path from local file path.
+ *
+ * <pre>
+ * print CompressPath(__FILE__); // -> App:/index.php
+ * </pre>
  *
  * @param  string $file_path
  * @return string
@@ -34,19 +37,14 @@ function CompressPath($path)
 {
 	global $_OP;
 
-	//	Search pipe.
-	if( strpos($path, '|') ){
-		//	Does not compress path.
-		return $path;
-	}
-
-	//	Do compress path.
+	// Do compress path.
 	$root['App:/'] = $_OP['APP_ROOT'];
 	$root['OP:/']  = $_OP['OP_ROOT'];
 	$root['Doc:/'] = $_SERVER['DOCUMENT_ROOT'];
-	foreach($root as $key => $var){
-		if( preg_match("|^$var|",$path) ){
-			return preg_replace("|^$var|", "$key", $path);
+	foreach( $root as $key => $var ){
+		if( strpos($path, $var) === 0 ){
+			$path = substr($path, strlen($var));
+			return $key.$path;
 		}
 	}
 
