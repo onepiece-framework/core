@@ -34,8 +34,19 @@ document.addEventListener('DOMContentLoaded', function() {
 	function __op_table(json){
 		var table = document.createElement('table');
 
-		for( var i in json ){
+		//	...
+		if( json === null ){
+			var tr = document.createElement('tr');
+			var td = document.createElement('td');
 
+			table.appendChild(tr);
+			tr.appendChild(td);
+
+			td.innerHTML = '<span class="null">null</span>';
+		}
+
+		//	...
+		for( var i in json ){
 			var tr = document.createElement('tr');
 			var th = document.createElement('th');
 
@@ -48,28 +59,42 @@ document.addEventListener('DOMContentLoaded', function() {
 			tr.appendChild(th);
 			tr.appendChild(td);
 		}
+
+		//	...
 		return table;
 	}
 
 	function __op_td(value){
 		var td   = document.createElement('td');
 		var type = typeof value;
+		var head = '';
+		var span = '';
 
+		//	...
 		switch(type){
 			case 'string':
 				var length = value.length;
 				break;
+
+			case 'boolean':
+				value = '<span class="'+value+'">'+value+'</span>';
+				break;
+
 			case 'object':
 				return __op_table(value);
 		}
 
+		//	...
+		span = '<span class="'+type+'">'+type+'</span>';
+
+		//	...
 		if( length ){
-			head = '['+type+' ('+length+')] ';
+			head = '['+span+'('+length+')] ';
 		}else{
-			head = '['+type+'] ';
+			head = '['+span+'] ';
 		}
 
-		td.innerText = head + value;
+		td.innerHTML = head + value;
 		return td;
 	}
 

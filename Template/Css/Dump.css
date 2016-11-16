@@ -1,5 +1,5 @@
 /**
- * Template/Css/Color.css
+ * core:/Template/Css/Color.css
  *
  * @creation  2016-06-21
  * @version   1.0
@@ -7,11 +7,10 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-
 div.OP_DUMP *{
-	margin: 0							 !important;
-	padding: 0							 !important;
-	font-size: small					 !important;
+	margin:  0		 !important;
+	padding: 0		 !important;
+	font-size: small !important;
 }
 
 div.OP_DUMP table{
@@ -30,13 +29,51 @@ div.OP_DUMP th{
 }
 
 div.OP_DUMP td{
+	width: 100%							 !important;
 	border: 1px solid black				 !important;
 	border-color: #ccc #aaa #aaa #ccc	 !important;
-	width: 100%							 !important;
 	padding-left:  0.1em				 !important;
 	padding-right: 0.2em				 !important;
 }
 
+div.OP_DUMP tr > table{
+	width: 100%							 !important;
+}
+
 div.OP_DUMP > table > tr > td{
-	width: auto							 !important;
+	width: auto !important;
+}
+
+/* value */
+div.OP_DUMP .null{
+	color: red;
+}
+
+div.OP_DUMP .false{
+	color: red;
+}
+
+div.OP_DUMP .true{
+	color: blue;
+}
+
+/* type of value */
+div.OP_DUMP .boolean{
+	color: green;
+}
+
+div.OP_DUMP .string{
+	color: black;
+}
+
+div.OP_DUMP .number{
+	color: gray;
+}
+
+div.OP_DUMP .array{
+	color: gray;
+}
+
+div.OP_DUMP .object{
+	color: gray;
 }
