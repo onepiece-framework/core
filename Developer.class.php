@@ -28,7 +28,7 @@ class Developer extends OP
 	 * @param mixed $value
 	 * @param array $trace
 	 */
-	static function _Mark($value, $trace)
+	static function Mark($value, $trace)
 	{
 		if(!self::$_dump ){
 			self::$_dump = true;
