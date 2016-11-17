@@ -10,16 +10,17 @@
  */
 
 /**
- * ifset
+ * Return meta root path array.
  *
- * @see    http://qiita.com/devneko/items/ee83854eb422c352abc8
- * @param  mixed $check
- * @param  mixed $alternate
- * @return mixed
+ * @return array
  */
-function ifset(&$check, $alternate = NULL)
+function _GetRootsPath()
 {
-	return (isset($check)) ? $check : $alternate;
+	global $_OP;
+	$root['App:/'] = $_OP['APP_ROOT'];
+	$root['OP:/']  = $_OP['OP_ROOT'];
+	$root['Doc:/'] = $_SERVER['DOCUMENT_ROOT'];
+	return $root;
 }
 
 /**
@@ -65,15 +66,14 @@ function ExpandPath($path)
 }
 
 /**
- * Return meta root path array.
+ * ifset
  *
- * @return array
+ * @see    http://qiita.com/devneko/items/ee83854eb422c352abc8
+ * @param  mixed $check
+ * @param  mixed $alternate
+ * @return mixed
  */
-function _GetRootsPath()
+function ifset(&$check, $alternate = NULL)
 {
-	global $_OP;
-	$root['App:/'] = $_OP['APP_ROOT'];
-	$root['OP:/']  = $_OP['OP_ROOT'];
-	$root['Doc:/'] = $_SERVER['DOCUMENT_ROOT'];
-	return $root;
+	return (isset($check)) ? $check : $alternate;
 }
