@@ -72,7 +72,6 @@ class Developer extends OP
 			case 'double':
 				$style['color'] = 'orange';
 				$style['font-style'] = "italic";
-				//	$value = strval($value);
 				break;
 
 			default:
@@ -84,6 +83,9 @@ class Developer extends OP
 			$styles[] = "$key:$var;";
 		}
 		$style = join(" ", $styles);
+
+		//	...
+		$value = htmlentities($value, ENT_QUOTES, 'UTF-8');
 
 		//	Generate span of value.
 		$span = "<span style=\"{$style}\">$value</span>";
@@ -98,5 +100,114 @@ class Developer extends OP
 			$json = json_encode($array);
 			print "<div class=\"OP_DUMP\">$json</div>";
 		}
+	}
+
+	/**
+	 * Show notice message for developer.
+	 *
+	 * @param array $notice
+	 */
+	static function Notice($notice)
+	{
+		print "<hr/>";
+		print self::_NoticeHtml($notice);
+	}
+
+	/**
+	 * Build notice html.
+	 *
+	 * @param array $notice
+	 */
+	static private function _NoticeHtml($notice)
+	{
+		$html = '';
+		$html.= "<div>{$notice['message']}</div>".PHP_EOL;
+		$html.= "<table>".PHP_EOL;
+		foreach( $notice['backtrace'] as $i => $a ){
+			foreach( ['file','line','function','class','type','args'] as $key ){
+				${$key} = ifset($a[$key]);
+			}
+			$file = CompressPath($file);
+			$method = $type ? "{$class}{$type}{$function}":"$function";
+			$argument = self::_NoticeHtmlArguments($args, $function);
+			$html.= "<tr><td>{$file}</td><td>{$line}</td><td>{$method}($argument)</td></tr>".PHP_EOL;
+		}
+		$html.= "</table>".PHP_EOL;
+		return $html;
+	}
+
+	/**
+	 * Build notice html's arguments.
+	 *
+	 * @param array $notice
+	 */
+	static private function _NoticeHtmlArguments($args, $function)
+	{
+		$join = [];
+		foreach( $args as $val ){
+			switch( $type = gettype($val) ){
+				case 'array':
+				case 'object':
+					$join[] = $type;
+					break;
+
+				case 'string':
+					$val = htmlentities($val, ENT_QUOTES, 'UTF-8');
+					if( $function === 'include' ){
+						$val = CompressPath($val);
+					}
+					$join[] = '"'.$val.'"';
+					break;
+
+				default:
+					$join[] = $val;
+			}
+		}
+		return join(', ', $join);
+	}
+
+	/**
+	 * Send admin notice mail.
+	 *
+	 * @param array
+	 */
+	static function Sendmail($notice)
+	{
+
+		//	...
+		$timestamp = Time::Date();
+
+		//	...
+		$content.= '<table>';
+		$content.= "<tr><th> Timestamp	</th><td>{$timestamp}<td></tr>";
+		$content.= "<tr><th> User		</th><td>{$user}	 <td></tr>";
+		$content.= "<tr><th> UserAgent	</th><td>{$ua}		 <td></tr>";
+		$content.= "<tr><th> Host		</th><td>{$host}	 <td></tr>";
+		$content.= "<tr><th> URL		</th><td>{$url}		 <td></tr>";
+		$content.= "<tr><th> Referer	</th><td>{$referer}	 <td></tr>";
+		$content.= '</table>';
+		$content.= '<hr/>';
+
+		/*
+			Timestamp	2016-11-15 22:29:07
+			User	40.77.167.30 --> msnbot-40-77-167-30.search.msn.com
+			UserAgent	Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)
+			Host	cctokyo.co.jp
+			URL	https://cctokyo.co.jp:443/welcome/access/
+			Referer
+			*/
+
+
+		//	...
+		$to = Env::Get(Env::_ADMIN_MAIL_);
+		$subject = $notice['message'];
+
+		//	...
+		$mail = new EMail();
+		$mail->From($mail->GetLocalAddress());
+		$mail->To($to);
+		$mail->Subject($subject);
+		$mail->Content($content);
+		$mail->Send();
 	}
 }

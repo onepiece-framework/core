@@ -38,6 +38,11 @@ if(!spl_autoload_register('Autoloader::Autoload',true,true)){
 }
 
 /**
+ * Register shutdown function.
+ */
+register_shutdown_function('Notice::Shutdown');
+
+/**
  * Check mbstring installed.
  */
 if(!function_exists('mb_language') ){
