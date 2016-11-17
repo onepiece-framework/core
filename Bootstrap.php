@@ -11,6 +11,13 @@
  */
 
 /**
+ * Auto start of session.
+ */
+if(!session_id()){
+	session_start();
+}
+
+/**
  * Include custome functions.
  */
 include_once(__DIR__.'/Functions.php');
