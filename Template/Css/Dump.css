@@ -1,5 +1,5 @@
 /**
- * core:/Template/Css/Color.css
+ * core:/Template/Css/Dump.css
  *
  * @creation  2016-06-21
  * @version   1.0
@@ -10,7 +10,7 @@
 div.OP_DUMP *{
 	margin:  0		 !important;
 	padding: 0		 !important;
-	font-size: small !important;
+	font-size: 9pt	 !important;
 }
 
 div.OP_DUMP table{

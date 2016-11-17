@@ -1,0 +1,29 @@
+/**
+ * core:/Template/Css/Notice.css
+ *
+ * @creation  2016-11-17
+ * @version   1.0
+ * @package   core7
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ */
+div.OP_NOTICE * {
+	margin:  0		 !important;
+	padding: 0		 !important;
+	font-size: 9pt	 !important;
+	color: black	 !important;
+	background-color: white !important;
+}
+
+div.OP_NOTICE{
+	margin-top: 0.5em;
+}
+
+div.OP_NOTICE p {
+	font-weight: bold;
+}
+
+div.OP_NOTICE table {
+	margin-left: 0.5em !important;
+	border: 0px solid black;
+}

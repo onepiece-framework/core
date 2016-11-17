@@ -20,7 +20,12 @@
  */
 class Developer extends OP
 {
-	static $_dump;
+	/**
+	 * Namespace
+	 *
+	 * @var string
+	 */
+	const _NAME_SPACE_ = 'DEVELOPER';
 
 	/**
 	 * Mark
@@ -30,8 +35,10 @@ class Developer extends OP
 	 */
 	static function Mark($value, $trace)
 	{
-		if(!self::$_dump ){
-			self::$_dump = true;
+		//	Output is first time only.
+		static $is_dump;
+		if(!$is_dump ){
+			$is_dump = true;
 			print '<script type="text/javascript" src="/Dump.js"></script>'.PHP_EOL;
 			print '<link rel="stylesheet" type="text/css" href="/Dump.css">'.PHP_EOL;
 		}
@@ -109,8 +116,15 @@ class Developer extends OP
 	 */
 	static function Notice($notice)
 	{
-		print "<hr/>";
-		print self::_NoticeHtml($notice);
+		//	Output is first time only.
+		static $is_notice;
+		if(!$is_notice ){
+			$is_notice = true;
+			print __FILE__;
+			print '<script type="text/javascript" src="/Notice.js"></script>'.PHP_EOL;
+			print '<link rel="stylesheet" type="text/css" href="/Notice.css">'.PHP_EOL;
+		}
+		print '<div class="OP_NOTICE">'.Escape(json_encode($notice)).'</div>';
 	}
 
 	/**

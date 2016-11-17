@@ -10,11 +10,10 @@
 
 //	Document is ready.
 document.addEventListener('DOMContentLoaded', function() {
-
 	//	Start to Dump.
-	if( dump = document.body.getElementsByClassName('OP_DUMP') ){
-		var len = dump.length;
-		for( var i=0; i<len; i++ ){
+	var dump = document.body.getElementsByClassName('OP_DUMP')
+	if( dump ){
+		for( var i=0; i<dump.length; i++ ){
 			__op_dump(dump[i]);
 		}
 	}
