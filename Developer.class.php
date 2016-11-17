@@ -85,7 +85,7 @@ class Developer extends OP
 		$style = join(" ", $styles);
 
 		//	...
-		$value = htmlentities($value, ENT_QUOTES, 'UTF-8');
+		$value = Escape($value);
 
 		//	Generate span of value.
 		$span = "<span style=\"{$style}\">$value</span>";
@@ -145,6 +145,7 @@ class Developer extends OP
 	{
 		$join = [];
 		foreach( $args as $val ){
+			$val = Escape($var);
 			switch( $type = gettype($val) ){
 				case 'array':
 				case 'object':
@@ -152,7 +153,6 @@ class Developer extends OP
 					break;
 
 				case 'string':
-					$val = htmlentities($val, ENT_QUOTES, 'UTF-8');
 					if( $function === 'include' ){
 						$val = CompressPath($val);
 					}

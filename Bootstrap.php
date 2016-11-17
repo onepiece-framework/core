@@ -18,7 +18,7 @@ include_once(__DIR__.'/Functions.php');
 /**
  * Security: PHP_SELF has XSS risk.
  */
-$_SERVER['PHP_SELF_XSS'] = htmlentities($_SERVER['PHP_SELF'], ENT_QUOTES);
+$_SERVER['PHP_SELF_XSS'] = _EscapeString($_SERVER['PHP_SELF']);
 $_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'];
 
 /**
