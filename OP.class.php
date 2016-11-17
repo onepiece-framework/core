@@ -21,11 +21,43 @@
 class OP
 {
 	/**
+	 * Namespace
 	 *
+	 * @var string
 	 */
+	const _NAME_SPACE_ = 'ONEPIECE';
+
+	/**
+	 * Call to has not been set method.
+	 *
+	 * @param string $name
+	 * @param array  $args
+	 */
+	function __call($name, $args)
+	{
+		$message = "This method has not been exists. ($name)";
+		Notice::Set($message);
+	}
+
+	/**
+	 * Call to has not been set static method.
+	 *
+	 * @param string $name
+	 * @param array  $args
+	 */
+	static function __callstatic($name, $args)
+	{
+		$message = "This method has not been exists. ($name)";
+		Notice::Set($message);
+	}
+
+	function __construct()
 	{
 
+	}
 
+	function __destruct()
+	{
 
 	}
 }
