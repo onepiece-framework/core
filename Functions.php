@@ -73,6 +73,57 @@ function D($value=null)
 }
 
 /**
+ * Escape mixid value;
+ *
+ * @param  boolean|integer|string|array|object $var
+ * @return boolean|integer|string|array|object
+ */
+function Escape($var)
+{
+	switch( $type = gettype($var) ){
+		case 'string':
+			return _EscapeString($var);
+
+		case 'array':
+			$var = _EscapeArray($var);
+			break;
+
+		case 'object':
+			Notice::Set("Objects are not yet supported.");
+			break;
+
+		default:
+	}
+	return $var;
+}
+
+/**
+ * Escape array.
+ *
+ * @param  array $arr
+ * @return array
+ */
+function _EscapeArray($arr)
+{
+	$new = [];
+	foreach( $arr as $key => $var ){
+		$new[_EscapeString($key)] = Escape($var);
+	}
+	return $new;
+}
+
+/**
+ * Escape string.
+ *
+ * @param  string $var
+ * @return string
+ */
+function _EscapeString($var)
+{
+	return htmlentities($var, ENT_QUOTES, 'utf-8', false);
+}
+
+/**
  * Expand to local file path from meta path.
  *
  * <pre>
