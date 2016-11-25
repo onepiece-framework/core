@@ -27,7 +27,7 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright 2015 (C) Tomoaki Nagahara All right reserved.
  */
-class EMail extends OP
+class EMail extends OnePiece
 {
 	private $_head = array();
 	private $_body = array();

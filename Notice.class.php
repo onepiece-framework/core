@@ -18,7 +18,7 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright 2016 (C) Tomoaki Nagahara All right reserved.
  */
-class Notice extends OP
+class Notice extends OnePiece
 {
 	/**
 	 * Namespace
@@ -34,10 +34,10 @@ class Notice extends OP
 	 */
 	static function Get()
 	{
-		if( empty($_SESSION[OP::_NAME_SPACE_][self::_NAME_SPACE_]) ){
-			$_SESSION[OP::_NAME_SPACE_][self::_NAME_SPACE_] = [];
+		if( empty($_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_]) ){
+			$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_] = [];
 		}
-		return array_shift($_SESSION[OP::_NAME_SPACE_][self::_NAME_SPACE_]);
+		return array_shift($_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_]);
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Notice extends OP
 	{
 		$notice['message']   = $message;
 		$notice['backtrace'] = debug_backtrace();
-		$_SESSION[OP::_NAME_SPACE_][self::_NAME_SPACE_][] = $notice;
+		$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][] = $notice;
 	}
 
 	/**

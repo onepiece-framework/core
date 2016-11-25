@@ -18,7 +18,7 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-class Developer extends OP
+class Developer extends OnePiece
 {
 	/**
 	 * Namespace

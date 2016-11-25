@@ -1,24 +1,26 @@
 <?php
 /**
- * OP.class.php
+ * OnePiece.class.php
  *
- * @creation  2016-06-09
+ * @creation  2014-11-29
+ * @rebirth   2016-06-09
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
 /**
- * OP
+ * OnePiece
  *
  * @creation  2014-11-29
+ * @rebirth   2016-06-09
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-class OP
+class OnePiece
 {
 	/**
 	 * Namespace
