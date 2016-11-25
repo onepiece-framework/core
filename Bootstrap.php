@@ -23,6 +23,11 @@ if(!session_id()){
 include_once(__DIR__.'/Functions.php');
 
 /**
+ * Include defines.
+ */
+include_once(__DIR__.'/Defines.php');
+
+/**
  * Security: PHP_SELF has XSS risk.
  */
 $_SERVER['PHP_SELF_XSS'] = _EscapeString($_SERVER['PHP_SELF']);
@@ -31,8 +36,8 @@ $_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'];
 /**
  * OP_ROOT, APP_ROOT
  */
-$_OP['OP_ROOT']  = __DIR__.'/';
-$_OP['APP_ROOT'] = dirname($_SERVER['SCRIPT_FILENAME']).'/';
+$_OP[OP_ROOT]  = __DIR__.'/';
+$_OP[APP_ROOT] = dirname($_SERVER['SCRIPT_FILENAME']).'/';
 
 /**
  * Register autoloader.
