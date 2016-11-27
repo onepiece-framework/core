@@ -20,6 +20,8 @@
  */
 class Template extends OnePiece
 {
+	const _DIRECTORY_ = 'template-dir';
+
 	/**
 	 * Get template content.
 	 *
@@ -54,12 +56,24 @@ class Template extends OnePiece
 		}
 
 		//	...
-		if(!file_exists($path)){
+		if( file_exists($path) ){
+			include($path);
+		}else if( $dir = Env::Get(self::_DIRECTORY_) ){
+			$dir = ConvertPath($dir);
+			if( file_exists($dir) ){
+				if( file_exists($dir.'/'.$path) ){
+					include($dir.'/'.$path);
+				}else{
+					Notice::Set("File is not exists. ($dir)");
+				}
+			}else{
+				Notice::Set("This directory is not exists. ($dir)");
+			}
+		}else{
 			Notice::Set("File is not exists. ($path)");
-			return null;
 		}
-		d($path);
-		include($path);
+
+		//	...
 		return ob_get_clean();
 	}
 }
