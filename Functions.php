@@ -45,6 +45,27 @@ function CompressPath($path)
 }
 
 /**
+ * Convert to local file path from meta path.
+ *
+ * <pre>
+ * print ConvertPath('App:/index.php'); // -> /www/localhost/index.php
+ * </pre>
+ *
+ * @param  string $meta_path
+ * @return string
+ */
+function ConvertPath($path)
+{
+	foreach( _GetRootsPath() as $key => $var ){
+		if( strpos($path, $key) === 0 ){
+			$path = substr($path, strlen($key));
+			return $var.$path;
+		}
+	}
+	return $path;
+}
+
+/**
  * Dump value for developers only.
  *
  * @param boolean|integer|string|array|object $value
@@ -121,27 +142,6 @@ function _EscapeArray($arr)
 function _EscapeString($var)
 {
 	return htmlentities($var, ENT_QUOTES, 'utf-8', false);
-}
-
-/**
- * Expand to local file path from meta path.
- *
- * <pre>
- * print ExpandPath('App:/index.php'); // -> /www/localhost/index.php
- * </pre>
- *
- * @param  string $meta_path
- * @return string
- */
-function ExpandPath($path)
-{
-	foreach( _GetRootsPath() as $key => $var ){
-		if( strpos($path, $key) === 0 ){
-			$path = substr($path, strlen($key));
-			return $var.$path;
-		}
-	}
-	return $path;
 }
 
 /**
