@@ -66,11 +66,22 @@ class Layout extends OnePiece
 			return;
 		}
 
-		//	...
+		//	Get layout controller file path.
 		$full_path = ConvertPath($layout_dir.'/'.$layout_name.'/index.php');
+
+		//	Check exists layout controller.
 		if( file_exists($full_path) ){
+
+			//	Execute app's end point. (app's controller)
 			$route = Router::Get();
+
+			//	Change current directory.
+			chdir(dirname($route['path']));
+
+			//	Buffering content.
 			self::$_content = Template::Get($route['path']);
+
+			//	Execute layout.
 			include($full_path);
 		}else{
 			Notice::Set("Does not exists layout controller. ($full_path)");
