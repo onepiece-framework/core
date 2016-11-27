@@ -17,9 +17,9 @@
 function _GetRootsPath()
 {
 	global $_OP;
-	$root['App:/'] = $_OP['APP_ROOT'];
-	$root['OP:/']  = $_OP['OP_ROOT'];
-	$root['Doc:/'] = $_SERVER['DOCUMENT_ROOT'];
+	$root['app:/'] = $_OP['APP_ROOT'];
+	$root['op:/']  = $_OP['OP_ROOT'];
+	$root['doc:/'] = $_SERVER['DOCUMENT_ROOT'];
 	return $root;
 }
 
