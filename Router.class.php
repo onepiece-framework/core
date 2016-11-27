@@ -25,24 +25,11 @@ class Router extends OnePiece
 	private static $_route;
 
 	/**
-	 * Get dispatch route by request uri.
-	 *
-	 * @return array
-	 */
-	static function Get()
-	{
-		if(!self::$_route ){
-			self::Search();
-		}
-		return self::$_route;
-	}
-
-	/**
 	 * Search dispatch route by request uri.
 	 *
 	 * @return array
 	 */
-	static function Search()
+	static private function _Search()
 	{
 		global $_OP;
 
@@ -83,5 +70,28 @@ class Router extends OnePiece
 		}while( $dir = array_pop($dirs) );
 
 		return self::$_route;
+	}
+
+	/**
+	 * Get dispatch route by request uri.
+	 *
+	 * @return array
+	 */
+	static function Get()
+	{
+		if(!self::$_route ){
+			self::_Search();
+		}
+		return self::$_route;
+	}
+
+	/**
+	 * Set custom route table.
+	 *
+	 * @param array $route
+	 */
+	static function Set($route)
+	{
+		self::$_route = $route;
 	}
 }
