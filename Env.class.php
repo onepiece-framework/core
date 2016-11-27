@@ -58,18 +58,20 @@ class Env
 	/**
 	 * Get
 	 *
-	 * @param string $key
+	 * @param  string $key
+	 * @param  string|integer|boolean|array|object $default
+	 * @return string|integer|boolean|array|object
 	 */
-	static function Get($key)
+	static function Get($key, $default=null)
 	{
-		return ifset(self::$_env);
+		return ifset(self::$_env[$key], $default);
 	}
 
 	/**
 	 * Set
 	 *
 	 * @param string $key
-	 * @param string $var
+	 * @param string|integer|boolean|array|object $var
 	 */
 	static function Set($key, $var)
 	{
