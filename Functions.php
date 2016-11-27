@@ -66,6 +66,22 @@ function ConvertPath($path)
 }
 
 /**
+ * Convert url from meta path to document root path.
+ *
+ * <pre>
+ * print ConvertURL('app:/index.php'); // -> /index.php
+ * </pre>
+ *
+ * @param  string $meta_url
+ * @return string
+ */
+function ConvertURL($url)
+{
+	$rewrite_base = dirname($_SERVER['SCRIPT_NAME']);
+	return $rewrite_base.substr($url,4);
+}
+
+/**
  * Dump value for developers only.
  *
  * @param boolean|integer|string|array|object $value
