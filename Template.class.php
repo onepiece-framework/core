@@ -2,6 +2,8 @@
 /**
  * Template.class.php
  *
+ * This class is part of the "New World".
+ *
  * @rebirth   2016-11-26
  * @version   1.0
  * @package   core

@@ -2,6 +2,8 @@
 /**
  * Router.class.php
  *
+ * This class is part of the "New World".
+ *
  * @creation  2015-02-27 (Moved from NewWorld5.)
  * @rebirth   2016-11-26
  * @version   1.0

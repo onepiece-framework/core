@@ -2,6 +2,8 @@
 /**
  * Developer.class.php
  *
+ * This class is part of the "New World".
+ *
  * @creation  2016-06-09
  * @version   1.0
  * @package   core7

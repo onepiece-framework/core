@@ -2,6 +2,8 @@
 /**
  * Layout.class.php
  *
+ * This class is part of the "New World".
+ *
  * @creation  2015-04-24
  * @rebirth   2016-11-26
  * @version   1.0
