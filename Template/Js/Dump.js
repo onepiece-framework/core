@@ -11,7 +11,7 @@
 //	Document is ready.
 document.addEventListener('DOMContentLoaded', function() {
 	//	Start to Dump.
-	var dump = document.body.getElementsByClassName('OP_DUMP')
+	var dump = document.body.getElementsByClassName('OP_DUMP');
 	if( dump ){
 		for( var i=0; i<dump.length; i++ ){
 			__op_dump(dump[i]);
@@ -45,7 +45,16 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		//	...
-		for( var i in json ){
+		if( json && json.length === 0 ){
+			var tr = document.createElement('tr');
+			var td = document.createElement('td');
+			table.appendChild(tr);
+			tr.appendChild(td);
+			td.innerHTML = '<span class="empty">(empty)</span>';
+		}
+
+		//	...
+		for(var i in json){
 			var tr = document.createElement('tr');
 			var th = document.createElement('th');
 
@@ -66,11 +75,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	function __op_td(value){
 		var td   = document.createElement('td');
 		var type = typeof value;
-		var head = '';
-		var span = '';
 
 		//	...
-		switch(type){
+		switch( type ){
 			case 'string':
 				var length = value.length;
 				break;
@@ -84,17 +91,34 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		//	...
-		span = '<span class="'+type+'">'+type+'</span>';
+		var span_type = '<span class="'+type+'">'+type+'</span>';
 
 		//	...
+		var span_length = '';
 		if( length ){
-			head = '['+span+'('+length+')] ';
-		}else{
-			head = '['+span+'] ';
+			var class_length = length < 10 ? 'length1': 'length2';
+		//	span_length = '<span class="'+class_length+'">'+'('+length+')'+'</span>';
 		}
 
-		td.innerHTML = head + value;
+		//	...
+		var head = '<span class="type">['+span_type+span_length+']</span>';
+
+		//	...
+		var val = type !== 'string' ? value: __op_value(value);
+
+		//	...
+		td.innerHTML = head + val;
 		return td;
+	}
+
+	function __op_value(value){
+		console.log(value);
+		var val = value;
+			val = val.replace(/ /g,'<span class="space">_</span>');
+			val = val.replace(/\t/g,'<span class="tab">\\t</span>');
+			val = val.replace(/\n/g,'<span class="line-feed">\\n</span>');
+			val = val.replace(/\r/g,'<span class="carriage-return">\\r</span>');
+		return val;
 	}
 
 	function __op_th_click(){
@@ -106,6 +130,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function __op_th_dblclick(){
-		
+
 	}
 });

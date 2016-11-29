@@ -11,6 +11,7 @@ div.OP_DUMP *{
 	margin:  0		 !important;
 	padding: 0		 !important;
 	font-size: 9pt	 !important;
+	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
 }
 
 div.OP_DUMP table{
@@ -24,16 +25,17 @@ div.OP_DUMP th{
 	border: 1px solid black				 !important;
 	border-color: #ccc #aaa #aaa #ccc	 !important;
 	vertical-align: top					 !important;
-	padding: 0 0.2em					 !important;
-	padding-top: 0.1em					 !important;
+	padding:	 0 0.2em				 !important;
+	padding-top: 0.3em					 !important;
 }
 
 div.OP_DUMP td{
 	width: 100%							 !important;
 	border: 1px solid black				 !important;
 	border-color: #ccc #aaa #aaa #ccc	 !important;
+	padding-top:   0.1em				 !important;
 	padding-left:  0.1em				 !important;
-	padding-right: 0.2em				 !important;
+	padding-right: 0.25em				 !important;
 }
 
 div.OP_DUMP tr > table{
@@ -76,4 +78,27 @@ div.OP_DUMP .array{
 
 div.OP_DUMP .object{
 	color: gray;
+}
+
+div.OP_DUMP span.type{
+	margin-right: 0.2em !important;
+}
+
+div.OP_DUMP span.length1{
+	margin-left:  0.5em !important;
+	margin-right: 0.3em !important;
+}
+
+div.OP_DUMP span.length2{
+	margin-left:  0.2em !important;
+	margin-right: 0.0em !important;
+}
+
+div.OP_DUMP span.empty{
+	color: gray;
+	font-style: italic;
+}
+
+div.OP_DUMP span.space, span.tab, span.line-feed, span.carriage-return{
+	color: #c0c0c0;
 }
