@@ -2,9 +2,10 @@
 /**
  * Notice.class.php
  *
- * @creation  2016-11-17
+ * @creation ????-??-??
+ * @rebirth  2016-11-17
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright 2016 (C) Tomoaki Nagahara All right reserved.
  */
@@ -12,9 +13,10 @@
 /**
  * Notice
  *
- * @creation  2016-11-17
+ * @creation ????-??-??
+ * @rebirth   2016-11-17
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright 2016 (C) Tomoaki Nagahara All right reserved.
  */
