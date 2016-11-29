@@ -80,5 +80,4 @@ class Env
 		}
 		self::$_env[$key] = $var;
 	}
-
 }

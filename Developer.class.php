@@ -122,7 +122,6 @@ class Developer extends OnePiece
 		static $is_notice;
 		if(!$is_notice ){
 			$is_notice = true;
-			print __FILE__;
 			print '<script type="text/javascript" src="/Notice.js"></script>'.PHP_EOL;
 			print '<link rel="stylesheet" type="text/css" href="/Notice.css">'.PHP_EOL;
 		}
