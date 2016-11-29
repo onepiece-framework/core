@@ -37,7 +37,19 @@ class OnePiece
 	 */
 	function __call($name, $args)
 	{
-		$message = "This method has not been exists. ($name)";
+		foreach( $args as $val ){
+			switch( $type = gettype($val) ){
+				case 'array':
+				case 'object':
+					$join[] = $type;
+					break;
+				default:
+					$join[] = $val;
+			}
+		}
+		$class   = get_class($this);
+		$serial  = join(', ', $join);
+		$message = "This method has not been exists. ({$class}->{$name}({$serial}))";
 		Notice::Set($message);
 	}
 
