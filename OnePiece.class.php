@@ -64,14 +64,4 @@ class OnePiece
 		$message = "This method has not been exists. ($name)";
 		Notice::Set($message);
 	}
-
-	function __construct()
-	{
-
-	}
-
-	function __destruct()
-	{
-
-	}
 }
