@@ -60,6 +60,8 @@ class Template extends OnePiece
 		//	...
 		if( file_exists($path) ){
 			include($path);
+		}else if( file_exists($full_path = ConvertPath($path)) ){
+			include($full_path);
 		}else if( $dir = Env::Get(self::_DIRECTORY_) ){
 			$dir = ConvertPath($dir);
 			if( file_exists($dir) ){
