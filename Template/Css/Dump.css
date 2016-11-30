@@ -11,7 +11,7 @@ div.OP_DUMP *{
 	margin:		 0		 !important;
 	padding:	 0		 !important;
 	font-size:	 9pt	 !important;
-	font-family: _Consolas, '_Courier New', _Courier, Monaco, monospace;
+	font-family: sans-serif, _Consolas, '_Courier New', _Courier, Monaco, monospace;
 }
 
 div.OP_DUMP table{
@@ -43,10 +43,10 @@ div.OP_DUMP td{
 	width: 100%							 !important;
 	border: 1px solid black				 !important;
 	border-color: #ccc #aaa #aaa #ccc	 !important;
-	padding-top:	 0.1em				 !important;
+	padding-top:	 0.05em				 !important;
 	padding-left:	 0.1em				 !important;
 	padding-right:	 0.25em				 !important;
-	padding-bottom:	 0.1em				 !important;
+	padding-bottom:	 0.15em				 !important;
 }
 
 div.OP_DUMP tr > table{

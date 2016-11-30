@@ -105,8 +105,9 @@ class Developer extends OnePiece
 		$file = CompressPath($file);
 		print "<div style=\"color:#999;\">{$file} [$line] $span </div>".PHP_EOL;
 
+		//	...
 		if( $type === 'array' ){
-			$json = json_encode($array);
+			$json = htmlentities(json_encode($array), ENT_QUOTES, 'utf-8');
 			print "<div class=\"OP_DUMP\">$json</div>";
 		}
 	}

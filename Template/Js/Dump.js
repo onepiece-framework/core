@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var span_length = '';
 		if( length ){
 			var class_length = length < 10 ? 'length1': 'length2';
-		//	span_length = '<span class="'+class_length+'">'+'('+length+')'+'</span>';
+			span_length = '<span class="'+class_length+'">'+'('+length+')'+'</span>';
 		}
 
 		//	...
@@ -112,8 +112,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function __op_value(value){
-		console.log(value);
 		var val = value;
+			val = val.replace(/</g,'&lt;');
+			val = val.replace(/>/g,'&gt;');
 			val = val.replace(/ /g,'<span class="space">_</span>');
 			val = val.replace(/\t/g,'<span class="tab">\\t</span>');
 			val = val.replace(/\n/g,'<span class="line-feed">\\n</span>');
