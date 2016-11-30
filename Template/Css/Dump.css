@@ -8,34 +8,45 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 div.OP_DUMP *{
-	margin:  0		 !important;
-	padding: 0		 !important;
-	font-size: 9pt	 !important;
-	font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
+	margin:		 0		 !important;
+	padding:	 0		 !important;
+	font-size:	 9pt	 !important;
+	font-family: _Consolas, '_Courier New', _Courier, Monaco, monospace;
 }
 
 div.OP_DUMP table{
 	border: 1px solid black				 !important;
 	border-color: #ccc #aaa #aaa #ccc	 !important;
-	border-collapse: separate			 !important;
-	border-spacing: 1px					 !important;
+	border-collapse: separate;			 !important;
+	border-spacing:	 1px				 !important;
+}
+
+div.OP_DUMP tr{
+	
+}
+
+div.OP_DUMP th, td{
+	letter-spacing: 0.05em				 !important;
 }
 
 div.OP_DUMP th{
 	border: 1px solid black				 !important;
 	border-color: #ccc #aaa #aaa #ccc	 !important;
 	vertical-align: top					 !important;
-	padding:	 0 0.2em				 !important;
-	padding-top: 0.3em					 !important;
+	padding-top:	 0.1em				 !important;
+	padding-left:	 0.25em				 !important;
+	padding-right:	 0.25em				 !important;
+	padding-bottom:	 0.1em				 !important;
 }
 
 div.OP_DUMP td{
 	width: 100%							 !important;
 	border: 1px solid black				 !important;
 	border-color: #ccc #aaa #aaa #ccc	 !important;
-	padding-top:   0.1em				 !important;
-	padding-left:  0.1em				 !important;
-	padding-right: 0.25em				 !important;
+	padding-top:	 0.1em				 !important;
+	padding-left:	 0.1em				 !important;
+	padding-right:	 0.25em				 !important;
+	padding-bottom:	 0.1em				 !important;
 }
 
 div.OP_DUMP tr > table{
