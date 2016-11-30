@@ -30,6 +30,13 @@ class OnePiece
 	const _NAME_SPACE_ = 'ONEPIECE';
 
 	/**
+	 * Session method's default value.
+	 *
+	 * @var string
+	 */
+	const _SESSION_VALUE_ = ' unset session value ';
+
+	/**
 	 * Call to has not been set method.
 	 *
 	 * @param string $name
@@ -63,5 +70,35 @@ class OnePiece
 	{
 		$message = "This method has not been exists. ($name)";
 		Notice::Set($message);
+	}
+
+	/**
+	 * Get/Set Session value.
+	 *
+	 * Separated from each class/object.
+	 * Static class and instantiated object to do the same behavior.
+	 *
+	 * <pre>
+	 * //  Save by static class.
+	 * OnePiece::Session('test', true);
+	 * //  Load by static class.
+	 * print OnePiece::Session('test');
+	 *
+	 * //  Load by instantiated object.
+	 * $op = new OnePiece();
+	 * print $op->Session('test');
+	 * </pre>
+	 *
+	 * @param string
+	 * @param null|boolean|integer|string|array
+	 */
+	static function Session($key, $value=self::_SESSION_VALUE_)
+	{
+		$class = get_called_class();
+		if( $value !== self::_SESSION_VALUE_ ){
+			$_SESSION[OnePiece::_NAME_SPACE_][$class][$key] = $value;
+		}else{
+			return $_SESSION[OnePiece::_NAME_SPACE_][$class][$key];
+		}
 	}
 }
