@@ -107,7 +107,7 @@ class Developer extends OnePiece
 
 		//	...
 		if( $type === 'array' ){
-			$json = htmlentities(json_encode($array), ENT_QUOTES, 'utf-8');
+			$json = Escape(json_encode($array));
 			print "<div class=\"OP_DUMP\">$json</div>";
 		}
 	}
@@ -189,34 +189,10 @@ class Developer extends OnePiece
 	 */
 	static function Sendmail($notice)
 	{
-
-		//	...
-		$timestamp = Time::Date();
-
-		//	...
-		$content.= '<table>';
-		$content.= "<tr><th> Timestamp	</th><td>{$timestamp}<td></tr>";
-		$content.= "<tr><th> User		</th><td>{$user}	 <td></tr>";
-		$content.= "<tr><th> UserAgent	</th><td>{$ua}		 <td></tr>";
-		$content.= "<tr><th> Host		</th><td>{$host}	 <td></tr>";
-		$content.= "<tr><th> URL		</th><td>{$url}		 <td></tr>";
-		$content.= "<tr><th> Referer	</th><td>{$referer}	 <td></tr>";
-		$content.= '</table>';
-		$content.= '<hr/>';
-
-		/*
-			Timestamp	2016-11-15 22:29:07
-			User	40.77.167.30 --> msnbot-40-77-167-30.search.msn.com
-			UserAgent	Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)
-			Host	cctokyo.co.jp
-			URL	https://cctokyo.co.jp:443/welcome/access/
-			Referer
-			*/
-
-
 		//	...
 		$to = Env::Get(Env::_ADMIN_MAIL_);
 		$subject = $notice['message'];
+		$content = Template::Get('op:/Template/Developer/Sendmail.phtml', $notice);
 
 		//	...
 		$mail = new EMail();
