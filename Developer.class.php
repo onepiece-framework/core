@@ -41,74 +41,26 @@ class Developer extends OnePiece
 		static $is_dump;
 		if(!$is_dump ){
 			$is_dump = true;
+			print '<script type="text/javascript" src="/Mark.js"></script>'.PHP_EOL;
 			print '<script type="text/javascript" src="/Dump.js"></script>'.PHP_EOL;
+			print '<link rel="stylesheet" type="text/css" href="/Mark.css">'.PHP_EOL;
 			print '<link rel="stylesheet" type="text/css" href="/Dump.css">'.PHP_EOL;
 		}
 
-		//	Checking type of argument.
-		$style = $styles = array();
-		switch( $type = gettype($value) ){
-			case 'object':
-				$style['color'] = "green";
-				$value = get_class($value);
-				break;
-
-			case 'array':
-				$style['color'] = "green";
-				$array = $value;
-				$value = 'array';
-				break;
-
-			case 'NULL':
-				$style['color'] = "pink";
-				$value = 'null';
-				break;
-
-			case 'boolean':
-				$style['color'] = $value ? 'blue': 'red';
-				$value = $value ? 'true': 'false';
-				break;
-
-			case 'string':
-				$style['color'] = 'black';
-				$style['font-weight'] = 'bold';
-				break;
-
-			case 'integer':
-				$style['font-style'] = "italic";
-				break;
-
-			case 'double':
-				$style['color'] = 'orange';
-				$style['font-style'] = "italic";
-				break;
-
-			default:
-				print $type;
-		}
-
-		//	Generate style of span.
-		foreach( $style as $key => $var ){
-			$styles[] = "$key:$var;";
-		}
-		$style = join(" ", $styles);
-
 		//	...
-		$value = Escape($value);
+		$type = gettype($value);
 
-		//	Generate span of value.
-		$span = "<span style=\"{$style}\">$value</span>";
+		//	Mark
+		$mark = [];
+		$mark['file'] = CompressPath($trace['file']);
+		$mark['line'] = $trace['line'];
+		$mark['type'] = $type;
+		$mark['value'] = $value;
+		print '<div class="OP_MARK">'.Escape(json_encode($mark)).'</div>'.PHP_EOL;
 
-		//	Print mark label.
-		$file = $trace['file'];
-		$line = $trace['line'];
-		$file = CompressPath($file);
-		print "<div style=\"color:#999;\">{$file} [$line] $span </div>".PHP_EOL;
-
-		//	...
+		//	Dump
 		if( $type === 'array' ){
-			$json = Escape(json_encode($array));
-			print "<div class=\"OP_DUMP\">$json</div>";
+			print '<div class="OP_DUMP">'.Escape(json_encode($value)).'</div>'.PHP_EOL;
 		}
 	}
 

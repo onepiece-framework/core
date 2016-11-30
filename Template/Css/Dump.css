@@ -110,6 +110,9 @@ div.OP_DUMP span.empty{
 	font-style: italic;
 }
 
-div.OP_DUMP span.space, span.tab, span.line-feed, span.carriage-return{
+div.OP_DUMP span.space,
+div.OP_DUMP span.tab,
+div.OP_DUMP span.line-feed,
+div.OP_DUMP span.carriage-return {
 	color: #c0c0c0;
 }

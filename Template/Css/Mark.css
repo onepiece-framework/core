@@ -1,0 +1,77 @@
+/**
+ * core:/Template/Css/Mark.css
+ *
+ * @creation  2016-11-30
+ * @version   1.0
+ * @package   core
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ */
+
+div.OP_MARK {
+	margin:		 0		 !important;
+	padding:	 0		 !important;
+	font-size:	 9pt	 !important;
+	font-family: sans-serif, _Consolas, '_Courier New', _Courier, Monaco, monospace;
+}
+
+div.OP_MARK .line-1 {
+	margin-left:  2.1em;
+	margin-right: 0.5em;
+}
+
+div.OP_MARK .line-2 {
+	margin-left:  1.1em;
+	margin-right: 0.5em;
+}
+
+div.OP_MARK .line-3 {
+	margin-left:  0.5em;
+	margin-right: 0.5em;
+}
+
+div.OP_MARK .line-4 {
+	margin-left:  0.1em;
+	margin-right: 0.5em;
+}
+
+div.OP_MARK span.mark {
+
+}
+
+div.OP_MARK span.mark span.boolean.true {
+	color: blue !important;
+}
+
+div.OP_MARK span.mark span.boolean.false {
+	color: red !important;
+}
+
+div.OP_MARK span.mark span.null {
+	color: red;
+	font-style: italic !important;
+}
+
+div.OP_MARK span.mark sapn.string {
+}
+
+div.OP_MARK span.mark span.integer,
+div.OP_MARK span.mark span.double {
+	color: gray !important;
+	font-weight: bold !important;
+}
+
+div.OP_MARK span.mark sapn.integer {
+
+}
+
+div.OP_MARK span.mark span.double {
+	font-style: italic !important;
+}
+
+div.OP_MARK span.space,
+div.OP_MARK span.tab,
+div.OP_MARK span.line-feed,
+div.OP_MARK span.carriage-return {
+	color: #c0c0c0;
+}
