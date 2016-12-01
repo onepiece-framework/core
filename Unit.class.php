@@ -43,6 +43,18 @@ class Unit extends OnePiece
 		}
 
 		//	...
+		if(!self::Load($name)){
+			return false;
+		}
+
+		//	Instantiate.
+		self::$_pool[$name] = new $name();
+		return self::$_pool[$name];
+	}
+
+	static function Load($name)
+	{
+		//	...
 		if(!$dir = Env::Get(self::_DIRECTORY_)){
 			Notice::Set("Has not been set unit directory.");
 			return false;
@@ -70,8 +82,6 @@ class Unit extends OnePiece
 		}
 
 		//	...
-		include("{$dir}/{$name}/index.php");
-		self::$_pool[$name] = new $name();
-		return self::$_pool[$name];
+		return include("{$dir}/{$name}/index.php");
 	}
 }
