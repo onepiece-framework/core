@@ -15,23 +15,11 @@ div.OP_MARK {
 	font-family: sans-serif, _Consolas, '_Courier New', _Courier, Monaco, monospace;
 }
 
-div.OP_MARK .line-1 {
-	margin-left:  2.1em;
-	margin-right: 0.5em;
-}
-
-div.OP_MARK .line-2 {
-	margin-left:  1.1em;
-	margin-right: 0.5em;
-}
-
-div.OP_MARK .line-3 {
-	margin-left:  0.5em;
-	margin-right: 0.5em;
-}
-
+div.OP_MARK .line-1,
+div.OP_MARK .line-2,
+div.OP_MARK .line-3,
 div.OP_MARK .line-4 {
-	margin-left:  0.1em;
+	margin-left:  0.5em;
 	margin-right: 0.5em;
 }
 

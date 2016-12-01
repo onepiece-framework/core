@@ -48,7 +48,7 @@ function CompressPath($path)
  * Convert to local file path from meta path.
  *
  * <pre>
- * print ConvertPath('App:/index.php'); // -> /www/localhost/index.php
+ * print ConvertPath('app:/index.php'); // -> /www/localhost/index.php
  * </pre>
  *
  * @param  string $meta_path

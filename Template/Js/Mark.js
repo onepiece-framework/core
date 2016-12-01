@@ -52,6 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				break;
 
 			case 'array':
+				console.dir(value);
+				value = '';
+				break;
+
+			case 'object':
+				console.dir(value);
 				value = '';
 				break;
 

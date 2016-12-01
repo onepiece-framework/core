@@ -59,7 +59,7 @@ class Developer extends OnePiece
 		print '<div class="OP_MARK">'.Escape(json_encode($mark)).'</div>'.PHP_EOL;
 
 		//	Dump
-		if( $type === 'array' ){
+		if( $type === 'array' or $type === 'object' ){
 			print '<div class="OP_DUMP">'.Escape(json_encode($value)).'</div>'.PHP_EOL;
 		}
 	}
