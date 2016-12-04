@@ -50,13 +50,6 @@ class Layout extends OnePiece
 	static function Dispatch()
 	{
 		//	...
-		$is_layout = Env::Get(self::_EXECUTE_);
-		if( $is_layout === null ){
-			Notice::Set("Has not been set layout flag. (null)");
-			return;
-		}
-
-		//	...
 		if(!$layout_dir  = Env::Get(self::_DIRECTORY_)){
 			Notice::Set("Has not been set layout directory. (null)");
 			return;
@@ -83,8 +76,21 @@ class Layout extends OnePiece
 			//	Buffering content.
 			self::$_content = Template::Get($route['path']);
 
-			//	Execute layout.
-			include($full_path);
+			//	Get layout flag.
+			$is_layout = Env::Get(self::_EXECUTE_);
+			if( $is_layout === null ){
+				Notice::Set("Has not been set layout flag. (null)");
+				return;
+			}
+
+			//	Would you like to execute the layout?
+			if( $is_layout === false ){
+				//	Layout is not done.
+				print self::$_content;
+			}else{
+				//	Execute layout.
+				include($full_path);
+			}
 		}else{
 			Notice::Set("Does not exists layout controller. ($full_path)");
 		}
