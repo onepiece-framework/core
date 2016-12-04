@@ -41,10 +41,10 @@ class Developer extends OnePiece
 		static $is_dump;
 		if(!$is_dump ){
 			$is_dump = true;
-			print '<script type="text/javascript" src="/Mark.js"></script>'.PHP_EOL;
-			print '<script type="text/javascript" src="/Dump.js"></script>'.PHP_EOL;
-			print '<link rel="stylesheet" type="text/css" href="/Mark.css">'.PHP_EOL;
-			print '<link rel="stylesheet" type="text/css" href="/Dump.css">'.PHP_EOL;
+			print '<script type="text/javascript" src="/js/Mark.js"></script>'.PHP_EOL;
+			print '<script type="text/javascript" src="/js/Dump.js"></script>'.PHP_EOL;
+			print '<link rel="stylesheet" type="text/css" href="/css/Mark.css">'.PHP_EOL;
+			print '<link rel="stylesheet" type="text/css" href="/css/Dump.css">'.PHP_EOL;
 		}
 
 		//	...
@@ -75,8 +75,8 @@ class Developer extends OnePiece
 		static $is_notice;
 		if(!$is_notice ){
 			$is_notice = true;
-			print '<script type="text/javascript" src="/Notice.js"></script>'.PHP_EOL;
-			print '<link rel="stylesheet" type="text/css" href="/Notice.css">'.PHP_EOL;
+			print '<script type="text/javascript" src="/js/Notice.js"></script>'.PHP_EOL;
+			print '<link rel="stylesheet" type="text/css" href="/css/Notice.css">'.PHP_EOL;
 		}
 		print '<div class="OP_NOTICE">'.Escape(json_encode($notice)).'</div>';
 	}
