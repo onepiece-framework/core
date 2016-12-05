@@ -58,6 +58,9 @@ class Template extends OnePiece
 		}
 
 		//	...
+		$path = ConvertPath($path);
+
+		//	...
 		if( file_exists($path) ){
 			include($path);
 		}else if( file_exists($full_path = ConvertPath($path)) ){
