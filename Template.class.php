@@ -68,10 +68,11 @@ class Template extends OnePiece
 		}else if( $dir = Env::Get(self::_DIRECTORY_) ){
 			$dir = ConvertPath($dir);
 			if( file_exists($dir) ){
-				if( file_exists($dir.'/'.$path) ){
-					include($dir.'/'.$path);
+				$full_path = $dir.'/'.$path;
+				if( file_exists($full_path) ){
+					include($full_path);
 				}else{
-					Notice::Set("File is not exists. ($dir)");
+					Notice::Set("File is not exists. ($full_path)");
 				}
 			}else{
 				Notice::Set("This directory is not exists. ($dir)");
