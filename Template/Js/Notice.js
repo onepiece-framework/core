@@ -58,7 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
 		}else{
 			td3.innerText = backtrace.function;
 		}
+		if( backtrace.args ){
 			td3.innerText += '(' + JSON.stringify(backtrace.args).slice(1,-1) + ')';
+		}else{
+			td3.innerText += '()';
+		}
 
 		var tr = document.createElement('tr');
 			tr.appendChild(td1);
