@@ -10,6 +10,14 @@
 
 //	Document is ready.
 document.addEventListener('DOMContentLoaded', function() {
+	//	...
+	var div = document.getElementById('OP_NOTICE');
+	var root = {};
+		root.op  = div.getAttribute("data-OP_ROOT");
+		root.app = div.getAttribute("data-APP_ROOT");
+		root.doc = div.getAttribute("data-DOC_ROOT");
+		console.log(root);
+
 	//	Start to dump.
 	var dump = document.body.getElementsByClassName('OP_NOTICE')
 	if( dump ){
@@ -47,11 +55,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	//	Generate backtrace tr html.
 	function __op_backtrace_tr(backtrace){
+		//	...
 		var td1 = document.createElement('td');
 		var td2 = document.createElement('td');
 		var td3 = document.createElement('td');
 
-			td1.innerText = backtrace.file;
+		//	...
+			td1.innerText = __op_backtrace_file(backtrace.file);
 			td2.innerText = backtrace.line;
 		if( backtrace.type ){
 			td3.innerText = backtrace.class + backtrace.type + backtrace.function;
@@ -69,5 +79,16 @@ document.addEventListener('DOMContentLoaded', function() {
 			tr.appendChild(td2);
 			tr.appendChild(td3);
 		return tr;
+	};
+
+	//	Compress file path.
+	function __op_backtrace_file(path){
+		//	...
+		for(var key in root){
+			if( root[key] === path.substr(0, root[key].length ) ){
+				return key + ':/' + path.substr(root[key].length);
+			}
+		};
+		return path;
 	};
 });

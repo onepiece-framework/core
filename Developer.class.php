@@ -75,6 +75,11 @@ class Developer extends OnePiece
 		static $is_notice;
 		if(!$is_notice ){
 			$is_notice = true;
+			global $_OP;
+			$op_root  = $_OP[OP_ROOT];
+			$app_root = $_OP[APP_ROOT];
+			$doc_root = $_OP[DOC_ROOT];
+			print "<div id=\"OP_NOTICE\" data-OP_ROOT=\"{$op_root}\" data-APP_ROOT=\"{$app_root}\" data-DOC_ROOT=\"{$doc_root}\"></div>".PHP_EOL;
 			print '<script type="text/javascript" src="/js/Notice.js"></script>'.PHP_EOL;
 			print '<link rel="stylesheet" type="text/css" href="/css/Notice.css">'.PHP_EOL;
 		}
