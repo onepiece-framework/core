@@ -24,6 +24,18 @@
  */
 class Router extends OnePiece
 {
+	/**
+	 * Use for route table's associative key name.
+	 *
+	 * @var string
+	 */
+	const _END_POINT_ = 'end-point';
+
+	/**
+	 * Route table.
+	 *
+	 * @var array
+	 */
 	private static $_route;
 
 	/**
@@ -36,7 +48,7 @@ class Router extends OnePiece
 		global $_OP;
 
 		//	...
-		$file  = 'index.php'; // Env::Get('controller-name', 'index.php');
+		$file  = 'index.php'; // Env::Get(Router::_END_POINT_FILE_NAME_, 'index.php');
 
 		//	...
 		self::$_route = [];
@@ -64,7 +76,7 @@ class Router extends OnePiece
 
 			//	...
 			if( file_exists($_OP[APP_ROOT].$path) ){
-				self::$_route['path'] = $_OP[APP_ROOT].$path;
+				self::$_route[Router::_END_POINT_] = $_OP[APP_ROOT].$path;
 				break;
 			}
 
