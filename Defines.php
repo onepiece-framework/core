@@ -22,3 +22,10 @@ define('OP_ROOT', 'OP_ROOT', true);
  * @var string
  */
 define('APP_ROOT', 'APP_ROOT', true);
+
+/**
+ * Web server's document root path.
+ *
+ * @var string
+ */
+define('DOC_ROOT', 'DOC_ROOT', true);
