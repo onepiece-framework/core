@@ -50,7 +50,7 @@ class Env
 	static function isLocalhost()
 	{
 		if(!self::$_is_localhost){
-			self::$_is_localhost = ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' or $_SERVER['REMOTE_ADDR'] === '::1' ) ? true: false;
+			self::$_is_localhost = ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' or $_SERVER['REMOTE_ADDR'] === '::1') ? true : false;
 		}
 		return self::$_is_localhost;
 	}
