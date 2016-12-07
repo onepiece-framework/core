@@ -39,11 +39,14 @@ class Router extends OnePiece
 	private static $_route;
 
 	/**
-	 * Search dispatch route by request uri.
+	 * Init route table.
+	 *
+	 * 1. Search end-point by request uri.
+	 * 2. Generate smart-url's arguments by request uri.
 	 *
 	 * @return array
 	 */
-	static private function _Search()
+	static private function _InitRouteTable()
 	{
 		global $_OP;
 
@@ -54,8 +57,17 @@ class Router extends OnePiece
 		self::$_route = [];
 		self::$_route['args'] = [];
 
-		//	...
+		//	Generate real full path.
 		$full_path = $_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'];
+
+		//	Check url query.
+		if( $pos = strpos($full_path, '?') ){
+			//	Separate url query.
+			$query = substr($full_path, $pos+1);
+			$full_path = substr($full_path, 0, $pos);
+		}
+
+		//	Added slash to tail. /www/foo/bar --> /www/foo/bar/
 		$full_path = rtrim($full_path,DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 
 		//	...
@@ -71,7 +83,7 @@ class Router extends OnePiece
 
 			//	...
 			if( isset($dir) ){
-				array_unshift(self::$_route['args'], $dir);
+				array_unshift(self::$_route['args'], _EscapeString($dir));
 			}
 
 			//	...
@@ -83,6 +95,7 @@ class Router extends OnePiece
 			//	...
 		}while( $dir = array_pop($dirs) );
 
+		//	Return route table.
 		return self::$_route;
 	}
 
@@ -94,7 +107,7 @@ class Router extends OnePiece
 	static function Get()
 	{
 		if(!self::$_route ){
-			self::_Search();
+			self::_InitRouteTable();
 		}
 		return self::$_route;
 	}
