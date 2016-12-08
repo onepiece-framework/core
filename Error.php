@@ -51,7 +51,29 @@ function _HandlerError($errno, $error, $file, $line, $context)
  */
 function _HandlerException($e)
 {
-	Notice::Set($e->getMessage(), $e->getTrace());
+	//	...
+	$backtrace['file']		 = $e->getFile();
+	$backtrace['line']		 = $e->getLine();
+	$backtrace['function']	 = null;
+
+	//	...
+	$backtraces = $e->getTrace();
+
+	//	...
+	switch( $backtraces[0]['function'] ){
+		case 'include':
+		case 'require':
+		case 'include_once':
+		case 'require_once':
+			if( empty($backtraces[0]['args']) ){
+				$backtraces[0]['args'][] = $backtrace['file'];
+			}
+			break;
+	}
+
+	//	...
+	array_unshift($backtraces, $backtrace);
+	Notice::Set($e->getMessage(), $backtraces);
 }
 
 /**
