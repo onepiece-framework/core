@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		var message   = json.message;
 		var backtrace = json.backtrace;
 
+		console.log(json);
+
 		dump.innerText = '';
 		dump.appendChild(__op_message(json.message));
 		dump.appendChild(__op_backtrace(json.backtrace));
@@ -60,18 +62,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		var td2 = document.createElement('td');
 		var td3 = document.createElement('td');
 
+		//	Set arguments string.
+		var arg = '';
+		if( backtrace.args ){
+			arg = '(' + JSON.stringify(backtrace.args).slice(1,-1) + ')';
+		}else{
+			arg = '()';
+		}
+
 		//	...
 			td1.innerText = __op_backtrace_file(backtrace.file);
 			td2.innerText = backtrace.line;
 		if( backtrace.type ){
 			td3.innerText = backtrace.class + backtrace.type + backtrace.function;
-		}else{
-			td3.innerText = backtrace.function;
-		}
-		if( backtrace.args ){
-			td3.innerText += '(' + JSON.stringify(backtrace.args).slice(1,-1) + ')';
-		}else{
-			td3.innerText += '()';
+		}else if( backtrace.function ){
+			td3.innerText = backtrace.function + arg;
 		}
 
 		var tr = document.createElement('tr');
