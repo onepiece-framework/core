@@ -62,23 +62,22 @@ document.addEventListener('DOMContentLoaded', function() {
 		var td2 = document.createElement('td');
 		var td3 = document.createElement('td');
 
-		//	Set arguments string.
-		var arg = '';
-		if( backtrace.args ){
-			arg = '(' + JSON.stringify(backtrace.args).slice(1,-1) + ')';
+		//	file path
+			td1.innerText = backtrace.file ? __op_backtrace_file(backtrace.file): null;
+		//	line number
+			td2.innerText = backtrace.line ?                     backtrace.line : null;
+		if( backtrace.type ){
+		//	class + method + args
+			td3.innerHTML  = backtrace.class;
+			td3.innerHTML += backtrace.type;
+			td3.innerHTML += backtrace.function;
+			td3.innerHTML += __op_backtrace_args(backtrace.args);
 		}else{
-			arg = '()';
+		//	function + args
+			td3.innerHTML = backtrace.function + __op_backtrace_args(backtrace.args);
 		}
 
 		//	...
-			td1.innerText = __op_backtrace_file(backtrace.file);
-			td2.innerText = backtrace.line;
-		if( backtrace.type ){
-			td3.innerText = backtrace.class + backtrace.type + backtrace.function;
-		}else if( backtrace.function ){
-			td3.innerText = backtrace.function + arg;
-		}
-
 		var tr = document.createElement('tr');
 			tr.appendChild(td1);
 			tr.appendChild(td2);
@@ -95,5 +94,33 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 		};
 		return path;
+	};
+
+	//	Generate arguments
+	function __op_backtrace_args(args){
+		var result;
+		if( args ){
+			//	Object to string.
+			result = JSON.stringify(args);
+			//	Remove bracket([]).
+			result = result.slice(1,-1);
+			//	Add comma(,).
+			result = ','+result+',';
+
+			//	true, false, null
+			var keys = ['true','false','null'];
+			for(var i=0; i<keys.length; i++){
+				var key = keys[i];
+				result = result.replace(new RegExp(key,"g"),'<span class="'+key+'">'+key+'</span>');
+			}
+
+			//	String
+			result = result.replace(/,"([^"]+)",/g, ',"<span class="string">$1</span>",');
+			//	Remove comma.
+			result = result.slice(1,-1);
+			//	Add space to after comma.
+			result = result.replace(/,/g, ', ');
+		}
+		return result ? '(<span class="args">' + result + '</span>)': '()';
 	};
 });

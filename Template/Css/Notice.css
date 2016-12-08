@@ -27,3 +27,31 @@ div.OP_NOTICE table {
 	margin-left: 0.5em !important;
 	border: 0px solid black;
 }
+
+div.OP_NOTICE table tr td:nth-of-type(2) {
+	text-align:    right !important;
+	padding-left:  0.5em !important;
+	padding-right: 0.5em !important;
+}
+
+div.OP_NOTICE table tr td span.args{
+	_font-style: italic;
+	margin: 0.1em !important;
+	_margin-right: 0.2em !important;
+}
+
+div.OP_NOTICE table tr td span.args span.true{
+	color: blue !important;
+}
+
+div.OP_NOTICE table tr td span.args span.false{
+	color: red !important;
+}
+
+div.OP_NOTICE table tr td span.args span.null{
+	color: red !important;
+}
+
+div.OP_NOTICE table tr td span.args span.string{
+	color: green !important;
+}
