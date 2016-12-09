@@ -77,8 +77,17 @@ function ConvertPath($path)
  */
 function ConvertURL($url)
 {
-	$rewrite_base = dirname($_SERVER['SCRIPT_NAME']);
-	return $rewrite_base.substr($url,4);
+	//	...
+	if( strpos($url, 'app:/') !== 0 ){
+		Notice::Set("This url has not been set \"app:/\". ($url)");
+		return null;
+	}
+
+	//	Get rewrite base.
+	$rewrite_base = dirname($_SERVER['SCRIPT_NAME']).'/';
+
+	//	...
+	return rtrim($rewrite_base, '/').substr($url,4);
 }
 
 /**
