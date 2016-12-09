@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	//	Generate message html.
 	function __op_message(message){
 		var p = document.createElement('p');
-			p.innerText = message;
+			p.innerHTML = message;
 		return p;
 	};
 

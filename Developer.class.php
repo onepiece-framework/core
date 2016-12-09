@@ -29,6 +29,15 @@ class Developer extends OnePiece
 	 */
 	const _NAME_SPACE_ = 'DEVELOPER';
 
+	static function _Json($obj)
+	{
+		$json = json_encode($obj);
+		$json = htmlentities($json, ENT_NOQUOTES, 'utf-8');
+	//	$json = str_replace(['&lt;','&gt;'], ['＜','＞'], $json);
+		$json = str_replace(['&'], ['&amp;'], $json);
+		return $json;
+	}
+
 	/**
 	 * Mark
 	 *
@@ -56,11 +65,11 @@ class Developer extends OnePiece
 		$mark['line'] = $trace['line'];
 		$mark['type'] = $type;
 		$mark['value'] = $value;
-		print '<div class="OP_MARK">'.Escape(json_encode($mark)).'</div>'.PHP_EOL;
+		print '<div class="OP_MARK">'.self::_Json($mark).'</div>'.PHP_EOL;
 
 		//	Dump
 		if( $type === 'array' or $type === 'object' ){
-			print '<div class="OP_DUMP">'.Escape(json_encode($value)).'</div>'.PHP_EOL;
+			print '<div class="OP_DUMP">'.self::_Json($value).'</div>'.PHP_EOL;
 		}
 	}
 
@@ -83,60 +92,7 @@ class Developer extends OnePiece
 			print '<script type="text/javascript" src="/js/Notice.js"></script>'.PHP_EOL;
 			print '<link rel="stylesheet" type="text/css" href="/css/Notice.css">'.PHP_EOL;
 		}
-		print '<div class="OP_NOTICE">'.Escape(json_encode($notice)).'</div>';
-	}
-
-	/**
-	 * Build notice html.
-	 *
-	 * @param array $notice
-	 */
-	static private function _NoticeHtml($notice)
-	{
-		$html = '';
-		$html.= "<div>{$notice['message']}</div>".PHP_EOL;
-		$html.= "<table>".PHP_EOL;
-		foreach( $notice['backtrace'] as $i => $a ){
-			foreach( ['file','line','function','class','type','args'] as $key ){
-				${$key} = ifset($a[$key]);
-			}
-			$file = CompressPath($file);
-			$method = $type ? "{$class}{$type}{$function}":"$function";
-			$argument = self::_NoticeHtmlArguments($args, $function);
-			$html.= "<tr><td>{$file}</td><td>{$line}</td><td>{$method}($argument)</td></tr>".PHP_EOL;
-		}
-		$html.= "</table>".PHP_EOL;
-		return $html;
-	}
-
-	/**
-	 * Build notice html's arguments.
-	 *
-	 * @param array $notice
-	 */
-	static private function _NoticeHtmlArguments($args, $function)
-	{
-		$join = [];
-		foreach( $args as $val ){
-			$val = Escape($var);
-			switch( $type = gettype($val) ){
-				case 'array':
-				case 'object':
-					$join[] = $type;
-					break;
-
-				case 'string':
-					if( $function === 'include' ){
-						$val = CompressPath($val);
-					}
-					$join[] = '"'.$val.'"';
-					break;
-
-				default:
-					$join[] = $val;
-			}
-		}
-		return join(', ', $join);
+		print '<div class="OP_NOTICE">'.self::_Json($notice).'</div>';
 	}
 
 	/**

@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		dump.appendChild(table);
 	}
 
+	//	...
 	function __op_table(json){
 		var table = document.createElement('table');
 
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		return table;
 	}
 
+	//	...
 	function __op_td(value){
 		var td   = document.createElement('td');
 		var type = typeof value;
@@ -111,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		return td;
 	}
 
+	//	...
 	function __op_value(value){
 		var val = value;
 			val = val.replace(/</g,'&lt;');
@@ -122,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		return val;
 	}
 
+	//	...
 	function __op_th_click(){
 		if( this.nextSibling.style.display === "none" ){
 			this.nextSibling.style.display = "block";
