@@ -11,31 +11,16 @@
  */
 
 /**
- * OnePiece
+ * OP_CORE
  *
- * @creation  2014-11-29
- * @rebirth   2016-06-09
+ * @creation  2016-12-05
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-class OnePiece
+trait OP_CORE
 {
-	/**
-	 * Namespace
-	 *
-	 * @var string
-	 */
-	const _NAME_SPACE_ = 'ONEPIECE';
-
-	/**
-	 * Session method's default value.
-	 *
-	 * @var string
-	 */
-	const _SESSION_VALUE_ = ' unset session value ';
-
 	/**
 	 * Call to has not been set method.
 	 *
@@ -44,6 +29,7 @@ class OnePiece
 	 */
 	function __call($name, $args)
 	{
+		$join = [];
 		foreach( $args as $val ){
 			switch( $type = gettype($val) ){
 				case 'array':
@@ -73,6 +59,57 @@ class OnePiece
 	}
 
 	/**
+	 * Call to has not been set property.
+	 *
+	 * @param string $name
+	 */
+	function __get($name)
+	{
+		$message = "This property has not been exists. ($name)";
+		Notice::Set($message);
+	}
+
+	/**
+	 * Call to has not been set property.
+	 *
+	 * @param string $name
+	 * @param array  $args
+	 */
+	function __set($name, $args)
+	{
+		$message = "This property has not been exists. ($name)";
+		Notice::Set($message);
+	}
+}
+
+/**
+ * OnePiece
+ *
+ * @creation  2014-11-29
+ * @rebirth   2016-06-09
+ * @version   1.0
+ * @package   core
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ */
+class OnePiece
+{
+	/**
+	 * Use OPCORE.
+	 */
+	use OP_CORE
+	{
+
+	}
+
+	/**
+	 * Namespace
+	 *
+	 * @var string
+	 */
+	const _NAME_SPACE_ = 'ONEPIECE';
+
+	/**
 	 * Get/Set Session value.
 	 *
 	 * Separated from each class/object.
@@ -92,13 +129,13 @@ class OnePiece
 	 * @param string
 	 * @param null|boolean|integer|string|array
 	 */
-	static function Session($key, $value=self::_SESSION_VALUE_)
+	static function Session($key, $value=null)
 	{
 		$class = get_called_class();
-		if( $value !== self::_SESSION_VALUE_ ){
+		if( $value !== null ){
 			$_SESSION[OnePiece::_NAME_SPACE_][$class][$key] = $value;
 		}else{
-			return $_SESSION[OnePiece::_NAME_SPACE_][$class][$key];
+			return ifset($_SESSION[OnePiece::_NAME_SPACE_][$class][$key]);
 		}
 	}
 }
