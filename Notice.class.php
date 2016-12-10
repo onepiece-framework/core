@@ -47,10 +47,14 @@ class Notice extends OnePiece
 	 *
 	 * @param string $message
 	 */
-	static function Set($message)
+	static function Set($message, $backtrace=null)
 	{
+		if(!$backtrace ){
+			$backtrace = debug_backtrace();
+			array_shift($backtrace);
+		}
 		$notice['message']   = $message;
-		$notice['backtrace'] = debug_backtrace();
+		$notice['backtrace'] = $backtrace;
 		$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][] = $notice;
 	}
 
