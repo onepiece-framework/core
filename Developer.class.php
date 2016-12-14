@@ -29,7 +29,7 @@ class Developer extends OnePiece
 	 */
 	const _NAME_SPACE_ = 'DEVELOPER';
 
-	static function _Json($obj)
+	static function _toJson($obj)
 	{
 		$json = json_encode($obj);
 		$json = htmlentities($json, ENT_NOQUOTES, 'utf-8');
@@ -45,6 +45,30 @@ class Developer extends OnePiece
 	 * @param array $trace
 	 */
 	static function Mark($value, $trace)
+	{
+		switch( $mime = Env::Get(Env::_MIME_) ){
+			case 'text/javascript':
+				self::MarkJS($value, $trace);
+				break;
+
+			case 'text/json':
+			case 'text/jsonp':
+				self::MarkJson($value, $trace);
+				break;
+
+			case 'text/html':
+			default:
+				self::MarkHtml($value, $trace);
+		}
+	}
+
+	/**
+	 * MarkHtml
+	 *
+	 * @param mixed $value
+	 * @param array $trace
+	 */
+	static function MarkHtml($value, $trace)
 	{
 		//	Output is first time only.
 		static $is_dump;
@@ -65,12 +89,38 @@ class Developer extends OnePiece
 		$mark['line'] = $trace['line'];
 		$mark['type'] = $type;
 		$mark['value'] = $value;
-		print '<div class="OP_MARK">'.self::_Json($mark).'</div>'.PHP_EOL;
+		print '<div class="OP_MARK">'.self::_toJson($mark).'</div>'.PHP_EOL;
 
 		//	Dump
 		if( $type === 'array' or $type === 'object' ){
-			print '<div class="OP_DUMP">'.self::_Json($value).'</div>'.PHP_EOL;
+			print '<div class="OP_DUMP">'.self::_toJson($value).'</div>'.PHP_EOL;
 		}
+	}
+
+	/**
+	 * MarkJS
+	 *
+	 * @param mixed $value
+	 * @param array $trace
+	 */
+	static function MarkJS($value, $trace)
+	{
+		print "console.log($value)".PHP_EOL;
+		print "console.dir($trace)".PHP_EOL;
+	}
+
+	/**
+	 * MarkJson
+	 *
+	 * @param mixed $value
+	 * @param array $trace
+	 */
+	static function MarkJson($value, $trace)
+	{
+		global $_JSON;
+		$mark['message']   = $value;
+		$mark['backtrace'] = $trace;
+		$_JSON['mark'][] = $mark;
 	}
 
 	/**
@@ -92,7 +142,7 @@ class Developer extends OnePiece
 			print '<script type="text/javascript" src="/js/Notice.js"></script>'.PHP_EOL;
 			print '<link rel="stylesheet" type="text/css" href="/css/Notice.css">'.PHP_EOL;
 		}
-		print '<div class="OP_NOTICE">'.self::_Json($notice).'</div>';
+		print '<div class="OP_NOTICE">'.self::_toJson($notice).'</div>';
 	}
 
 	/**
