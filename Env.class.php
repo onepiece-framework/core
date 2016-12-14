@@ -22,6 +22,9 @@ class Env
 {
 	const _ADMIN_IP_	 = 'admin-ip';
 	const _ADMIN_MAIL_	 = 'admin-mail';
+	const _MIME_		 = 'output-mime';
+	const _CHARSET_		 = 'output-charset';
+	const _LOCALE_		 = 'output-locale';
 
 	static $_env;
 	static $_is_admin;
