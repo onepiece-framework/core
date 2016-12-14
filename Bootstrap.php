@@ -11,6 +11,14 @@
  */
 
 /**
+ * Checking PHP version.
+ */
+if( version_compare(PHP_VERSION, '5.4.0') < 0 ){
+	print '<p>onepiece-framework is not support to this php version.('.PHP_VERSION.')</p>';
+	exit;
+}
+
+/**
  * Auto start of session.
  */
 if(!session_id()){
