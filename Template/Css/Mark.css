@@ -40,13 +40,13 @@ div.OP_MARK span.mark span.null {
 	font-style: italic !important;
 }
 
-div.OP_MARK span.mark sapn.string {
+div.OP_MARK span.mark span.string {
+	color: green;
 }
 
 div.OP_MARK span.mark span.integer,
 div.OP_MARK span.mark span.double {
-	color: gray !important;
-	font-weight: bold !important;
+	color: black;
 }
 
 div.OP_MARK span.mark sapn.integer {
