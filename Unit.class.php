@@ -56,7 +56,8 @@ class Unit extends OnePiece
 	{
 		//	...
 		if(!$dir = Env::Get(self::_DIRECTORY_)){
-			Notice::Set("Has not been set unit directory.");
+			$message = "Has not been set unit directory.\n".' Example: Env::Set(Unit::_DIRECTORY_, "/www/op/unit");';
+			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 
@@ -65,19 +66,22 @@ class Unit extends OnePiece
 
 		//	...
 		if(!file_exists($dir)){
-			Notice::Set("Does not exists unit directory.");
+			$message = "Does not exists unit directory.";
+			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 
 		//	...
 		if(!file_exists("{$dir}/{$name}")){
-			Notice::Set("Does not exists this unit. ($name)");
+			$message = "Does not exists this unit. ($name)";
+			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 
 		//	...
 		if(!file_exists("{$dir}/{$name}/index.php")){
-			Notice::Set("Does not exists unit controller. (index.php)");
+			$message = "Does not exists unit controller. (index.php)";
+			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 

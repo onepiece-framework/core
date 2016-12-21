@@ -2,7 +2,7 @@
 /**
  * NewWorld.class.php
  *
- * @creation  2009 at Kozhikode in India.
+ * @creation  2009-09-27 at Kozhikode in India.
  * @version   1.0
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
@@ -68,13 +68,15 @@ abstract class NewWorld extends OnePiece
 	{
 		//	Get layout directory.
 		if(!$layout_dir  = Env::Get(Layout::_DIRECTORY_)){
-			Notice::Set("Has not been set layout directory. (null)");
+			$message = "Has not been set layout directory. (null)";
+			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 
 		//	Get layout name.
 		if(!$layout_name = Env::Get(Layout::_NAME_)){
-			Notice::Set("Has not been set layout name. (null)");
+			$message = "Has not been set layout name. (null)";
+			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 
@@ -83,7 +85,8 @@ abstract class NewWorld extends OnePiece
 
 		//	Check exists layout controller.
 		if(!file_exists($full_path)){
-			Notice::Set("Does not exists layout controller. ($full_path)");
+			$message = "Does not exists layout controller. ($full_path)";
+			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 
@@ -141,7 +144,8 @@ abstract class NewWorld extends OnePiece
 		//	Get layout flag.
 		$is_layout = Env::Get(Layout::_EXECUTE_);
 		if( $is_layout === null ){
-			Notice::Set("Has not been set layout flag. (null)");
+			$message = "Has not been set layout flag. (null)";
+			Notice::Set($message, debug_backtrace());
 			return;
 		}
 
@@ -166,13 +170,15 @@ abstract class NewWorld extends OnePiece
 	{
 		//	...
 		if(!$path){
-			Notice::Set('$path is empty.');
+			$message = '$path is empty.';
+			Notice::Set($message, debug_backtrace());
 			return null;
 		}
 
 		//	Start buffering.
 		if(!ob_start()){
-			Notice::Set("ob_start is failed.");
+			$message = "ob_start is failed.";
+			Notice::Set($message, debug_backtrace());
 			return null;
 		}
 
@@ -181,19 +187,22 @@ abstract class NewWorld extends OnePiece
 			// Extract array.
 			if( is_array($args) and count($args) ){
 				if(isset($args[0])){
-					Notice::Set('Passed arguments is not an assoc array. Ex. Template::Get("index.phtml", array("key"=>"value")');
+					$message = 'Passed arguments is not an assoc array. Ex. Template::Get("index.phtml", array("key"=>"value")';
+					Notice::Set($message, debug_backtrace());
 				}else{
 					extract($args);
 				}
 			}else if(is_object($args)){
 				$name = get_class($args);
-				Notice::Set("Object is not correspond. ($name)");
+				$message = "Object is not correspond. ($name)";
+				Notice::Set($message, debug_backtrace());
 			}
 
 			//	...
 			include($full_path);
 		}else{
-			Notice::Set("File is not exists. ($path)");
+			$message = "File is not exists. ($path)";
+			Notice::Set($message, debug_backtrace());
 		}
 
 		//	...
@@ -208,8 +217,7 @@ abstract class NewWorld extends OnePiece
  * app:/app/layout-dir/layout-name/index.php
  * </pre>
  *
- * @creation  2015-04-24
- * @rebirth   2016-11-26
+ * @creation  2015-04-24, 2016-11-26
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>

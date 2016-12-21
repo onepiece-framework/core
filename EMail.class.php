@@ -64,7 +64,8 @@ class EMail extends OnePiece
 			$this->_head['bcc'] = $addr;
 		}else{
 			$type = gettype($addr);
-			Notice::Set("Does not support this type. ($type)");
+			$message = "Does not support this type. ($type)";
+			Notice::Set($message, debug_backtrace());
 		}
 	}
 
@@ -146,7 +147,8 @@ class EMail extends OnePiece
 	function Send($type=null)
 	{
 		if( $this->_sent ){
-			Notice::Set("EMail was already sent. In the case of next e-mail transmission, please generate a new object.");
+			$message = "EMail was already sent. In the case of next e-mail transmission, please generate a new object.";
+			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 		$this->_sent = true;
@@ -213,7 +215,8 @@ class EMail extends OnePiece
 
 		//	Send mail.
 		if(!$io = mail($to, $subject, $content, $headers, $parameters)){
-			Notice::Set('Failed to send the error mail.');
+			$message = 'Failed to send the error mail.';
+			Notice::Set($message, debug_backtrace());
 		}
 		$debug['io'] = $io;
 

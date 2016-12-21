@@ -51,7 +51,7 @@ class Notice extends OnePiece
 	{
 		if(!$backtrace ){
 			$backtrace = debug_backtrace();
-			array_shift($backtrace);
+		//	array_shift($backtrace); Do not use for app world.
 		}
 		$notice['message']   = $message;
 		$notice['backtrace'] = $backtrace;

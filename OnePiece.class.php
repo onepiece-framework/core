@@ -43,7 +43,7 @@ trait OP_CORE
 		$class   = get_class($this);
 		$serial  = join(', ', $join);
 		$message = "This method has not been exists. ({$class}->{$name}({$serial}))";
-		Notice::Set($message);
+		Notice::Set($message, debug_backtrace());
 	}
 
 	/**
@@ -55,7 +55,7 @@ trait OP_CORE
 	static function __callstatic($name, $args)
 	{
 		$message = "This method has not been exists. ($name)";
-		Notice::Set($message);
+		Notice::Set($message, debug_backtrace());
 	}
 
 	/**
@@ -66,7 +66,7 @@ trait OP_CORE
 	function __get($name)
 	{
 		$message = "This property has not been exists. ($name)";
-		Notice::Set($message);
+		Notice::Set($message, debug_backtrace());
 	}
 
 	/**
@@ -78,7 +78,7 @@ trait OP_CORE
 	function __set($name, $args)
 	{
 		$message = "This property has not been exists. ($name)";
-		Notice::Set($message);
+		Notice::Set($message, debug_backtrace());
 	}
 }
 
