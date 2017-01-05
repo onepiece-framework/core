@@ -65,7 +65,7 @@ class Notice extends OnePiece
 	{
 		while( $notice = self::Get() ){
 			if( Env::isAdmin() ){
-				if( Env::Get('mime', 'text/html') !== 'text/html' ){
+				if( Env::Get(Env::_MIME_, 'text/html') !== 'text/html' ){
 					return;
 				}
 				Developer::Notice($notice);
