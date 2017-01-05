@@ -67,6 +67,20 @@ class Router extends OnePiece
 			$full_path = substr($full_path, 0, $pos);
 		}
 
+		//	HTML path through.
+		if( true ){
+			//	Get extension.
+			$extension = substr($full_path, strrpos($full_path, '.')+1);
+
+			//	In case of html.
+			if( $extension === 'html' ){
+				if( file_exists($full_path) ){
+					self::$_route[Router::_END_POINT_] = $full_path;
+					return self::$_route;
+				}
+			}
+		}
+
 		//	Added slash to tail. /www/foo/bar --> /www/foo/bar/
 		$full_path = rtrim($full_path,DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 
