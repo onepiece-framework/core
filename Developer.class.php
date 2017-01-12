@@ -46,7 +46,11 @@ class Developer extends OnePiece
 	 */
 	static function Mark($value, $trace)
 	{
-		switch( $mime = Env::Get(Env::_MIME_) ){
+		switch( $mime = strtolower(Env::Get(Env::_MIME_)) ){
+			case 'text/css':
+				self::MarkCss($value, $trace);
+				break;
+
 			case 'text/javascript':
 				self::MarkJS($value, $trace);
 				break;
@@ -60,6 +64,18 @@ class Developer extends OnePiece
 			default:
 				self::MarkHtml($value, $trace);
 		}
+	}
+
+	/**
+	 * MarkCss
+	 *
+	 * @param mixed $value
+	 * @param array $trace
+	 */
+	static function MarkCss($value, $trace)
+	{
+		print PHP_EOL;
+		print "/* $value */".PHP_EOL;
 	}
 
 	/**
