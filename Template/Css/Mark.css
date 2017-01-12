@@ -9,10 +9,13 @@
  */
 
 div.OP_MARK {
-	margin:		 0		 !important;
-	padding:	 0		 !important;
-	font-size:	 9pt	 !important;
-	font-family: sans-serif, _Consolas, '_Courier New', _Courier, Monaco, monospace;
+	margin:			 0		 !important;
+	padding:		 0		 !important;
+	margin-top:		 0.5em	 !important;
+	margin-bottom:	 0.2em	 !important;
+	font-size:	 9pt		 !important;
+	font-family: Avenir, sans-serif, _Consolas, '_Courier New', _Courier, Monaco, monospace;
+	line-height: 1.1em;
 }
 
 div.OP_MARK .line-1,

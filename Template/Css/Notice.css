@@ -8,22 +8,28 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 div.OP_NOTICE * {
-	margin:  0		 !important;
+	margin:	 0		 !important;
 	padding: 0		 !important;
+	color:	 black	 !important;
 	font-size: 9pt	 !important;
-	color: black	 !important;
+	font-family:	 sans-serif !important;
 	background-color: white !important;
 }
 
 div.OP_NOTICE{
-	margin-top: 0.5em;
+	_border: 1px solid black;
+	margin: 1em !important;
 }
 
 div.OP_NOTICE p {
-	font-weight: bold;
+	_border: 1px solid black;
+	font-size:   10pt !important;
+	font-weight: bold !important;
 }
 
 div.OP_NOTICE table {
+	_border: 1px solid black;
+	margin-top:  0.1em !important;
 	margin-left: 0.5em !important;
 	border: 0px solid black;
 }
