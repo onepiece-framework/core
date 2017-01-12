@@ -54,9 +54,7 @@ function _HandlerError($errno, $error, $file, $line, $context)
 		case E_DEPRECATED:			 // 8192
 		case E_USER_DEPRECATED:		 // 16384
 		default:
-			$backtrace = debug_backtrace();
-			array_shift($backtrace);
-			Notice::Set($error, $backtrace);
+			Notice::Set($error, debug_backtrace());
 			return true;
 	}
 }
