@@ -136,6 +136,6 @@ class Developer extends OnePiece
 		global $_JSON;
 		$mark['message']   = $value;
 		$mark['backtrace'] = $trace;
-		$_JSON['mark'][] = $mark;
+		$_JSON['admin']['mark'][] = $mark;
 	}
 }
