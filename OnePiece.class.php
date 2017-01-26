@@ -133,9 +133,9 @@ class OnePiece
 	{
 		$class = get_called_class();
 		if( $value !== null ){
-			$_SESSION[OnePiece::_NAME_SPACE_][$class][$key] = $value;
+			$_SESSION[self::_NAME_SPACE_][$class][$key] = $value;
 		}else{
-			return ifset($_SESSION[OnePiece::_NAME_SPACE_][$class][$key]);
+			return ifset($_SESSION[self::_NAME_SPACE_][$class][$key]);
 		}
 	}
 }
