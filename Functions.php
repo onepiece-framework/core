@@ -170,6 +170,16 @@ function _EscapeString($var)
 }
 
 /**
+ * To hash
+ *
+ * @param string $var
+ * @param number $length
+ */
+function Hash1($var, $length=8){
+	return substr(sha1($var), 0, $length);
+}
+
+/**
  * ifset
  *
  * @see    http://qiita.com/devneko/items/ee83854eb422c352abc8
