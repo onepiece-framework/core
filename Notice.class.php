@@ -75,3 +75,19 @@ class Notice extends OnePiece
 		}
 	}
 }
+
+/**
+ * Register shutdown function.
+ *
+ * Moved from Bootstrap.php
+ * If not exists "Notice", will not from call "Notice".
+ * So far, has always been called up.
+ *
+ * @creation  2016-11-17
+ * @moved     2017-01-19
+ * @version   1.0
+ * @package   core
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright 2016 (C) Tomoaki Nagahara All right reserved.
+ */
+register_shutdown_function('Notice::Shutdown');
