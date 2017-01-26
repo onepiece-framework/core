@@ -1,6 +1,20 @@
 /**
  * Template/Js/Notice.js
- *
+ * 
+ * <pre>
+ * For IE example.
+ * 
+ * if (window.XMLHttpRequest){
+ *   xmlHttp = new XMLHttpRequest();
+ * }else{
+ *   if (window.ActiveXObject){
+ *     xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+ *   }else{
+ *     xmlHttp = null;
+ *   }
+ * }
+ * </pre>
+ * 
  * @creation  2016-11-17
  * @version   1.0
  * @package   core7
@@ -11,32 +25,87 @@
 //	Document is ready.
 document.addEventListener('DOMContentLoaded', function() {
 	//	...
-	var div = document.getElementById('OP_NOTICE');
-	var root = {};
-		root.op  = div.getAttribute("data-OP_ROOT");
-		root.app = div.getAttribute("data-APP_ROOT");
-		root.doc = div.getAttribute("data-DOC_ROOT");
-		console.log(root);
+	setTimeout(__op_notice_fetch, 1000);
 
-	//	Start to dump.
-	var dump = document.body.getElementsByClassName('OP_NOTICE')
-	if( dump ){
-		for( var i=0; i<dump.length; i++ ){
-			__op_dump(dump[i]);
+	//	...
+	function __op_notice_fetch(){
+		var xhr = new XMLHttpRequest();
+		if(!xhr){
+			console.log("XMLHttpRequest was failed.");
+			return;
 		}
-	}
+		var url = null;
+		var doc = __meta_root__.doc;
+		var app = __meta_root__.app;
+		if( doc === app.substr( 0, doc.length ) ){
+			url = '/'+app.substr(doc.length) + 'api/notice/load';
+		}else{
+			console.log("FAIL: "+ doc +' != '+ app.substr(0, doc.length));
+		}
+
+		//	...
+		xhr.onreadystatechange = function(){
+			/**
+			 * 0 = uninitialized
+			 * 1 = loading
+			 * 2 = loaded
+			 * 3 = interactive
+			 * 4 = complete
+			 */
+			var state  = this.readyState;
+			/**
+			 * 200	OK
+			 * 401	Unauthorized
+			 * 403	Forbidden
+			 * 404	Not Found
+			 * 500	Internal Server Error
+			 */
+			var status = this.status;
+			if( state === 4 && status === 200 ){
+				var type = xhr.getResponseHeader('content-type');
+				var text = this.responseText;
+
+				//	...
+				if( type.substr(0, 9) !== 'text/json' ){
+					console.log('Not json.' + url);
+					console.log(xhr.getAllResponseHeaders());
+					console.log(text);
+					return;
+				}
+
+				//	...
+				var json = JSON.parse(text);
+				if( json.result ){
+					json.result.forEach(function(value, index, parent){
+						__op_notice(value);
+					});
+				}
+			}
+		};
+	//	xhr.setRequestHeader();
+		xhr.open("GET", url, true);
+		xhr.send(null);
+	//	xhr.abort();
+	};
 
 	//	Do dump.
-	function __op_dump(dump){
-		var json = JSON.parse(dump.innerText);
+	function __op_notice(json){
+		console.log(json);
+
+		//	...
 		var message   = json.message;
 		var backtrace = json.backtrace;
 
-		console.log(json);
+		//	...
+		var html = document.getElementsByTagName('html');
+		var body = document.getElementsByTagName('body');
+		var div  = document.createElement('div');
 
-		dump.innerText = '';
-		dump.appendChild(__op_message(json.message));
-		dump.appendChild(__op_backtrace(json.backtrace));
+		//	...
+		body[0].appendChild(div);
+		div.className = 'OP_NOTICE';
+		div.appendChild(__op_message(json.message));
+		div.appendChild(__op_backtrace(json.backtrace));
 	};
 
 	//	Generate message html.
@@ -87,13 +156,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	//	Compress file path.
 	function __op_backtrace_file(path){
-		//	...
-		for(var key in root){
-			if( root[key] === path.substr(0, root[key].length ) ){
-				return key + ':/' + path.substr(root[key].length);
-			}
-		};
-		return path;
+		return CompressPath(path);
 	};
 
 	//	Generate arguments
