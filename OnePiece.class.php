@@ -88,6 +88,14 @@ trait OP_CORE
 	{
 		return [];
 	}
+
+	/**
+	 * Process to restore from serialized character string.
+	 */
+	function __wakeup()
+	{
+
+	}
 }
 
 /**
