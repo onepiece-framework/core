@@ -76,14 +76,20 @@ class Notice extends OnePiece
 	 */
 	static function Shutdown()
 	{
-		while( $notice = self::Get() ){
-			if( Env::isAdmin() ){
-				if( Env::Get(Env::_MIME_, 'text/html') !== 'text/html' ){
-					return;
-				}
-				Developer::Notice($notice);
-			}else{
-				Developer::Sendmail($notice);
+		if(!Env::isAdmin()){
+			while( $notice = self::Get() ){
+				//	...
+				$to = Env::Get(Env::_ADMIN_MAIL_);
+				$subject = $notice['message'];
+				$content = Template::Get('op:/Template/Notice/Sendmail.phtml', $notice);
+
+				//	...
+				$mail = new EMail();
+				$mail->From($mail->GetLocalAddress());
+				$mail->To($to);
+				$mail->Subject($subject);
+				$mail->Content($content);
+				$mail->Send();
 			}
 		}
 	}
