@@ -121,8 +121,9 @@ class Developer extends OnePiece
 	 */
 	static function MarkJS($value, $trace)
 	{
-		print "console.log($value)".PHP_EOL;
-		print "console.dir($trace)".PHP_EOL;
+		print PHP_EOL;
+		print "console.log($value);".PHP_EOL;
+		print "console.dir($trace);".PHP_EOL;
 	}
 
 	/**
