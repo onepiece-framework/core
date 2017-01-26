@@ -138,25 +138,4 @@ class Developer extends OnePiece
 		$mark['backtrace'] = $trace;
 		$_JSON['mark'][] = $mark;
 	}
-
-	/**
-	 * Send admin notice mail.
-	 *
-	 * @param array
-	 */
-	static function Sendmail($notice)
-	{
-		//	...
-		$to = Env::Get(Env::_ADMIN_MAIL_);
-		$subject = $notice['message'];
-		$content = Template::Get('op:/Template/Developer/Sendmail.phtml', $notice);
-
-		//	...
-		$mail = new EMail();
-		$mail->From($mail->GetLocalAddress());
-		$mail->To($to);
-		$mail->Subject($subject);
-		$mail->Content($content);
-		$mail->Send();
-	}
 }
