@@ -80,6 +80,14 @@ trait OP_CORE
 		$message = "This property has not been exists. ($name)";
 		Notice::Set($message, debug_backtrace());
 	}
+
+	/**
+	 * Property name to serialize.
+	 */
+	function __sleep()
+	{
+		return [];
+	}
 }
 
 /**
