@@ -86,24 +86,14 @@ class Developer extends OnePiece
 	 */
 	static function MarkHtml($value, $trace)
 	{
-		//	Output is first time only.
-		static $is_dump;
-		if(!$is_dump ){
-			$is_dump = true;
-			print '<script type="text/javascript" src="/js/Mark.js"></script>'.PHP_EOL;
-			print '<script type="text/javascript" src="/js/Dump.js"></script>'.PHP_EOL;
-			print '<link rel="stylesheet" type="text/css" href="/css/Mark.css">'.PHP_EOL;
-			print '<link rel="stylesheet" type="text/css" href="/css/Dump.css">'.PHP_EOL;
-		}
-
 		//	...
 		$type = gettype($value);
 
 		//	Mark
 		$mark = [];
-		$mark['file'] = CompressPath($trace['file']);
-		$mark['line'] = $trace['line'];
-		$mark['type'] = $type;
+		$mark['file']  = CompressPath($trace['file']);
+		$mark['line']  = $trace['line'];
+		$mark['type']  = $type;
 		$mark['value'] = $value;
 		print '<div class="OP_MARK">'.self::_toJson($mark).'</div>'.PHP_EOL;
 
