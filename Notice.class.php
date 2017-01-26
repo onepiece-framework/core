@@ -53,9 +53,22 @@ class Notice extends OnePiece
 			$backtrace = debug_backtrace();
 		//	array_shift($backtrace); Do not use for app world.
 		}
-		$notice['message']   = $message;
-		$notice['backtrace'] = $backtrace;
-		$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][] = $notice;
+
+		//	...
+		$key = Hash1($message);
+		$timestamp = gmdate('Y-m-d H:i:s', time()+date('Z'));
+
+		//	...
+		if( isset($_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][$key]) ){
+			$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][$key]['count']++;
+			$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][$key]['updated'] = $timestamp;
+		}else{
+			$notice['count']     = 1;
+			$notice['message']   = $message;
+			$notice['backtrace'] = $backtrace;
+			$notice['created']   = $timestamp;
+			$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][$key] = $notice;
+		}
 	}
 
 	/**
