@@ -17,12 +17,12 @@ div.OP_DUMP *{
 div.OP_DUMP table{
 	border: 1px solid black				 !important;
 	border-color: #ccc #aaa #aaa #ccc	 !important;
-	border-collapse: separate;			 !important;
+	border-collapse: separate			 !important;
 	border-spacing:	 1px				 !important;
 }
 
 div.OP_DUMP tr{
-	
+	/* ... */
 }
 
 div.OP_DUMP th, td{
