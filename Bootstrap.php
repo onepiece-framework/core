@@ -36,6 +36,11 @@ include_once(__DIR__.'/Functions.php');
 include_once(__DIR__.'/Defines.php');
 
 /**
+ * Include OP CORE.
+ */
+include_once(__DIR__.'/OnePiece.class.php');
+
+/**
  * Security: PHP_SELF has XSS risk.
  */
 $_SERVER['PHP_SELF_XSS'] = _EscapeString($_SERVER['PHP_SELF']);
