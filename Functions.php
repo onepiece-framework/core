@@ -95,16 +95,11 @@ function ConvertURL($url)
  *
  * @param boolean|integer|string|array|object $value
  */
-function D($value=null)
+function D()
 {
 	//	If not admin will skip.
 	if(!Env::isAdmin()){
 		return;
-	}
-
-	//	null is explicit.
-	if( is_null($value) ){
-		$value = func_num_args() ? null: '';
 	}
 
 	//	Get trace.
@@ -115,7 +110,7 @@ function D($value=null)
 	}
 
 	//	Dump.
-	Developer::Mark($value, $trace[0]);
+	Developer::Mark(func_get_args(), $trace[0]);
 }
 
 /**
