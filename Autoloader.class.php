@@ -25,18 +25,16 @@ class Autoloader
 	 */
 	use OP_CORE;
 
-	/** Stored of include-path.
-	 *
-	 * @var array
-	 */
-	static $_include_path;
-
 	/** Autoload.
 	 *
 	 * @param string $class_name
 	 */
 	static function Autoload($class_name)
 	{
+		//	...
+		static $_include_path;
+
+		//	...
 		global $_OP;
 
 		//	Which to class and trait.
@@ -47,17 +45,17 @@ class Autoloader
 		}
 
 		//	Initialization is only the first.
-		if(!self::$_include_path ){
+		if(!$_include_path ){
 
 			//	Current directory.
-			self::$_include_path[] = '.';
+			$_include_path[] = '.';
 
 			//	Add op-core's root.
-			self::$_include_path[] = $_OP['OP_ROOT'];
+			$_include_path[] = $_OP['OP_ROOT'];
 		}
 
 		//	Challenge to include.
-		foreach( self::$_include_path as $path ){
+		foreach( $_include_path as $path ){
 			$file_path = rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.$file_name;
 			if( $io = file_exists($file_path) ){
 				$io = include_once($file_path);

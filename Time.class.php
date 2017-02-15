@@ -29,45 +29,75 @@ class Time
 	 */
 	use OP_CORE;
 
-	/** Frozen of world time.
+	/** Format
 	 *
-	 * @var integer
+	 * @param  string $formt 'Y-m-d H:i:s'
+	 * @param  string $calc  '1 month'
+	 * @return string
 	 */
-	static private $_time;
-
-	/** Timezone.
-	 *
-	 * @var string
-	 */
-	static private $_timezone;
+	static private function _Format($format, $calc)
+	{
+		$time = self::Time();
+		if( $calc ){
+			if(!$time = strtotime($calc, $time)){
+				Notice::Set("strtotime was failed. ($calc)");
+			}
+		}
+		return date($format, $time);
+	}
 
 	/** Return date. (not include time)
 	 *
 	 * @return string
 	 */
-	static function Date()
+	static function Date($calc=null)
 	{
-		return date('Y-m-d', self::Get());
+		return self::_Format('Y-m-d', $calc);
 	}
 
 	/** Return date and time.
 	 *
 	 * @return string
 	 */
-	static function Datetime()
+	static function Datetime($format=null)
 	{
-		return date('Y-m-d H:i:s', self::Get());
+		return self::_Format('Y-m-d H:i:s', $calc);
 	}
 
-	/** Get frozen time.
+	/** Get/Set frozen time.
 	 *
+	 * @param null|integer|string $time
 	 */
-	static function Get()
+	static function Time($time=null)
 	{
-		if(!self::$_time){
-			self::$_time = strtotime(gmdate('Y-m-d H:i:s'));
+		//	...
+		static $_time;
+
+		//	...
+		if( $time ){
+			//	...
+			if( $_time ){
+				Notice::Set("Frozen time is already setted.");
+			}else{
+				//	...
+				if(!is_numeric($time)){ // $time --> 2020-01-01 00:00:00
+					if(!$time = strtotime($time)){
+						Notice::Set("strtotime was failed.");
+					}else{
+						$time = strtotime(gmdate('Y-m-d H:i:s'));
+					}
+				}
+				$_time = $time;
+			}
+		}else{
+			if(!$_time){
+				//	...
+				$_time = strtotime(gmdate('Y-m-d H:i:s'));
+			}
 		}
-		return self::$_time;
+
+		//	...
+		return $_time;
 	}
 
 	/** Get/Set Timezone.
@@ -78,9 +108,16 @@ class Time
 	static function Timezone($timezone=null)
 	{
 		if( $timezone ){
-			date_default_timezone_set($timezone);
+			if( self::$_timezone ){
+				Notice::Set("Timezone is already set.");
+				return false;
+			}
+
+			//	...
+			self::$_timezone = $timezone;
+			return date_default_timezone_set($timezone);
 		}else{
-			return self::$_timezone;
+			return date_default_timezone_get();
 		}
 	}
 }

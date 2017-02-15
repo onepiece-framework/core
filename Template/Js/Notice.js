@@ -1,5 +1,5 @@
 /**
- * Template/Js/Notice.js
+ * op\core:Template/Js/Notice.js
  * 
  * <pre>
  * For IE example.
@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			url = '/'+app.substr(doc.length) + 'api/notice/load';
 		}else{
 			console.log("FAIL: "+ doc +' != '+ app.substr(0, doc.length));
+			return;
 		}
 
 		//	...

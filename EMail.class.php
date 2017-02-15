@@ -29,83 +29,127 @@
  */
 class EMail
 {
-	/**
-	 * trait.
+	/** trait.
+	 *
 	 */
 	use OP_CORE;
 
-	private $_head = array();
-	private $_body = array();
-	private $_debug = array();
+	//	...
+	private $_head	 = [];
+	private $_body	 = [];
+	private $_debug	 = [];
 
+	/**
+	 * Set from header.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function From($addr, $name=null)
 	{
-		$from['addr'] = $addr;
-		$from['name'] = $name;
-		$this->_head['from'][] = $from;
+		$this->_set_addr($addr, $name, 'from');
 	}
 
+	/**
+	 * Set to header.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function To($addr, $name=null)
 	{
-		$to['addr'] = $addr;
-		$to['name'] = $name;
-		$this->_head['to'][] = $to;
+		$this->_set_addr($addr, $name, 'to');
 	}
 
+	/**
+	 * Set cc header.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function Cc($addr, $name=null)
 	{
-		$cc['addr'] = $addr;
-		$cc['name'] = $name;
-		$this->_head['cc'][] = $cc;
+		$this->_set_addr($addr, $name, 'cc');
 	}
 
+	/**
+	 * Set bcc header.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function Bcc($addr)
 	{
-		if( is_string($addr) ){
-			$this->_head['bcc'][] = $addr;
-		}else if( is_array($addr) ){
-			$this->_head['bcc'] = $addr;
-		}else{
-			$type = gettype($addr);
-			$message = "Does not support this type. ($type)";
-			Notice::Set($message, debug_backtrace());
-		}
+		$this->_set_addr($addr, $name, 'bcc');
 	}
 
+	/**
+	 * Set reply-to header.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function ReplyTo($addr, $name=null)
 	{
-		$bcc['addr'] = $addr;
-		$bcc['name'] = $name;
-		$this->_head['reply-to'][] = $bcc;
+		$this->_set_addr($addr, $name, 'reply-to');
 	}
 
+	/**
+	 * Set errors-to header.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function ErrorsTo($addr, $name=null)
 	{
-		$bcc['addr'] = $addr;
-		$bcc['name'] = $name;
-		$this->_head['errors-to'][] = $bcc;
+		$this->_set_addr($addr, $name, 'errors-to');
 	}
 
-
+	/**
+	 * Set return-path header.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function ReturnPath($addr, $name=null)
 	{
-		$bcc['addr'] = $addr;
-		$bcc['name'] = $name;
-		$this->_head['return-path'][] = $bcc;
+		$this->_set_addr($addr, $name, 'return-path');
 	}
 
+	/**
+	 * Set subject(mail title) header.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function Subject($subject)
 	{
 		$this->_head['subject'] = $subject;
 	}
 
+	/**
+	 * Set content by mime.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function Content($content, $mime='text/plain')
 	{
+		if( preg_match('|[^-_a-z0-9/]|', $mime) ){
+			$this->_SetError("Mime was wrong. ($mime)");
+			return false;
+		}
 		$body['body'] = $content;
 		$body['mime'] = $mime;
 		$this->_body[] = $body;
 	}
 
+	/**
+	 * Set attachment files.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 */
 	function Attachment($file_path, $mime=null, $file_name=null)
 	{
 		if(!file_exists($file_path)){
@@ -135,167 +179,166 @@ class EMail
 	}
 
 	/**
-	 * Sent flag.
-	 *
-	 * @var boolean
-	 */
-	private $_sent;
-
-	/**
 	 * Send mail.
 	 *
 	 * @param  string $type mta, socket, php
 	 * @return boolean
 	 */
-	function Send($type=null)
+	function Send($type=null, $language='uni', $charset='utf-8')
 	{
-		if( $this->_sent ){
+		//	...
+		if( empty($this->_debug['sent']) ){
+			$this->_debug['sent'] = true;
+		}else{
 			$message = "EMail was already sent. In the case of next e-mail transmission, please generate a new object.";
-			Notice::Set($message, debug_backtrace());
+			$this->_set_error($message);
 			return false;
 		}
-		$this->_sent = true;
 
+		//	...
 		$save_lang = mb_language();
 		$save_char = mb_internal_encoding();
 
-		mb_language('uni');
-		mb_internal_encoding('utf-8');
+		//	...
+		mb_language($language);
+		mb_internal_encoding($charset);
 
+		//	...
 		switch($type){
 			case 'mta':
-				$result = $this->_mta();
+				$io = $this->_mta();
 				break;
 
 			case 'socket':
-				$result = $this->_socket();
+				$io = $this->_socket();
 				break;
 
 			case 'php':
 			default:
-				$result = $this->_mail();
+				$io = $this->_mail();
 		}
 
-		$result['head'] = $this->_head;
-		$result['time'] = date('Y-m-d H:i:s').' ('.gmdate('e Y-m-d H:i:s P').')';
-		$this->_debug[] = $result;
-
+		//	...
 		mb_language($save_lang);
 		mb_internal_encoding($save_char);
 
-		return $result['io'];
+		return $io;
 	}
 
-	private function _mta()
-	{
-
-	}
-
-	private function _socket()
-	{
-
-	}
-
+	/**
+	 * Use PHP's mail function.
+	 *
+	 * @return boolean
+	 */
 	private function _mail()
 	{
 		//	init
-		$to = $this->_get_to(null);
+		$to		 = $this->_get_to();
 		$subject = $this->_get_subject();
 		$content = $this->_get_content();
 		$headers = $this->_get_headers();
 		$parameters = $this->_get_parameters();
 
-		//	Debug
-		if( Env::isAdmin() ){
-			$debug['method'] = __METHOD__;
-			$debug['to'] = $to;
-			$debug['subject'] = $subject;
-			$debug['content'] = $content;
-			$debug['headers'] = $headers;
-			$debug['parameters'] = $parameters;
-			$debug['body'] = $this->_body;
-		}
-
 		//	Send mail.
 		if(!$io = mail($to, $subject, $content, $headers, $parameters)){
 			$message = 'Failed to send the error mail.';
-			Notice::Set($message, debug_backtrace());
+			$this->_set_error($message);
 		}
-		$debug['io'] = $io;
 
-		return $debug;
+		//	Debug
+		$this->_debug['io'] = $io;
+		$this->_debug['method'] = __METHOD__;
+		$this->_debug['to'] = $to;
+		$this->_debug['subject'] = $subject;
+		$this->_debug['content'] = $content;
+		$this->_debug['headers'] = $headers;
+		$this->_debug['parameters'] = $parameters;
+		$this->_debug['body'] = $this->_body;
+
+		return $io;
 	}
 
+	/**
+	 * Use socket.
+	 *
+	 * @return boolean
+	 */
+	private function _socket()
+	{
+		return false;
+	}
+
+	/**
+	 * Use mta.
+	 *
+	 * @return boolean
+	 */
+	private function _mta()
+	{
+		return false;
+	}
+
+	/**
+	 * Generate email headers.
+	 *
+	 * @return string
+	 */
 	private function _get_headers()
 	{
 		$content_type = $this->_get_content_type();
-		$mail_address = $this->_get_mail_address(array('from','cc','bcc','reply-to','return-path','errors-to'));
+		$mail_address = $this->_get_mail_address();
 		return trim($content_type)."\n".trim($mail_address)."\n";
 	}
 
-	private function _get_mail_address($keys)
+	/**
+	 * Generate email addresses.
+	 *
+	 * @param  string $keys
+	 * @return string
+	 */
+	private function _get_mail_address()
 	{
-		foreach($keys as $key){
+		//	...
+		foreach(['from','cc','bcc','reply-to','return-path','errors-to'] as $key){
+			//	...
 			if( empty($this->_head[$key]) ){ continue; }
 
-			$full_name = array();
+			//	...
+			$full_name = [];
 			foreach($this->_head[$key] as $temp){
 				$addr = $temp['addr'];
 				$name = $temp['name'];
 				$full_name[] = $this->_get_full_name($addr, $name);
 			}
-			$key = ucfirst($key);
-			$header[] = "$key: ".join(', ',$full_name);
+
+			//	...
+			if( $full_name ){
+				$header[] = ucfirst($key).': '.join(', ', $full_name);
+			}
 		}
 
-		if( false ){
-			$header[] = "Return-Path: $error_address";
-			$header[] = "Errors-To: $error_address";
-		}
-
+		//	...
 		return join("\n", $header);
 	}
 
-	private function _get_from($prefix='From: ')
+	private function _get_to()
 	{
-		$addr = $this->_head['from']['addr'];
-		$name = $this->_head['from']['name'];
-		return $prefix.$this->_get_full_name($addr, $name);
-	}
-
-	private function _get_to($prefix='To: ')
-	{
-		$join = array();
+		$join = [];
 		foreach($this->_head['to'] as $temp){
 			$addr = $temp['addr'];
 			$name = $temp['name'];
 			$join[] = $this->_get_full_name($addr, $name);
 		}
-		return $prefix.join(', ',$join);
+		return 'To: '.join(', ',$join);
 	}
 
-	private function _get_cc()
-	{
-		$join = array();
-		foreach($this->_head['cc'] as $temp){
-			$addr = $temp['addr'];
-			$name = $temp['name'];
-			$join[] = $this->_get_full_name($addr, $name);
-		}
-		return "Cc: ".join(', ',$join);
-	}
-
-	private function _get_bcc()
-	{
-		$join = array();
-		foreach($this->_head['bcc'] as $temp){
-			$addr = $temp['addr'];
-			$name = $temp['name'];
-			$join[] = $this->_get_full_name($addr, $name);
-		}
-		return "Bcc: ".join(', ',$join);
-	}
-
+	/**
+	 * Generate named e-mail address.
+	 *
+	 * @param  string $addr
+	 * @param  string $name
+	 * @return string
+	 */
 	private function _get_full_name($addr, $name)
 	{
 		$addr = trim($addr);
@@ -310,12 +353,19 @@ class EMail
 
 	/**
 	 * Get valid email address.
+	 *
+	 * @return string
 	 */
 	static function GetLocalAddress()
 	{
 		return get_current_user().'@'.gethostbyaddr($_SERVER['SERVER_ADDR']);
 	}
 
+	/**
+	 * Get php sendmail function's parameters.
+	 *
+	 * @return string
+	 */
 	private function _get_parameters()
 	{
 		$local_user = self::GetLocalAddress();
@@ -323,6 +373,11 @@ class EMail
 		return $parameters;
 	}
 
+	/**
+	 * Get boundary for multi-part.
+	 *
+	 * @return string
+	 */
 	private function _get_boundary()
 	{
 		static $boundary;
@@ -332,6 +387,11 @@ class EMail
 		return $boundary;
 	}
 
+	/**
+	 * Get content type.
+	 *
+	 * @return string
+	 */
 	private function _get_content_type()
 	{
 		$multipart = null;
@@ -355,6 +415,11 @@ class EMail
 		return "{$mime_version}\n{$content_type}\n{$content_encoding}\n";
 	}
 
+	/**
+	 * Get mail content(body).
+	 *
+	 * @return string
+	 */
 	private function _get_content()
 	{
 		if( count($this->_body) > 1 ){
@@ -365,6 +430,11 @@ class EMail
 		return $body;
 	}
 
+	/**
+	 * Get content multi part.
+	 *
+	 * @return string
+	 */
 	private function _get_content_multipart()
 	{
 		$i = 0;
@@ -405,8 +475,40 @@ class EMail
 		return $multibody;
 	}
 
+	/**
+	 * Get subject(mail title).
+	 *
+	 * @return string
+	 */
 	private function _get_subject()
 	{
 		return mb_encode_mimeheader($this->_head['subject']);
+	}
+
+	/**
+	 * Set email addrees with name.
+	 *
+	 * @param string $addr
+	 * @param string $name
+	 * @param string $key
+	 */
+	function _set_addr($addr, $name, $key)
+	{
+		$addr = preg_replace('/\n/', '\n', $addr);
+		$head['addr'] = $addr;
+		$head['name'] = $name;
+		$this->_head[ucfirst(strtolower($key))][] = $head;
+	}
+
+	/**
+	 * Set error messge for developer.
+	 *
+	 * @param string $message
+	 */
+	private function _set_error($message)
+	{
+		$error['message'] = $message;
+		$error['backtrace'] = debug_backtrace();
+		$this->_debug['errors'][] = $error;
 	}
 }

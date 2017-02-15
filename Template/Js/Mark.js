@@ -1,5 +1,5 @@
 /**
- * Template/Js/Mark.js
+ * op\core:Template/Js/Mark.js
  *
  * @creation  2016-11-30
  * @version   1.0

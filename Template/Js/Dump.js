@@ -1,5 +1,5 @@
 /**
- * Template/Js/Dump.js
+ * op\core:Template/Js/Dump.js
  *
  * @creation  2016-06-16
  * @version   1.0
@@ -13,25 +13,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	//	Start to Dump.
 	var dump = document.body.getElementsByClassName('OP_DUMP');
 	if( dump ){
-		for( var i=0; i<dump.length; i++ ){
-			__op_dump(dump[i]);
+		for(var i=0; i<dump.length; i++){
+			var text = dump[i].innerText;
+			if( text ){
+				//	Reset inner text.
+				dump[i].innerText = "";
+
+				//	Append table to dump tag.
+				dump[i].appendChild( __op_table( JSON.parse(text) ) );
+			}
 		}
-	}
-
-	//	Dump each notice.
-	function __op_dump(dump){
-		var json = JSON.parse(dump.innerText);
-
-		//	Get table tag.
-		table = __op_table(json);
-		//	Reset inner text.
-		dump.innerText = "";
-		//	Append table to dump tag.
-		dump.appendChild(table);
 	}
 
 	//	...
 	function __op_table(json){
+		//	...
 		var table = document.createElement('table');
 
 		//	...

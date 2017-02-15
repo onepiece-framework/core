@@ -18,7 +18,7 @@ div.OP_NOTICE * {
 
 div.OP_NOTICE{
 	_border: 1px solid black;
-	margin: 1em !important;
+	margin-top: 1em !important;
 }
 
 div.OP_NOTICE p {
@@ -30,7 +30,7 @@ div.OP_NOTICE p {
 div.OP_NOTICE table {
 	_border: 1px solid black;
 	margin-top:  0.1em !important;
-	margin-left: 0.5em !important;
+	margin-left:   1em !important;
 	border: 0px solid black;
 }
 

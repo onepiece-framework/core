@@ -99,7 +99,7 @@ class Notice
  * Register shutdown function.
  *
  * Moved from Bootstrap.php
- * If not exists "Notice", will not from call "Notice".
+ * If not exists Notice message, will not from call Notice class.
  * So far, has always been called up.
  *
  * @creation  2016-11-17
@@ -107,6 +107,6 @@ class Notice
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
- * @copyright 2016 (C) Tomoaki Nagahara All right reserved.
+ * @copyright Tomoaki Nagahara All right reserved.
  */
 register_shutdown_function('Notice::Shutdown');

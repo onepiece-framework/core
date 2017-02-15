@@ -12,6 +12,14 @@
 /**
  * Unit
  *
+ * <pre>
+ * //	Set unit directory.
+ * Env::Set(Unit::_DIRECTORY_, '/www/op/7/unit/');
+ *
+ * //	Factory
+ * $obj = Unit::Factory('UnitName');
+ * </pre>
+ *
  * @creation  2016-11-28
  * @version   1.0
  * @package   core
