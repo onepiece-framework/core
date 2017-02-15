@@ -41,28 +41,28 @@ class Developer extends OnePiece
 	/**
 	 * Mark
 	 *
-	 * @param mixed $value
+	 * @param array $args
 	 * @param array $trace
 	 */
-	static function Mark($value, $trace)
+	static function Mark($args, $trace)
 	{
 		switch( $mime = strtolower(Env::Get(Env::_MIME_)) ){
 			case 'text/css':
-				self::MarkCss($value, $trace);
+				self::MarkCss($args, $trace);
 				break;
 
 			case 'text/javascript':
-				self::MarkJS($value, $trace);
+				self::MarkJS($args, $trace);
 				break;
 
 			case 'text/json':
 			case 'text/jsonp':
-				self::MarkJson($value, $trace);
+				self::MarkJson($args, $trace);
 				break;
 
 			case 'text/html':
 			default:
-				self::MarkHtml($value, $trace);
+				self::MarkHtml($args, $trace);
 		}
 	}
 
@@ -84,21 +84,41 @@ class Developer extends OnePiece
 	 * @param mixed $value
 	 * @param array $trace
 	 */
-	static function MarkHtml($value, $trace)
+	static function MarkHtml($args, $trace)
 	{
 		//	...
-		$type = gettype($value);
+		$later = [];
 
-		//	Mark
+		//	$mark
 		$mark = [];
-		$mark['file']  = CompressPath($trace['file']);
-		$mark['line']  = $trace['line'];
-		$mark['type']  = $type;
-		$mark['value'] = $value;
+		$mark['file'] = CompressPath($trace['file']);
+		$mark['line'] = $trace['line'];
+		$mark['args'] = [];
+
+		//	$args
+		foreach( $args as $value ){
+			switch( $type = gettype($value) ){
+				case 'array':
+					$later[] = $value;
+					$value   = $type;
+					break;
+
+				case 'object':
+					$later[] = $value;
+					$value   = get_class($value);
+					break;
+			}
+			$mark['args'][] = [
+				'type'  => $type,
+				'value' => $value,
+			];
+		}
+
+		//	...
 		print '<div class="OP_MARK">'.self::_toJson($mark).'</div>'.PHP_EOL;
 
-		//	Dump
-		if( $type === 'array' or $type === 'object' ){
+		//	...
+		foreach( $later as $value ){
 			print '<div class="OP_DUMP">'.self::_toJson($value).'</div>'.PHP_EOL;
 		}
 	}
