@@ -9,34 +9,28 @@
  */
 
 /**
- * NewWorld
+ * Dispatcher
  *
  * The NewWorld is the new world.
  *
- * NewWorld's job:
- *  1. Execute end-point file. (Generally is called a controller)
- *  2. Wrap to result of end-point (content) at layout.
- *
- * @creation  2009-09-27, 2016-12-11
+ * @creation  2017-02-15
  * @version   1.0
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-abstract class NewWorld extends OnePiece
+class Dispatcher
 {
 	/**
-	 * Buffered content.
-	 *
-	 * @var string
+	 * trait
 	 */
-	private $_content;
+	use OP_CORE;
 
 	/**
 	 * Execute end-point.
 	 *
 	 * @return string
 	 */
-	private function _ExecuteEndPoint()
+	static function Run()
 	{
 		//	Execute app's end point. (app's controller)
 		$route = Router::Get();
@@ -50,38 +44,74 @@ abstract class NewWorld extends OnePiece
 		//	Execute content.
 		try{
 			//	Execute end-point.
-			$this->_content = $this->GetTemplate($route[Router::_END_POINT_]);
+			$content = Template::Get($route[Router::_END_POINT_]);
 		}catch( Exception $e ){
 			Notice::Set($e->getMessage(), $e->getTrace());
 		}
 
 		//	Recovery current directory.
 		chdir($cdir);
+
+		//	Would you like to execute the layout?
+		if( Env::Get(Layout::_DO_) ){
+			//	Do layout.
+			Layout::Run($content);
+		}else{
+			//	Layout is not done.
+			echo $content;
+		}
 	}
+}
+
+/**
+ * Layout
+ *
+ * @creation  2017-02-14
+ * @version   1.0
+ * @package   core
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ */
+class Layout
+{
+	/**
+	 * trait.
+	 */
+	use OP_CORE;
+
+	/**
+	 * Constants
+	 *
+	 * @var string
+	 */
+	const _DO_			 = 'layout-do';
+	const _DIRECTORY_	 = 'layout-dir';
+	const _NAME_		 = 'layout-name';
 
 	/**
 	 * Get layout controller.
 	 *
 	 * @return $string
 	 */
-	private function _GetLayoutController()
+	static private function _GetLayoutController()
 	{
 		//	Get layout directory.
 		if(!$layout_dir  = Env::Get(Layout::_DIRECTORY_)){
-			$message = "Has not been set layout directory. (null)";
+			$message = "Has not been set layout directory.";
 			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 
 		//	Get layout name.
 		if(!$layout_name = Env::Get(Layout::_NAME_)){
-			$message = "Has not been set layout name. (null)";
+			$message = "Has not been set layout name.";
 			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 
 		//	Get layout controller's file path.
-		$full_path = ConvertPath($layout_dir.'/'.$layout_name.'/index.php');
+		$directory = rtrim(ConvertPath($layout_dir),'/');
+		$full_path = "{$directory}/{$layout_name}/index.php";
 
 		//	Check exists layout controller.
 		if(!file_exists($full_path)){
@@ -95,156 +125,264 @@ abstract class NewWorld extends OnePiece
 	}
 
 	/**
-	 * Get real file path.
 	 *
-	 * @param  string
-	 * @return string
+	 * @param unknown $content
 	 */
-	private function _GetTemplateFilePath($path)
-	{
-		$result = false;
-
-		if( file_exists($path) ){
-			$result = $path;
-		}else if( file_exists($full_path = ConvertPath($path)) ){
-			$result = $full_path;
-		}else if( $dir = Env::Get(Template::_DIRECTORY_) ){
-			$full_path = ConvertPath($dir).'/'.$path;
-			if( file_exists($full_path) ){
-				$result = $full_path;
-			}
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Output buffered content.
-	 *
-	 * @param string $content
-	 */
-	function Content($content=null)
-	{
-		print $this->_content;
-	}
-
-	/**
-	 * "Dispatch" is execute end-point, and do layout.
-	 */
-	function Dispatch()
+	static function Run($content)
 	{
 		//	Search layout controller.
-		if(!$layout_controller_path = $this->_GetLayoutController()){
+		if(!$file_path = self::_GetLayoutController()){
 			return false;
 		}
 
-		//	Execute end-point.
-		$this->_ExecuteEndPoint();
-
-		//	Get layout flag.
-		$is_layout = Env::Get(Layout::_EXECUTE_);
-		if( $is_layout === null ){
-			$message = "Has not been set layout flag. (null)";
-			Notice::Set($message, debug_backtrace());
-			return;
-		}
-
-		//	Would you like to execute the layout?
-		if( $is_layout === false ){
-			//	Layout is not done.
-			$this->Content();
-		}else{
-			//	Execute layout.
-			include($layout_controller_path);
-		}
-	}
-
-	/**
-	 * Get template content.
-	 *
-	 * @param  string $path
-	 * @param  array  $args
-	 * @return string
-	 */
-	function GetTemplate($path, $args=null)
-	{
 		//	...
-		if(!$path){
-			$message = '$path is empty.';
-			Notice::Set($message, debug_backtrace());
-			return null;
-		}
-
-		//	Start buffering.
-		if(!ob_start()){
-			$message = "ob_start is failed.";
-			Notice::Set($message, debug_backtrace());
-			return null;
-		}
-
-		//	...
-		if( $full_path = $this->_GetTemplateFilePath($path) ){
-			// Extract array.
-			if( is_array($args) and count($args) ){
-				if(isset($args[0])){
-					$message = 'Passed arguments is not an assoc array. Ex. Template::Get("index.phtml", array("key"=>"value")';
-					Notice::Set($message, debug_backtrace());
-				}else{
-					extract($args);
-				}
-			}else if(is_object($args)){
-				$name = get_class($args);
-				$message = "Object is not correspond. ($name)";
-				Notice::Set($message, debug_backtrace());
-			}
-
-			//	...
-			include($full_path);
-		}else{
-			$message = "File is not exists. ($path)";
-			Notice::Set($message, debug_backtrace());
-		}
-
-		//	...
-		return ob_get_clean();
+		Template::Run($file_path, ['content'=>$content]);
 	}
 }
 
 /**
- * Layout
+ * Router
  *
- * <pre>
- * app:/app/layout-dir/layout-name/index.php
- * </pre>
- *
- * @creation  2015-04-24, 2016-11-26
+ * @creation  2015-01-30 --> 2016-11-26
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-class Layout extends OnePiece
+class Router
 {
-	const _EXECUTE_		 = 'layout-execute';
-	const _DIRECTORY_	 = 'layout-dir';
-	const _NAME_		 = 'layout-name';
+	/**
+	 * trait.
+	 */
+	use OP_CORE;
+
+	/**
+	 * Use for route table's associative key name.
+	 *
+	 * @var string
+	 */
+	const _END_POINT_ = 'end-point';
+
+	/**
+	 * Route table.
+	 *
+	 * @var array
+	 */
+	private static $_route;
+
+	/**
+	 * Init route table.
+	 *
+	 * 1. Search end-point by request uri.
+	 * 2. Generate smart-url's arguments by request uri.
+	 *
+	 * @return array
+	 */
+	static private function _InitRouteTable()
+	{
+		global $_OP;
+
+		//	...
+		$file  = 'index.php'; // Env::Get(Router::_END_POINT_FILE_NAME_, 'index.php');
+
+		//	...
+		self::$_route = [];
+		self::$_route['args'] = [];
+
+		//	Generate real full path.
+		$full_path = $_SERVER['DOCUMENT_ROOT'].$_SERVER['REQUEST_URI'];
+
+		//	Check url query.
+		if( $pos = strpos($full_path, '?') ){
+			//	Separate url query.
+			$query = substr($full_path, $pos+1);
+			$full_path = substr($full_path, 0, $pos);
+		}
+
+		//	HTML path through.
+		if( true ){
+			//	Get extension.
+			$extension = substr($full_path, strrpos($full_path, '.')+1);
+
+			//	In case of html.
+			if( $extension === 'html' ){
+				if( file_exists($full_path) ){
+					self::$_route[Router::_END_POINT_] = $full_path;
+					return self::$_route;
+				}
+			}
+		}
+
+		//	Added slash to tail. /www/foo/bar --> /www/foo/bar/
+		$full_path = rtrim($full_path,DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+
+		//	...
+		$uri = str_replace($_OP[APP_ROOT], '', $full_path);
+
+		//	...
+		$dirs = explode('/', rtrim($uri, DIRECTORY_SEPARATOR));
+
+		//	...
+		do{
+			//	...
+			$path = trim(join(DIRECTORY_SEPARATOR, $dirs).'/'.$file, DIRECTORY_SEPARATOR);
+
+			//	...
+			if( isset($dir) ){
+				array_unshift(self::$_route['args'], _EscapeString($dir));
+			}
+
+			//	...
+			if( file_exists($_OP[APP_ROOT].$path) ){
+				self::$_route[Router::_END_POINT_] = $_OP[APP_ROOT].$path;
+				break;
+			}
+
+			//	...
+		}while( $dir = array_pop($dirs) );
+
+		//	Return route table.
+		return self::$_route;
+	}
+
+	/**
+	 * Get dispatch route by request uri.
+	 *
+	 * @return array
+	 */
+	static function Get()
+	{
+		if(!self::$_route ){
+			self::_InitRouteTable();
+		}
+		return self::$_route;
+	}
+
+	/**
+	 * Set custom route table.
+	 *
+	 * @param array $route
+	 */
+	static function Set($route)
+	{
+		self::$_route = $route;
+	}
 }
 
 /**
  * Template
  *
- * @separated 2016-11-26
+ * @creation  2017-02-09
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-class Template extends OnePiece
+class Template
 {
+	/**
+	 * trait.
+	 */
+	use OP_CORE;
+
 	/**
 	 * Search to this template directory.
 	 *
 	 * @var string
 	 */
 	const _DIRECTORY_ = 'template-dir';
+
+	/**
+	 * Get real file path.
+	 *
+	 * @param  string
+	 * @return string
+	 */
+	static function _GetTemplateFilePath($path)
+	{
+		//	Convert to real path from meta path.
+		if( strpos($path, ':') ){
+			$path = ConvertPath($path);
+		}
+
+		//	File was found.
+		if( file_exists($path) ){
+			return $path;
+		}
+
+		//	Search to in template directory.
+		if( $dir  = Env::Get(self::_DIRECTORY_) ){
+			$path = rtrim(ConvertPath($dir), '/').'/'.$path;
+			if( file_exists($path) ){
+				//	File was found.
+				return $path;
+			}
+		}
+
+		//	...
+		Notice::Set("Does not exists this file path. ($file_path)");
+
+		//	...
+		return '';
+	}
+
+	/**
+	 * Catch fatal error and Exception.
+	 *
+	 * @param  string $file_path
+	 * @param  array  $args
+	 * @return string
+	 */
+	static function Get($file_path, $args=null)
+	{
+		//	...
+		if(!ob_start()){
+			Notice::Set("ob_start was failed.");
+			return;
+		}
+
+		//	...
+		self::Run($file_path, $args);
+
+		//	...
+		return ob_get_clean();
+	}
+
+	/**
+	 * Catch fatal error and Exception.
+	 *
+	 * @param  string $file_path
+	 * @param  array  $args
+	 */
+	static function Run($file_path, $args=null)
+	{
+		try {
+			//	...
+			if(!file_exists($file_path) ){
+				//	...
+				if(!$file_path = self::_GetTemplateFilePath($file_path)){
+					return;
+				}
+			}
+
+			//	...
+			if( $args ){
+				if(!$count = extract($args, null, null)){
+					$message = "Passed arguments is not an assoc array. (count=$count)";
+					Notice::Set($message, debug_backtrace());
+				}
+			}
+
+			//	...
+			include($file_path);
+
+		} catch (Throwable $e) {
+			$trace = $e->getTrace();
+			$temp  = [];
+			$temp['file'] = $e->getFile();
+			$temp['line'] = $e->getLine();
+			array_unshift($trace, $temp);
+			Notice::Set($e->getMessage(), $trace);
+		}
+	}
 }
