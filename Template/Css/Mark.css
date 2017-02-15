@@ -18,51 +18,61 @@ div.OP_MARK {
 	line-height: 1.1em;
 }
 
-div.OP_MARK .line-1,
-div.OP_MARK .line-2,
-div.OP_MARK .line-3,
-div.OP_MARK .line-4 {
+div.OP_MARK .line {
 	margin-left:  0.5em;
 	margin-right: 0.5em;
 }
 
 div.OP_MARK span.mark {
-
+	margin: 0;
 }
 
-div.OP_MARK span.mark span.boolean.true {
-	color: blue !important;
+div.OP_MARK span.mark span.args {
+	margin: 0;
 }
 
-div.OP_MARK span.mark span.boolean.false {
+div.OP_MARK span.mark span.args span.value {
+	margin: 0;
+	margin-right: 0.5em;
+}
+
+div.OP_MARK span.mark span.value.NULL {
 	color: red !important;
 }
 
-div.OP_MARK span.mark span.null {
-	color: red;
-	font-style: italic !important;
+div.OP_MARK span.mark span.value.boolean.true {
+	color: blue !important;
 }
 
-div.OP_MARK span.mark span.string {
+div.OP_MARK span.mark span.value.boolean.false {
+	color: red !important;
+}
+
+div.OP_MARK span.mark span.args span.value.string {
 	color: green;
 }
 
-div.OP_MARK span.mark span.integer,
-div.OP_MARK span.mark span.double {
+div.OP_MARK span.mark span.args span.integer,
+div.OP_MARK span.mark span.args span.double {
 	color: black;
 }
 
-div.OP_MARK span.mark sapn.integer {
+div.OP_MARK span.mark span.args sapn.integer {
 
 }
 
-div.OP_MARK span.mark span.double {
+div.OP_MARK span.mark span.args span.double {
 	font-style: italic !important;
 }
 
-div.OP_MARK span.space,
-div.OP_MARK span.tab,
-div.OP_MARK span.line-feed,
-div.OP_MARK span.carriage-return {
+div.OP_MARK span.mark span.args span.value span.space,
+div.OP_MARK span.mark span.args span.value span.tab,
+div.OP_MARK span.mark span.args span.value span.line-feed,
+div.OP_MARK span.mark span.args span.value span.carriage-return {
 	color: #c0c0c0;
+}
+
+div.OP_MARK span.mark span.args span.value span.space {
+	position: relative;
+	top: 0.2em;
 }
