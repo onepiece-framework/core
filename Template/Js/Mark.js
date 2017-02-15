@@ -23,70 +23,62 @@ document.addEventListener('DOMContentLoaded', function() {
 		var json = JSON.parse(mark.innerText);
 		var file = json.file;
 		var line = json.line;
-		var type = json.type;
-		var value= json.value;
+		var args = json.args;
 		var text = '';
 
 		var span_mark = document.createElement('span');
 		var span_file = document.createElement('span');
 		var span_line = document.createElement('span');
-		var span_type = document.createElement('span');
-		var span_val  = document.createElement('span');
-
-		//	...
-		switch( type ){
-			case 'string':
-				value = __op_value(value);
-			//	break;
-			case 'integer':
-			case 'double':
-				value = '<span class="'+type+'">'+value+'</span>';
-				break;
-
-			case 'boolean':
-				value = '<span class="boolean '+value+'">'+value+'</span>';
-				break;
-
-			case 'NULL':
-				value = '<span class="null">null</span>';
-				break;
-
-			case 'array':
-				console.log(value);
-				value = '';
-				break;
-
-			case 'object':
-				console.log(value);
-				value = '';
-				break;
-
-			default:
-				value = type;
-		}
+		var span_args = document.createElement('span');
 
 		//	...
 		span_mark.classList.add('mark');
-		span_file.innerHTML = '<span class="file">'+file+'</span>';
-		span_line.innerHTML = '<span class="line-'+String(line).length+'">('+line+')</span>';
-	//	span_type.innerHTML = '<span class="type">['+type+']</span>';
-		span_val .innerHTML = '<span class="value">'+value+'</span>';
+		span_file.innerHTML = '<span class="file">' + file + '</span>';
+		span_line.innerHTML = '<span class="line">' + line + '</span>';
+		span_args.innerHTML = '<span class="args">' + __op_args(args) + '</span>';
 
 		//	...
 		span_mark.appendChild(span_file);
 		span_mark.appendChild(span_line);
-	//	span_mark.appendChild(span_type);
-		span_mark.appendChild(span_val);
+		span_mark.appendChild(span_args);
 
 		//	...
 		mark.innerText = "";
 		mark.appendChild(span_mark);
 	};
 
-	function __op_value(val){
-		val = val.replace(/</g,'&lt;');
-		val = val.replace(/>/g,'&gt;');
-		val = val.replace(/ /g,'<span class="space">_</span>');
+	//	...
+	function __op_args(args){
+		//	...
+		var html = '';
+
+		//	...
+		for(var i=0; i<args.length; i++){
+			var arg  = args[i];
+			var type = arg.type;
+			var val  = arg.value;
+
+			//	...
+			if( type === 'string' ){
+				val = __op_value_replace(val);
+			}
+			if( type === 'boolean' ){
+				type += ' ' + val;
+			}
+
+			//	...
+			html += '<span class="value '+type+'">'+val+'</span>';
+		}
+
+		//	...
+		return html;
+	}
+
+	//	...
+	function __op_value_replace(val){
+		val = val.replace(/</g, '&lt;');
+		val = val.replace(/>/g, '&gt;');
+		val = val.replace(/ /g, '<span class="space">_</span>');
 		val = val.replace(/\t/g,'<span class="tab">\\t</span>');
 		val = val.replace(/\n/g,'<span class="line-feed">\\n</span>');
 		val = val.replace(/\r/g,'<span class="carriage-return">\\r</span>');
