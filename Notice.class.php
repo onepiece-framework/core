@@ -32,10 +32,10 @@ class Notice extends OnePiece
 	 */
 	static function Get()
 	{
-		if( empty($_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_]) ){
-			$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_] = [];
+		if( empty($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_]) ){
+			$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_] = [];
 		}
-		return array_shift($_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_]);
+		return array_shift($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_]);
 	}
 
 	/** Set notice array.
@@ -54,15 +54,15 @@ class Notice extends OnePiece
 		$timestamp = gmdate('Y-m-d H:i:s', time()+date('Z'));
 
 		//	...
-		if( isset($_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][$key]) ){
-			$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][$key]['count']++;
-			$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][$key]['updated'] = $timestamp;
+		if( isset($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key]) ){
+			$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key]['count']++;
+			$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key]['updated'] = $timestamp;
 		}else{
 			$notice['count']     = 1;
 			$notice['message']   = $message;
 			$notice['backtrace'] = $backtrace;
 			$notice['created']   = $timestamp;
-			$_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_][$key] = $notice;
+			$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key] = $notice;
 		}
 	}
 
