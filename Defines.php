@@ -26,3 +26,9 @@ define('APP_ROOT', 'APP_ROOT', true);
  * @var string
  */
 define('DOC_ROOT', 'DOC_ROOT', true);
+
+/** Namespace
+ *
+ * @var string
+ */
+define('_OP_NAME_SPACE_', 'ONEPIECE', true);
