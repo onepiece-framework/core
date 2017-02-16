@@ -53,7 +53,7 @@ class Developer
 	 */
 	static function Mark($args, $trace)
 	{
-		switch( $mime = strtolower(Env::Mime()) ){
+		switch( $mime = strtolower(Http::Mime()) ){
 			case 'text/css':
 				self::MarkCss($args, $trace);
 				break;
