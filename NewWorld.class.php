@@ -63,6 +63,87 @@ class Dispatcher
 	}
 }
 
+/** Http
+ *
+ * @creation  2017-02-16
+ * @version   1.0
+ * @package   core
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ */
+class Http
+{
+	/** trait.
+	 *
+	 */
+	use OP_CORE;
+
+	/** Output MIME (User land)
+	 *
+	 * @var string
+	 */
+	const _MIME_		 = 'output-mime';
+
+	/** Output charset (User land)
+	 *
+	 * @var string
+	 */
+	const _CHARSET_		 = 'output-charset';
+
+	/** Charset
+	 *
+	 * @param  string $mime
+	 * @return string
+	 */
+	static function Charset($charset=null)
+	{
+		//	...
+		static $_charset;
+
+		//	...
+		if( $charset ){
+			$_charset = $charset;
+		}else{
+			return $_charset;
+		}
+	}
+
+	/** Mime
+	 *
+	 * @param  string $mime
+	 * @return string
+	 */
+	static function Mime($mime=null)
+	{
+		//	...
+		static $_mime;
+
+		//	...
+		if( $mime ){
+			//	...
+			if( headers_sent($file, $line) ){
+				Notice::Set("Header has already sent. ($file, $line)");
+			}else{
+				//	...
+				$_mime = $mime;
+
+				//	...
+				$header = "Content-type: $mime";
+
+				//	...
+				if( $charset = self::Charset() ){
+					$header .= "; charset={$charset}";
+				}
+
+				//	...
+				header($header);
+			}
+		}else{
+			return $_mime;
+		}
+	}
+}
+
 /** Layout
  *
  * @creation  2017-02-14
