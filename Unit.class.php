@@ -20,17 +20,19 @@
  */
 class Unit extends OnePiece
 {
+	/** Search directory.
+	 *
+	 * @var string
+	 */
 	const _DIRECTORY_ = 'unit-dir';
 
-	/**
-	 * Pooling of object. (singleton)
+	/** Pooling of object. (singleton)
 	 *
 	 * @var array
 	 */
 	static $_pool;
 
-	/**
-	 * Get instance. (singleton)
+	/** Return instance. (singleton)
 	 *
 	 * @param  string $name
 	 * @return boolean|object
@@ -52,6 +54,10 @@ class Unit extends OnePiece
 		return self::$_pool[$name];
 	}
 
+	/** Load of unit controller.
+	 *
+	 * @param string $name
+	 */
 	static function Load($name)
 	{
 		//	...

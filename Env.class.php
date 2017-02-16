@@ -4,7 +4,7 @@
  *
  * @creation  2016-06-09
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -14,24 +14,31 @@
  *
  * @creation  2016-06-09
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 class Env
 {
+	/** Constant.
+	 *
+	 * @var string
+	 */
 	const _ADMIN_IP_	 = 'admin-ip';
 	const _ADMIN_MAIL_	 = 'admin-mail';
 	const _MIME_		 = 'output-mime';
 	const _CHARSET_		 = 'output-charset';
 	const _LOCALE_		 = 'output-locale';
 
+	/** Private static values.
+	 *
+	 * @var array
+	 */
 	static $_env;
 	static $_is_admin;
 	static $_is_localhost;
 
-	/**
-	 * Is Admin
+	/** Is Admin
 	 *
 	 * @return boolean
 	 */
@@ -45,8 +52,7 @@ class Env
 		return self::$_is_admin;
 	}
 
-	/**
-	 * Is localhost
+	/** Is localhost
 	 *
 	 * @return boolean
 	 */
@@ -58,8 +64,7 @@ class Env
 		return self::$_is_localhost;
 	}
 
-	/**
-	 * Get
+	/** Get
 	 *
 	 * @param  string $key
 	 * @param  string|integer|boolean|array|object $default
@@ -70,8 +75,7 @@ class Env
 		return ifset(self::$_env[$key], $default);
 	}
 
-	/**
-	 * Set
+	/** Set
 	 *
 	 * @param string $key
 	 * @param string|integer|boolean|array|object $var

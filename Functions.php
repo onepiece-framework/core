@@ -4,13 +4,12 @@
  *
  * @creation  2016-11-16
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/**
- * Return meta root path array.
+/** Return meta root path array.
  *
  * @return array
  */
@@ -23,8 +22,7 @@ function _GetRootsPath()
 	return $root;
 }
 
-/**
- * Compress to meta path from local file path.
+/** Compress to meta path from local file path.
  *
  * <pre>
  * print CompressPath(__FILE__); // -> App:/index.php
@@ -44,8 +42,7 @@ function CompressPath($path)
 	return $path;
 }
 
-/**
- * Convert to local file path from meta path.
+/** Convert to local file path from meta path.
  *
  * <pre>
  * print ConvertPath('app:/index.php'); // -> /www/localhost/index.php
@@ -65,8 +62,7 @@ function ConvertPath($path)
 	return $path;
 }
 
-/**
- * Convert url from meta path to document root path.
+/** Convert url from meta path to document root path.
  *
  * <pre>
  * print ConvertURL('app:/index.php'); // -> /index.php
@@ -90,8 +86,7 @@ function ConvertURL($url)
 	return rtrim($rewrite_base, '/').substr($url,4);
 }
 
-/**
- * Dump value for developers only.
+/** Dump value for developers only.
  *
  * @param boolean|integer|string|array|object $value
  */
@@ -113,8 +108,7 @@ function D()
 	Developer::Mark(func_get_args(), $trace[0]);
 }
 
-/**
- * Escape mixid value;
+/** Escape mixid value;
  *
  * @param  boolean|integer|string|array|object $var
  * @return boolean|integer|string|array|object
@@ -138,8 +132,7 @@ function Escape($var)
 	return $var;
 }
 
-/**
- * Escape array.
+/** Escape array.
  *
  * @param  array $arr
  * @return array
@@ -153,8 +146,7 @@ function _EscapeArray($arr)
 	return $new;
 }
 
-/**
- * Escape string.
+/** Escape string.
  *
  * @param  string $var
  * @return string
@@ -164,8 +156,7 @@ function _EscapeString($var)
 	return htmlentities($var, ENT_QUOTES, 'utf-8', false);
 }
 
-/**
- * To hash
+/** To hash
  *
  * @param string $var
  * @param number $length
@@ -174,8 +165,7 @@ function Hash1($var, $length=8){
 	return substr(sha1($var), 0, $length);
 }
 
-/**
- * ifset
+/** ifset
  *
  * @see    http://qiita.com/devneko/items/ee83854eb422c352abc8
  * @param  mixed $check

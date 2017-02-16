@@ -2,35 +2,31 @@
 /**
  * Notice.class.php
  *
- * @creation ????-??-??
- * @rebirth  2016-11-17
+ * @creation  2016-11-17
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
- * @copyright 2016 (C) Tomoaki Nagahara All right reserved.
+ * @copyright Tomoaki Nagahara All right reserved.
  */
 
 /**
  * Notice
  *
- * @creation ????-??-??
- * @rebirth   2016-11-17
+ * @creation  2016-11-17
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
- * @copyright 2016 (C) Tomoaki Nagahara All right reserved.
+ * @copyright Tomoaki Nagahara All right reserved.
  */
 class Notice extends OnePiece
 {
-	/**
-	 * Namespace
+	/** Namespace
 	 *
 	 * @var string
 	 */
 	const _NAME_SPACE_ = 'NOTICE';
 
-	/**
-	 * Get notice array.
+	/** Get notice array.
 	 *
 	 * @return array
 	 */
@@ -42,8 +38,7 @@ class Notice extends OnePiece
 		return array_shift($_SESSION[OnePiece::_NAME_SPACE_][self::_NAME_SPACE_]);
 	}
 
-	/**
-	 * Set notice array.
+	/** Set notice array.
 	 *
 	 * @param string $message
 	 */
@@ -71,8 +66,8 @@ class Notice extends OnePiece
 		}
 	}
 
-	/**
-	 * Callback at shutodown.
+	/** Callback at shutodown.
+	 *
 	 */
 	static function Shutdown()
 	{

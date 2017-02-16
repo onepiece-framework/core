@@ -2,8 +2,7 @@
 /**
  * Autoloader.class.php
  *
- * @creation  2014-11-29
- * @rebirth   2016-06-09
+ * @creation  2014-11-29 --> 2016-06-09
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -13,22 +12,21 @@
 /**
  * Autoloader
  *
- * @creation  2014-11-29
- * @rebirth   2016-06-09
+ * @creation  2014-11-29 --> 2016-06-09
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 class Autoloader
 {
-	/**
+	/** Stored of include-path.
+	 *
 	 * @var array
 	 */
 	static $_include_path;
 
-	/**
-	 * Autoload.
+	/** Autoload.
 	 *
 	 * @param string $class_name
 	 */

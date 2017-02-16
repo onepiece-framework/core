@@ -6,7 +6,7 @@
  *
  * @creation  2016-06-09
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -16,19 +16,22 @@
  *
  * @creation  2014-11-29
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 class Developer extends OnePiece
 {
-	/**
-	 * Namespace
+	/** Namespace
 	 *
 	 * @var string
 	 */
 	const _NAME_SPACE_ = 'DEVELOPER';
 
+	/** Convert to json from array.
+	 *
+	 * @param array $obj
+	 */
 	static function _toJson($obj)
 	{
 		$json = json_encode($obj);
@@ -38,8 +41,7 @@ class Developer extends OnePiece
 		return $json;
 	}
 
-	/**
-	 * Mark
+	/** Mark
 	 *
 	 * @param array $args
 	 * @param array $trace
@@ -66,8 +68,7 @@ class Developer extends OnePiece
 		}
 	}
 
-	/**
-	 * MarkCss
+	/** MarkCss
 	 *
 	 * @param mixed $value
 	 * @param array $trace
@@ -78,8 +79,7 @@ class Developer extends OnePiece
 		print "/* $value */".PHP_EOL;
 	}
 
-	/**
-	 * MarkHtml
+	/** MarkHtml
 	 *
 	 * @param mixed $value
 	 * @param array $trace
@@ -123,8 +123,7 @@ class Developer extends OnePiece
 		}
 	}
 
-	/**
-	 * MarkJS
+	/** MarkJS
 	 *
 	 * @param mixed $value
 	 * @param array $trace
@@ -136,8 +135,7 @@ class Developer extends OnePiece
 		print "console.dir($trace);".PHP_EOL;
 	}
 
-	/**
-	 * MarkJson
+	/** MarkJson
 	 *
 	 * @param mixed $value
 	 * @param array $trace

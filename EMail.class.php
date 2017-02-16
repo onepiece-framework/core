@@ -2,10 +2,9 @@
 /**
  * EMail.class.php
  *
- * @creation  2015-04-08
- * @rebirth   2016-11-17
+ * @creation  2015-04-08 --> 2016-11-17
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright 2015 (C) Tomoaki Nagahara All right reserved.
  */
@@ -22,10 +21,9 @@
 	$mail->Send();
 	</pre>
  *
- * @creation  2015-04-08
- * @rebirth   2016-11-17
+ * @creation  2015-04-08 --> 2016-11-17
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright 2015 (C) Tomoaki Nagahara All right reserved.
  */

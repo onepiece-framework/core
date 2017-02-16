@@ -2,31 +2,31 @@
 /**
  * NewWorld.class.php
  *
+ * The NewWorld is the new world.
+ *
  * @creation  2009-09-27 at Kozhikode in India.
  * @version   1.0
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/**
- * Dispatcher
- *
- * The NewWorld is the new world.
+/** Dispatcher
  *
  * @creation  2017-02-15
  * @version   1.0
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 class Dispatcher
 {
-	/**
-	 * trait
+	/** trait
+	 *
 	 */
 	use OP_CORE;
 
-	/**
-	 * Execute end-point.
+	/** Execute end-point.
 	 *
 	 * @return string
 	 */
@@ -63,8 +63,7 @@ class Dispatcher
 	}
 }
 
-/**
- * Layout
+/** Layout
  *
  * @creation  2017-02-14
  * @version   1.0
@@ -74,13 +73,12 @@ class Dispatcher
  */
 class Layout
 {
-	/**
-	 * trait.
+	/** trait.
+	 *
 	 */
 	use OP_CORE;
 
-	/**
-	 * Constants
+	/** Constants
 	 *
 	 * @var string
 	 */
@@ -88,8 +86,7 @@ class Layout
 	const _DIRECTORY_	 = 'layout-dir';
 	const _NAME_		 = 'layout-name';
 
-	/**
-	 * Get layout controller.
+	/** Get layout controller.
 	 *
 	 * @return $string
 	 */
@@ -124,9 +121,9 @@ class Layout
 		return $full_path;
 	}
 
-	/**
+	/** Execute layout.
 	 *
-	 * @param unknown $content
+	 * @param string $content
 	 */
 	static function Run($content)
 	{
@@ -140,8 +137,7 @@ class Layout
 	}
 }
 
-/**
- * Router
+/** Router
  *
  * @creation  2015-01-30 --> 2016-11-26
  * @version   1.0
@@ -151,27 +147,24 @@ class Layout
  */
 class Router
 {
-	/**
-	 * trait.
+	/** trait.
+	 *
 	 */
 	use OP_CORE;
 
-	/**
-	 * Use for route table's associative key name.
+	/** Use for route table's associative key name.
 	 *
 	 * @var string
 	 */
 	const _END_POINT_ = 'end-point';
 
-	/**
-	 * Route table.
+	/** Route table.
 	 *
 	 * @var array
 	 */
 	private static $_route;
 
-	/**
-	 * Init route table.
+	/** Init route table.
 	 *
 	 * 1. Search end-point by request uri.
 	 * 2. Generate smart-url's arguments by request uri.
@@ -245,8 +238,7 @@ class Router
 		return self::$_route;
 	}
 
-	/**
-	 * Get dispatch route by request uri.
+	/** Get dispatch route by request uri.
 	 *
 	 * @return array
 	 */
@@ -258,8 +250,7 @@ class Router
 		return self::$_route;
 	}
 
-	/**
-	 * Set custom route table.
+	/** Set custom route table.
 	 *
 	 * @param array $route
 	 */
@@ -269,8 +260,7 @@ class Router
 	}
 }
 
-/**
- * Template
+/** Template
  *
  * @creation  2017-02-09
  * @version   1.0
@@ -280,20 +270,17 @@ class Router
  */
 class Template
 {
-	/**
-	 * trait.
+	/** trait.
 	 */
 	use OP_CORE;
 
-	/**
-	 * Search to this template directory.
+	/** Search to this template directory.
 	 *
 	 * @var string
 	 */
 	const _DIRECTORY_ = 'template-dir';
 
-	/**
-	 * Get real file path.
+	/** Return real file path from meta path.
 	 *
 	 * @param  string
 	 * @return string
@@ -326,8 +313,7 @@ class Template
 		return '';
 	}
 
-	/**
-	 * Catch fatal error and Exception.
+	/** Return executed file content.
 	 *
 	 * @param  string $file_path
 	 * @param  array  $args
@@ -348,8 +334,7 @@ class Template
 		return ob_get_clean();
 	}
 
-	/**
-	 * Catch fatal error and Exception.
+	/** Catch fatal error and Exception.
 	 *
 	 * @param  string $file_path
 	 * @param  array  $args

@@ -8,9 +8,9 @@
  *
  * @creation  2016-11-17
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
- * @copyright 2016 (C) Tomoaki Nagahara All right reserved.
+ * @copyright Tomoaki Nagahara All right reserved.
  */
 
 /**
@@ -18,28 +18,25 @@
  *
  * @creation  2016-11-17
  * @version   1.0
- * @package   core7
+ * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
- * @copyright 2016 (C) Tomoaki Nagahara All right reserved.
+ * @copyright Tomoaki Nagahara All right reserved.
  */
 class Time extends OnePiece
 {
-	/**
-	 * Frozen of world time.
+	/** Frozen of world time.
 	 *
 	 * @var integer
 	 */
 	static private $_time;
 
-	/**
-	 * Timezone.
+	/** Timezone.
 	 *
 	 * @var string
 	 */
 	static private $_timezone;
 
-	/**
-	 * Return date. (not include time)
+	/** Return date. (not include time)
 	 *
 	 * @return string
 	 */
@@ -48,8 +45,7 @@ class Time extends OnePiece
 		return date('Y-m-d', self::Get());
 	}
 
-	/**
-	 * Return date and time.
+	/** Return date and time.
 	 *
 	 * @return string
 	 */
@@ -58,8 +54,8 @@ class Time extends OnePiece
 		return date('Y-m-d H:i:s', self::Get());
 	}
 
-	/**
-	 * Get frozen time.
+	/** Get frozen time.
+	 *
 	 */
 	static function Get()
 	{
@@ -69,8 +65,7 @@ class Time extends OnePiece
 		return self::$_time;
 	}
 
-	/**
-	 * Get/Set Timezone.
+	/** Get/Set Timezone.
 	 *
 	 * @param  null|string $timezone
 	 * @return null|string

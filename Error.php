@@ -2,31 +2,28 @@
 /**
  * Error.php
  *
- * @creation  2014-02-18
- * @rebirth   2016-12-07
+ * @creation  2014-02-18 --> 2016-12-07
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/**
- * Error report settings.
+/** Error report settings.
  *
  * To display error log to until startuped of the onepiece-framework.
  */
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-/**
- * Set error handlers.
+/** Set error handlers.
+ *
  */
 set_error_handler('_HandlerError', E_ALL);
 set_exception_handler('_HandlerException');
 register_shutdown_function('_HandlerShutdown');
 
-/**
- * Catch standard error.
+/** Catch standard error.
  *
  * @see   http://php.net/manual/ja/function.restore-error-handler.php
  * @param integer $errno
@@ -59,8 +56,7 @@ function _HandlerError($errno, $error, $file, $line, $context)
 	}
 }
 
-/**
- * Catch to not caught error.
+/** Catch to not caught error.
  *
  * @param Throwable $e
  */
@@ -91,8 +87,7 @@ function _HandlerException($e)
 	Notice::Set($e->getMessage(), $backtraces);
 }
 
-/**
- * Called back on shutdown.
+/** Called back on shutdown.
  *
  * @see http://www.php.net/manual/ja/function.pcntl-signal.php
  */

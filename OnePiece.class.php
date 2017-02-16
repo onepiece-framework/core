@@ -21,8 +21,7 @@
  */
 trait OP_CORE
 {
-	/**
-	 * Call to has not been set method.
+	/** Calling to has not been set method.
 	 *
 	 * @param string $name
 	 * @param array  $args
@@ -46,8 +45,7 @@ trait OP_CORE
 		Notice::Set($message, debug_backtrace());
 	}
 
-	/**
-	 * Call to has not been set static method.
+	/** Calling to has not been set static method.
 	 *
 	 * @param string $name
 	 * @param array  $args
@@ -58,8 +56,7 @@ trait OP_CORE
 		Notice::Set($message, debug_backtrace());
 	}
 
-	/**
-	 * Call to has not been set property.
+	/** Calling to has not been set property.
 	 *
 	 * @param string $name
 	 */
@@ -69,8 +66,7 @@ trait OP_CORE
 		Notice::Set($message, debug_backtrace());
 	}
 
-	/**
-	 * Call to has not been set property.
+	/** Calling to has not been set property.
 	 *
 	 * @param string $name
 	 * @param array  $args
@@ -81,16 +77,16 @@ trait OP_CORE
 		Notice::Set($message, debug_backtrace());
 	}
 
-	/**
-	 * Property name to serialize.
+	/** Enumerate property names to serialize.
+	 *
 	 */
 	function __sleep()
 	{
 		return [];
 	}
 
-	/**
-	 * Process to restore from serialized character string.
+	/** Process to restore from serialized character string.
+	 *
 	 */
 	function __wakeup()
 	{
