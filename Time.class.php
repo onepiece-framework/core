@@ -22,8 +22,13 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-class Time extends OnePiece
+class Time
 {
+	/** trait.
+	 *
+	 */
+	use OP_CORE;
+
 	/** Frozen of world time.
 	 *
 	 * @var integer

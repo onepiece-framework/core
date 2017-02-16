@@ -27,8 +27,13 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright 2015 (C) Tomoaki Nagahara All right reserved.
  */
-class EMail extends OnePiece
+class EMail
 {
+	/**
+	 * trait.
+	 */
+	use OP_CORE;
+
 	private $_head = array();
 	private $_body = array();
 	private $_debug = array();

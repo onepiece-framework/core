@@ -18,8 +18,13 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-class Unit extends OnePiece
+class Unit
 {
+	/** trait.
+	 *
+	 */
+	use OP_CORE;
+
 	/** Search directory.
 	 *
 	 * @var string

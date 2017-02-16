@@ -20,10 +20,16 @@
  */
 class Env
 {
+	/** trait.
+	 *
+	 */
+	use OP_CORE;
+
 	/** Constant.
 	 *
 	 * @var string
 	 */
+
 	const _ADMIN_IP_	 = 'admin-ip';
 	const _ADMIN_MAIL_	 = 'admin-mail';
 	const _MIME_		 = 'output-mime';

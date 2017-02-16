@@ -18,8 +18,13 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-class Notice extends OnePiece
+class Notice
 {
+	/** trait.
+	 *
+	 */
+	use OP_CORE;
+
 	/** Namespace
 	 *
 	 * @var string

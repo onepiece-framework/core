@@ -37,7 +37,7 @@ include_once(__DIR__.'/Defines.php');
 /** Include OP CORE.
  *
  */
-include_once(__DIR__.'/OnePiece.class.php');
+include_once(__DIR__.'/OP_CORE.trait.php');
 
 /** Security: PHP_SELF has XSS risk.
  *

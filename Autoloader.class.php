@@ -20,6 +20,11 @@
  */
 class Autoloader
 {
+	/** trait.
+	 *
+	 */
+	use OP_CORE;
+
 	/** Stored of include-path.
 	 *
 	 * @var array
