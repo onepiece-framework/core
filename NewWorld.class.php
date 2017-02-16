@@ -52,14 +52,8 @@ class Dispatcher
 		//	Recovery current directory.
 		chdir($cdir);
 
-		//	Would you like to execute the layout?
-		if( Env::Get(Layout::_DO_) ){
-			//	Do layout.
-			Layout::Run($content);
-		}else{
-			//	Layout is not done.
-			echo $content;
-		}
+		//	...
+		return $content;
 	}
 }
 
