@@ -113,11 +113,4 @@ class OnePiece
 	{
 
 	}
-
-	/**
-	 * Namespace
-	 *
-	 * @var string
-	 */
-	const _NAME_SPACE_ = 'ONEPIECE';
 }
