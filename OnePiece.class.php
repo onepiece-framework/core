@@ -120,34 +120,4 @@ class OnePiece
 	 * @var string
 	 */
 	const _NAME_SPACE_ = 'ONEPIECE';
-
-	/**
-	 * Get/Set Session value.
-	 *
-	 * Separated from each class/object.
-	 * Static class and instantiated object to do the same behavior.
-	 *
-	 * <pre>
-	 * //  Save by static class.
-	 * OnePiece::Session('test', true);
-	 * //  Load by static class.
-	 * print OnePiece::Session('test');
-	 *
-	 * //  Load by instantiated object.
-	 * $op = new OnePiece();
-	 * print $op->Session('test');
-	 * </pre>
-	 *
-	 * @param string
-	 * @param null|boolean|integer|string|array
-	 */
-	static function Session($key, $value=null)
-	{
-		$class = get_called_class();
-		if( $value !== null ){
-			$_SESSION[self::_NAME_SPACE_][$class][$key] = $value;
-		}else{
-			return ifset($_SESSION[self::_NAME_SPACE_][$class][$key]);
-		}
-	}
 }
