@@ -29,7 +29,6 @@ class Env
 	 *
 	 * @var string
 	 */
-
 	const _ADMIN_IP_	 = 'admin-ip';
 	const _ADMIN_MAIL_	 = 'admin-mail';
 
