@@ -34,11 +34,12 @@ class Autoloader
 	{
 		global $_OP;
 
-		//	Correspond namespace.
-		$class_name = str_replace('OP\\', '', $class_name);
-
-		//	Generate file name;
-		$file_name = "{$class_name}.class.php";
+		//	Which to class and trait.
+		if( strpos($class_name, 'OP_') === false ){
+			$file_name = "{$class_name}.class.php";
+		}else{
+			$file_name = "{$class_name}.trait.php";
+		}
 
 		//	Initialization is only the first.
 		if(!self::$_include_path ){
