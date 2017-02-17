@@ -67,7 +67,7 @@ class Env
 		return self::$_is_localhost;
 	}
 
-	/** Get
+	/** Get environment value.
 	 *
 	 * @param  string $key
 	 * @param  string|integer|boolean|array|object $default
@@ -78,7 +78,22 @@ class Env
 		return ifset(self::$_env[$key], $default);
 	}
 
-	/** Set
+	/** Get transmitted MIME.
+	 *
+	 * @return string
+	 */
+	static function Mime()
+	{
+		$headers = headers_list();
+		foreach($headers as $header){
+			if( strpos($header, 'Content-type') === 0 ){
+				$pos = strpos($header, ';');
+				return substr($header, 14, $pos - 14);
+			}
+		}
+	}
+
+	/** Set environment value.
 	 *
 	 * @param string $key
 	 * @param string|integer|boolean|array|object $var
