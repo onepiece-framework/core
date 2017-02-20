@@ -119,7 +119,7 @@ class Http
 				Notice::Set("Header has already sent. ($file, $line)");
 			}else{
 				//	...
-				$_mime = $mime;
+				$_mime = strtolower($mime);
 
 				//	...
 				$header = "Content-type: $mime";
@@ -131,6 +131,12 @@ class Http
 
 				//	...
 				header($header);
+
+				//	...
+				if( $mime !== 'text/html' ){
+					//	Disable layout system.
+					Env::Set(Layout::_EXECUTE_, false);
+				}
 			}
 		}else{
 			return $_mime;
@@ -157,7 +163,7 @@ class Layout
 	 *
 	 * @var string
 	 */
-	const _DO_			 = 'layout-do';
+	const _EXECUTE_		 = 'layout-execute';
 	const _DIRECTORY_	 = 'layout-dir';
 	const _NAME_		 = 'layout-name';
 
@@ -434,7 +440,16 @@ class Template
 			}
 
 			//	...
+			$save = getcwd();
+
+			//	...
+			chdir( dirname($file_path) );
+
+			//	...
 			include($file_path);
+
+			//	...
+			chdir($save);
 
 		} catch (Throwable $e) {
 			$trace = $e->getTrace();
