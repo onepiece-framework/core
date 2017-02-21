@@ -142,6 +142,33 @@ class Http
 			return $_mime;
 		}
 	}
+
+	/** Get request each http's request method.
+	 *
+	 * @return array
+	 */
+	static function Request($method=null)
+	{
+		//	...
+		if(!$method){
+			$method = $_SERVER['REQUEST_METHOD'];
+		}
+
+		//	...
+		switch( strtolower($method) ){
+			case 'get':
+				$request = Escape($_GET);
+				break;
+			case 'post':
+				$request = Escape($_POST);
+				break;
+			default:
+				$request = [];
+		}
+
+		//	...
+		return $request;
+	}
 }
 
 /** Layout

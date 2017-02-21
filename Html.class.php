@@ -31,13 +31,7 @@ class Html
 	 */
 	static function P($text)
 	{
-		//	...
-		$text = Escape($text);
-
-		//	...
 		$class = get_called_class();
-
-		//	...
 		$class::Tag(__FUNCTION__, $text);
 	}
 
@@ -47,10 +41,7 @@ class Html
 	 */
 	static function Span($text)
 	{
-		//	...
-		$text = Escape($text);
-
-		//	...
+		$class = get_called_class();
 		$class::Tag(__FUNCTION__, $text);
 	}
 
@@ -65,6 +56,9 @@ class Html
 
 		//	...
 		$text = Escape($text);
+
+		//	...
+		$text = nl2br($text);
 
 		//	...
 		echo "<{$tag}>{$text}</{$tag}>".PHP_EOL;
