@@ -25,6 +25,40 @@ class Html
 	 */
 	use OP_CORE;
 
+	/** Convert attribute.
+	 *
+	 * @param  array  $attr
+	 * @return string
+	 */
+	static function _attribute($attr)
+	{
+		//	...
+		$temp = [];
+
+		//	...
+		if( isset($attr['class']) ){
+			$temp[] = sprintf('class="%s"', $attr['class']);
+		}
+
+		//	...
+		if( isset($attr['style']) ){
+			$temp[] = sprintf('style="%s"', $attr['style']);
+		}
+
+		//	...
+		return ' '.join(' ', $temp);
+	}
+
+	/** Output P tag join error class.
+	 *
+	 * @param string $text
+	 */
+	static function E($text)
+	{
+		$class = get_called_class();
+		$class::Tag('P', $text, ['class'=>'op error']);
+	}
+
 	/** Output P tag.
 	 *
 	 * @param string $text
@@ -49,7 +83,7 @@ class Html
 	 *
 	 * @param string $text
 	 */
-	static function Tag($tag, $text)
+	static function Tag($tag, $text, $attr=null)
 	{
 		//	...
 		$tag = strtolower($tag);
@@ -61,6 +95,12 @@ class Html
 		$text = nl2br($text);
 
 		//	...
-		echo "<{$tag}>{$text}</{$tag}>".PHP_EOL;
+		if( $attr ){
+			$class = get_called_class();
+			$attr  = $class::_attribute($attr);
+		}
+
+		//	...
+		echo "<{$tag}{$attr}>{$text}</{$tag}>".PHP_EOL;
 	}
 }
