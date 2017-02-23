@@ -34,6 +34,11 @@ div.OP_NOTICE table {
 	border: 0px solid black;
 }
 
+div.OP_NOTICE table tr td:nth-of-type(1) {
+	_border: 1px solid black;
+	white-space: nowrap;
+}
+
 div.OP_NOTICE table tr td:nth-of-type(2) {
 	text-align:    right !important;
 	padding-left:  0.5em !important;
