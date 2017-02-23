@@ -39,8 +39,7 @@ class EMail
 	private $_body	 = [];
 	private $_debug	 = [];
 
-	/**
-	 * Set from header.
+	/** Set from header.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -50,8 +49,7 @@ class EMail
 		$this->_set_addr($addr, $name, 'from');
 	}
 
-	/**
-	 * Set to header.
+	/** Set to header.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -61,8 +59,7 @@ class EMail
 		$this->_set_addr($addr, $name, 'to');
 	}
 
-	/**
-	 * Set cc header.
+	/** Set cc header.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -72,8 +69,7 @@ class EMail
 		$this->_set_addr($addr, $name, 'cc');
 	}
 
-	/**
-	 * Set bcc header.
+	/** Set bcc header.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -83,8 +79,7 @@ class EMail
 		$this->_set_addr($addr, $name, 'bcc');
 	}
 
-	/**
-	 * Set reply-to header.
+	/** Set reply-to header.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -94,8 +89,7 @@ class EMail
 		$this->_set_addr($addr, $name, 'reply-to');
 	}
 
-	/**
-	 * Set errors-to header.
+	/** Set errors-to header.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -105,8 +99,7 @@ class EMail
 		$this->_set_addr($addr, $name, 'errors-to');
 	}
 
-	/**
-	 * Set return-path header.
+	/** Set return-path header.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -116,8 +109,7 @@ class EMail
 		$this->_set_addr($addr, $name, 'return-path');
 	}
 
-	/**
-	 * Set subject(mail title) header.
+	/** Set subject(mail title) header.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -127,8 +119,7 @@ class EMail
 		$this->_head['subject'] = $subject;
 	}
 
-	/**
-	 * Set content by mime.
+	/** Set content by mime.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -144,8 +135,7 @@ class EMail
 		$this->_body[] = $body;
 	}
 
-	/**
-	 * Set attachment files.
+	/** Set attachment files.
 	 *
 	 * @param string $addr
 	 * @param string $name
@@ -178,8 +168,7 @@ class EMail
 		$this->_body[] = $body;
 	}
 
-	/**
-	 * Send mail.
+	/** Send mail.
 	 *
 	 * @param  string $type mta, socket, php
 	 * @return boolean
@@ -225,8 +214,7 @@ class EMail
 		return $io;
 	}
 
-	/**
-	 * Use PHP's mail function.
+	/** Use PHP's mail function.
 	 *
 	 * @return boolean
 	 */
@@ -258,8 +246,7 @@ class EMail
 		return $io;
 	}
 
-	/**
-	 * Use socket.
+	/** Use socket.
 	 *
 	 * @return boolean
 	 */
@@ -268,8 +255,7 @@ class EMail
 		return false;
 	}
 
-	/**
-	 * Use mta.
+	/** Use mta.
 	 *
 	 * @return boolean
 	 */
@@ -278,8 +264,7 @@ class EMail
 		return false;
 	}
 
-	/**
-	 * Generate email headers.
+	/** Generate email headers.
 	 *
 	 * @return string
 	 */
@@ -290,8 +275,7 @@ class EMail
 		return trim($content_type)."\n".trim($mail_address)."\n";
 	}
 
-	/**
-	 * Generate email addresses.
+	/** Generate email addresses.
 	 *
 	 * @param  string $keys
 	 * @return string
@@ -321,6 +305,10 @@ class EMail
 		return join("\n", $header);
 	}
 
+	/** Get to address.
+	 *
+	 *  @return string
+	 */
 	private function _get_to()
 	{
 		$join = [];
@@ -332,8 +320,7 @@ class EMail
 		return 'To: '.join(', ',$join);
 	}
 
-	/**
-	 * Generate named e-mail address.
+	/** Generate named e-mail address.
 	 *
 	 * @param  string $addr
 	 * @param  string $name
@@ -351,8 +338,7 @@ class EMail
 		return $full_name;
 	}
 
-	/**
-	 * Get valid email address.
+	/** Get valid email address.
 	 *
 	 * @return string
 	 */
@@ -361,8 +347,7 @@ class EMail
 		return get_current_user().'@'.gethostbyaddr($_SERVER['SERVER_ADDR']);
 	}
 
-	/**
-	 * Get php sendmail function's parameters.
+	/** Get php sendmail function's parameters.
 	 *
 	 * @return string
 	 */
@@ -373,8 +358,7 @@ class EMail
 		return $parameters;
 	}
 
-	/**
-	 * Get boundary for multi-part.
+	/** Get boundary for multi-part.
 	 *
 	 * @return string
 	 */
@@ -387,8 +371,7 @@ class EMail
 		return $boundary;
 	}
 
-	/**
-	 * Get content type.
+	/** Get content type.
 	 *
 	 * @return string
 	 */
@@ -415,8 +398,7 @@ class EMail
 		return "{$mime_version}\n{$content_type}\n{$content_encoding}\n";
 	}
 
-	/**
-	 * Get mail content(body).
+	/** Get mail content(body).
 	 *
 	 * @return string
 	 */
@@ -430,8 +412,7 @@ class EMail
 		return $body;
 	}
 
-	/**
-	 * Get content multi part.
+	/** Get content multi part.
 	 *
 	 * @return string
 	 */
@@ -475,8 +456,7 @@ class EMail
 		return $multibody;
 	}
 
-	/**
-	 * Get subject(mail title).
+	/** Get subject(mail title).
 	 *
 	 * @return string
 	 */
@@ -485,14 +465,13 @@ class EMail
 		return mb_encode_mimeheader($this->_head['subject']);
 	}
 
-	/**
-	 * Set email addrees with name.
+	/** Set email addrees with name.
 	 *
 	 * @param string $addr
 	 * @param string $name
 	 * @param string $key
 	 */
-	function _set_addr($addr, $name, $key)
+	private function _set_addr($addr, $name, $key)
 	{
 		$addr = preg_replace('/\n/', '\n', $addr);
 		$head['addr'] = $addr;
@@ -500,8 +479,7 @@ class EMail
 		$this->_head[ucfirst(strtolower($key))][] = $head;
 	}
 
-	/**
-	 * Set error messge for developer.
+	/** Set error messge for developer.
 	 *
 	 * @param string $message
 	 */
