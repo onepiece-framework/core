@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		var doc = __meta_root__.doc;
 		var app = __meta_root__.app;
 		if( doc === app.substr( 0, doc.length ) ){
-			url = '/'+app.substr(doc.length) + 'api/notice/load';
+			url = '/' + app.substr(doc.length) + 'api/notice/load';
 		}else{
 			console.log("FAIL: "+ doc +' != '+ app.substr(0, doc.length));
 			return;

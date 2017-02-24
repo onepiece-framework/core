@@ -46,9 +46,11 @@ class Env
 	 */
 	static function isAdmin()
 	{
-		if(!self::$_is_admin){
+		if( self::$_is_admin === null ){
 			if( self::isLocalhost() ){
 				self::$_is_admin = true;
+			}else{
+				self::$_is_admin = self::$_env[self::_ADMIN_IP_] === $_SERVER['REMOTE_ADDR'] ? true: false;
 			}
 		}
 		return self::$_is_admin;
