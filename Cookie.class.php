@@ -39,7 +39,7 @@ class Cookie
 		$key = Hash1("$key, $domain");
 
 		//	...
-		return ifset($_COOKIE[$key], $val);
+		return isset($_COOKIE[$key]) ? unserialize($_COOKIE[$key]): null;
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Cookie
 		$httponly = false;
 
 		//	...
-		if( setcookie($key, $val, $expire, $path, $domain, $secure, $httponly) ){
+		if( setcookie($key, serialize($val), $expire, $path, $domain, $secure, $httponly) ){
 			//	Successful.
 			$_COOKIE[$key] = $val;
 		}else{

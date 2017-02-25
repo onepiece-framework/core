@@ -41,7 +41,7 @@ class Time
 	 * @param  string $calc  '1 month'
 	 * @return string
 	 */
-	static private function _Format($format, $calc=null)
+	static private function _Format($format, $calc)
 	{
 		//	...
 		$time = self::Get();
@@ -70,7 +70,7 @@ class Time
 	 *
 	 * @return string
 	 */
-	static function Datetime($format=null)
+	static function Datetime($calc=null)
 	{
 		return self::_Format('Y-m-d H:i:s', $calc);
 	}
@@ -104,7 +104,7 @@ class Time
 	{
 		//	...
 		if(!self::$_time){
-			$_time = strtotime( gmdate('Y-m-d H:i:s') );
+			self::$_time = strtotime( gmdate('Y-m-d H:i:s') );
 		}
 
 		//	...

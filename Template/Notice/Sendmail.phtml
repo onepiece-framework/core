@@ -12,30 +12,33 @@
 //	Use functions.
 include_once(__DIR__.'/Sendmail.inc.php');
 
-//	Information.
+//	Timestamp
 $time_app	 = Time::Datetime();
 $time_std	 = date('Y-m-d H:i:s');
 $time_gmt	 = gmdate('Y-m-d H:i:s');
 $timestamp = $time_std;
+//	GMT
 if( $time_std !== $time_gmt ){
 	$timestamp .= "<i>(GMT: $time_gmt)</i>";
 }
+//	Frozen time
 if( $time_std !== $time_app ){
 	$timestamp .= ", <b>App: $time_app</b>";
 }
-$ip			 = $_SERVER['REMOTE_ADDR'];
+//	Information
+$ip			 = ifset($_SERVER['REMOTE_ADDR']    );
 $host		 = gethostbyaddr($ip);
-$user		 = "$ip --> $host";
-$ua			 = $_SERVER['HTTP_USER_AGENT'];
-$server		 = $_SERVER['HTTP_HOST'];
-$url		 = $_SERVER['REQUEST_URI'];
-$referer	 = $_SERVER['HTTP_REFERER'];
+$domain		 = "$host ($ip)";
+$ua			 = ifset($_SERVER['HTTP_USER_AGENT']);
+$server		 = ifset($_SERVER['HTTP_HOST']      );
+$url		 = ifset($_SERVER['REQUEST_URI']    );
+$referer	 = ifset($_SERVER['HTTP_REFERER']   );
 ?>
 <div style="font-size:9pt;">
 	<p style="font-size:120%; font-weight:bold;"><?= Escape($message) ?></p>
 	<table>
 		<tr><th> Timestamp	 </th><td> <?= $timestamp ?> <td></tr>
-		<tr><th> User		 </th><td> <?= $user ?>		 <td></tr>
+		<tr><th> Domain		 </th><td> <?= $domain ?>	 <td></tr>
 		<tr><th> UserAgent	 </th><td> <?= $ua ?>		 <td></tr>
 		<tr><th> Server		 </th><td> <?= $server ?>	 <td></tr>
 		<tr><th> URL		 </th><td> <?= $url ?>		 <td></tr>

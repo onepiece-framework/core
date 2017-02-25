@@ -84,7 +84,7 @@ class Http
 	 */
 	const _CHARSET_		 = 'output-charset';
 
-	/** Charset
+	/** Get/Set Charset
 	 *
 	 * @param  string $mime
 	 * @return string
@@ -102,7 +102,49 @@ class Http
 		}
 	}
 
-	/** Mime
+	/** Get access domain name by url.
+	 *
+	 * @return string
+	 */
+	static function Domain()
+	{
+		return $_SERVER['SERVER_NAME'];
+	}
+
+	/** Get current server's host name.
+	 *
+	 * @return string
+	 */
+	static function Host()
+	{
+		return $_SERVER['HTTP_HOST'];
+	}
+
+	/** Set header.
+	 *
+	 * @param string $key
+	 * @param string $val
+	 */
+	static function Header($key, $val)
+	{
+		header("$key: $val");
+	}
+
+	/** Set location.
+	 *
+	 * @param string $url
+	 */
+	static function Location($url)
+	{
+		if( headers_sent($file, $line) ){
+			Notice::Set("Header has already been sent. ($file, $line)");
+		}else{
+			Header("Location: $url");
+			exit;
+		}
+	}
+
+	/** Get/Set Mime.
 	 *
 	 * @param  string $mime
 	 * @return string
