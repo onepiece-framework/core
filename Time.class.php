@@ -29,20 +29,31 @@ class Time
 	 */
 	use OP_CORE;
 
+	/** Frozen time.
+	 *
+	 * @var integer
+	 */
+	static $_time;
+
 	/** Format
 	 *
 	 * @param  string $formt 'Y-m-d H:i:s'
 	 * @param  string $calc  '1 month'
 	 * @return string
 	 */
-	static private function _Format($format, $calc)
+	static private function _Format($format, $calc=null)
 	{
-		$time = self::Time();
+		//	...
+		$time = self::Get();
+
+		//	...
 		if( $calc ){
 			if(!$time = strtotime($calc, $time)){
 				Notice::Set("strtotime was failed. ($calc)");
 			}
 		}
+
+		//	...
 		return date($format, $time);
 	}
 
@@ -64,42 +75,6 @@ class Time
 		return self::_Format('Y-m-d H:i:s', $calc);
 	}
 
-	/** Get/Set frozen time.
-	 *
-	 * @param null|integer|string $time
-	 */
-	static function Time($time=null)
-	{
-		//	...
-		static $_time;
-
-		//	...
-		if( $time ){
-			//	...
-			if( $_time ){
-				Notice::Set("Frozen time is already setted.");
-			}else{
-				//	...
-				if(!is_numeric($time)){ // $time --> 2020-01-01 00:00:00
-					if(!$time = strtotime($time)){
-						Notice::Set("strtotime was failed.");
-					}else{
-						$time = strtotime(gmdate('Y-m-d H:i:s'));
-					}
-				}
-				$_time = $time;
-			}
-		}else{
-			if(!$_time){
-				//	...
-				$_time = strtotime(gmdate('Y-m-d H:i:s'));
-			}
-		}
-
-		//	...
-		return $_time;
-	}
-
 	/** Get/Set Timezone.
 	 *
 	 * @param  null|string $timezone
@@ -118,6 +93,46 @@ class Time
 			return date_default_timezone_set($timezone);
 		}else{
 			return date_default_timezone_get();
+		}
+	}
+
+	/** Get frozen time.
+	 *
+	 * @return integer
+	 */
+	static function Get()
+	{
+		//	...
+		if(!self::$_time){
+			$_time = strtotime( gmdate('Y-m-d H:i:s') );
+		}
+
+		//	...
+		return self::$_time;
+	}
+
+	/** Set frozen time.
+	 *
+	 * <pre>
+	 * Time::Set('2020-01-01');
+	 * </pre>
+	 *
+	 * @param null|integer|string $time
+	 */
+	static function Set($time)
+	{
+		if( self::$_time ){
+			Notice::Set("Frozen time is already setted.");
+		}else{
+			//	...
+			if(!is_numeric($time)){ // $time --> 2020-01-01 00:00:00
+				if(!$time = strtotime($time)){
+					Notice::Set("strtotime was failed.");
+				}else{
+					$time = strtotime(gmdate('Y-m-d H:i:s'));
+				}
+			}
+			self::$_time = $time;
 		}
 	}
 }

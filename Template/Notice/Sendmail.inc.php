@@ -65,16 +65,22 @@ function _arg($arg){
 			break;
 
 		case 'array':
-			$reslut = '['._args($arg).']';
+		//	$reslut = '['._args($arg).']';
+			$reslut = 'array';
 			break;
 
 		case 'object':
+			$reslut = 'object';
+
+			/*
 			$name = get_class($arg);
 			$prop  = [];
 			foreach( $arg as $key => $val ){
 				$prop[] = $key.'->'._arg($val);
 			}
 			$reslut = "{$name}{".join(', ',$prop)."}";
+			*/
+
 			break;
 
 		default:
