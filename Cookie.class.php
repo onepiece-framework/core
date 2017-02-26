@@ -75,7 +75,7 @@ class Cookie
 		//	...
 		if( setcookie($key, serialize($val), $expire, $path, $domain, $secure, $httponly) ){
 			//	Successful.
-			$_COOKIE[$key] = $val;
+			$_COOKIE[$key] = serialize($val);
 		}else{
 			//	Failed.
 			if( headers_sent($file, $line) ){
