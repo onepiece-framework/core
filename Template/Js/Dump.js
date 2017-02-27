@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	//	...
 	function __op_td(value){
 		var td   = document.createElement('td');
-		var type = typeof value;
+		var type = value === null ? 'null': typeof value;
 
 		//	...
 		switch( type ){
@@ -82,6 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			case 'boolean':
 				value = '<span class="'+value+'">'+value+'</span>';
+				break;
+
+			case 'null':
+				value = '';
 				break;
 
 			case 'object':
