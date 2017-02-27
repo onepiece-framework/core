@@ -139,6 +139,9 @@ class Http
 		if( headers_sent($file, $line) ){
 			Notice::Set("Header has already been sent. ($file, $line)");
 		}else{
+			if( strpos($url, 'app:/') !== false ){
+				$url = ConvertURL($url);
+			}
 			Header("Location: $url");
 			exit;
 		}
