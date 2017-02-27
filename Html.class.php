@@ -53,30 +53,33 @@ class Html
 	 *
 	 * @param string $text
 	 */
-	static function E($text)
+	static function E($text, $arrt=null)
 	{
+		if( empty($attr['class']) ){
+			$attr['class'] = 'op error';
+		}
 		$class = get_called_class();
-		$class::Tag('P', $text, ['class'=>'op error']);
+		$class::Tag('P', $text, $attr);
 	}
 
 	/** Output P tag.
 	 *
 	 * @param string $text
 	 */
-	static function P($text)
+	static function P($text, $arrt=null)
 	{
 		$class = get_called_class();
-		$class::Tag(__FUNCTION__, $text);
+		$class::Tag(__FUNCTION__, $text, $arrt);
 	}
 
 	/** Output P tag.
 	 *
 	 * @param string $text
 	 */
-	static function Span($text)
+	static function Span($text, $arrt=null)
 	{
 		$class = get_called_class();
-		$class::Tag(__FUNCTION__, $text);
+		$class::Tag(__FUNCTION__, $text, $arrt);
 	}
 
 	/** Output P tag.
