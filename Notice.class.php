@@ -47,8 +47,23 @@ class Notice
 	 *
 	 * @param string $message
 	 */
-	static function Set($message, $backtrace=null)
+	static function Set($e, $backtrace=null)
 	{
+		//	...
+		if( $e instanceof Throwable ){
+			var_dump($e);
+			$message   = $e->getMessage();
+			$backtrace = $e->getTrace();
+			$file      = $e->getFile();
+			$line      = $e->getLine();
+			$function  = null;
+			array_unshift($backtrace, ['file'=>$file, 'line'=>$line]);
+			d($backtrace);
+		}else{
+			$message   = $e;
+		}
+
+		//	...
 		if(!$backtrace ){
 			$backtrace = debug_backtrace();
 		//	array_shift($backtrace); Do not use for app world.
