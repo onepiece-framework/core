@@ -1,9 +1,9 @@
 /**
  * op\core:Template/Js/Notice.js
- * 
+ *
  * <pre>
  * For IE example.
- * 
+ *
  * if (window.XMLHttpRequest){
  *   xmlHttp = new XMLHttpRequest();
  * }else{
@@ -14,7 +14,7 @@
  *   }
  * }
  * </pre>
- * 
+ *
  * @creation  2016-11-17
  * @version   1.0
  * @package   core7
@@ -166,6 +166,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		if( args ){
 			//	Object to string.
 			result = JSON.stringify(args);
+			//	...
+			result = result.replace(/</g,'&lt;');
+			result = result.replace(/>/g,'&gt;');
 			//	Remove bracket([]).
 			result = result.slice(1,-1);
 			//	Add comma(,).

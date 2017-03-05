@@ -58,7 +58,6 @@ class Notice
 			$line      = $e->getLine();
 			$function  = null;
 			array_unshift($backtrace, ['file'=>$file, 'line'=>$line]);
-			d($backtrace);
 		}else{
 			$message   = $e;
 		}
