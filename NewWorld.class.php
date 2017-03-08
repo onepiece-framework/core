@@ -460,7 +460,7 @@ class Template
 		}
 
 		//	...
-		Notice::Set("Does not exists this file path. ($file_path)");
+		Notice::Set("Does not exists this file path. ($path)");
 
 		//	...
 		return '';
@@ -518,7 +518,7 @@ class Template
 			chdir( dirname($file_path) );
 
 			//	...
-			include($file_path);
+			include( basename($file_path) );
 
 			//	...
 			chdir($save);

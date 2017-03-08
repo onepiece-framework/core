@@ -32,6 +32,37 @@ class Html
 	 */
 	static function _attribute($attr)
 	{
+		if( is_string($attr) ){
+			foreach( explode(' ', $attr) as $temp ){
+				switch($temp{0}){
+					case '.':
+						$classes[] = substr($temp, 1);
+						break;
+
+					case '#':
+						$ids = substr($temp, 1);
+						break;
+					default:
+						D("Does not define this type. ($temp)");
+				}
+			}
+
+			//	...
+			$result = '';
+
+			//	...
+			if( isset($ids) ){
+				$result = sprintf(' id="%s"', $ids);
+			}
+
+			//	...
+			if( isset($classes) ){
+				$result .= sprintf(' class="%s"', join(' ', $classes));
+			}
+
+			return $result;
+		}
+
 		//	...
 		$temp = [];
 
@@ -46,7 +77,7 @@ class Html
 		}
 
 		//	...
-		return ' '.join(' ', $temp);
+		return join(' ', $temp);
 	}
 
 	/** Output P tag join error class.

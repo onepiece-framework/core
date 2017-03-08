@@ -74,16 +74,23 @@ function ConvertPath($path)
 function ConvertURL($url)
 {
 	//	...
-	if( strpos($url, 'app:/') !== 0 ){
-		Notice::Set("This url has not been set \"app:/\". ($url)");
-		return null;
+	if( strpos($url, 'app:/') === 0 ){
+		//	...
+		$rewrite_base = dirname($_SERVER['SCRIPT_NAME']).'/';
+
+		//	...
+		return rtrim($rewrite_base, '/').substr($url,4);
+	}else if( strpos($url, $_SERVER['DOCUMENT_ROOT']) === 0 ){
+		//	...
+		$rewrite_base = $_SERVER['DOCUMENT_ROOT'];
+
+		//	...
+		return substr($url, strlen($_SERVER['DOCUMENT_ROOT']));
+	}else{
+		d('url ->', $url);
+		d('document root ->', $_SERVER['DOCUMENT_ROOT']);
+		d(_GetRootsPath());
 	}
-
-	//	Get rewrite base.
-	$rewrite_base = dirname($_SERVER['SCRIPT_NAME']).'/';
-
-	//	...
-	return rtrim($rewrite_base, '/').substr($url,4);
 }
 
 /** Dump value for developers only.
