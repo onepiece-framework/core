@@ -8,8 +8,8 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-/**
- * Cookie
+
+/** Cookie
  *
  * @creation  2017-02-25
  * @version   1.0

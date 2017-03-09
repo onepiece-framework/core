@@ -82,14 +82,20 @@ class Time
 	 */
 	static function Timezone($timezone=null)
 	{
+		//	...
+		static $_timezone;
+
+		//	...
 		if( $timezone ){
-			if( self::$_timezone ){
+			if( $_timezone ){
 				Notice::Set("Timezone is already set.");
 				return false;
 			}
 
 			//	...
-			self::$_timezone = $timezone;
+			$_timezone = $timezone;
+
+			//	...
 			return date_default_timezone_set($timezone);
 		}else{
 			return date_default_timezone_get();
