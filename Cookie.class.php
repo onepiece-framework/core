@@ -36,7 +36,7 @@ class Cookie
 		$domain = '';
 
 		//	...
-		$key = Hash1("$key, $domain");
+		$key = Hasha1("$key, $domain");
 
 		//	...
 		return isset($_COOKIE[$key]) ? unserialize($_COOKIE[$key]): null;
@@ -53,7 +53,7 @@ class Cookie
 		$domain = '';
 
 		//	...
-		$key = Hash1("$key, $domain");
+		$key = Hasha1("$key, $domain");
 
 		//	...
 		if( $expire === null ){

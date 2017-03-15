@@ -69,7 +69,7 @@ class Notice
 		}
 
 		//	...
-		$key = Hash1($message);
+		$key = Hasha1($message);
 		$timestamp = gmdate('Y-m-d H:i:s', time()+date('Z'));
 
 		//	...

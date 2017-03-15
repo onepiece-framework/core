@@ -32,3 +32,9 @@ define('DOC_ROOT', 'DOC_ROOT', true);
  * @var string
  */
 define('_OP_NAME_SPACE_', 'ONEPIECE', true);
+
+/** Use to salt.
+ *
+ * @var string
+ */
+define('_OP_SALT_', 'onepiece-framework', true);

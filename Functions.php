@@ -165,11 +165,14 @@ function _EscapeString($var)
 
 /** To hash
  *
+ * This function is convert to fixed length unique string from long or short strings.
+ *
+ *
  * @param string $var
  * @param number $length
  */
-function Hash1($var, $length=8){
-	return substr(sha1($var), 0, $length);
+function Hasha1($var, $length=8){
+	return substr(sha1($var . _OP_SALT_), 0, $length);
 }
 
 /** ifset
