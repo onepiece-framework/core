@@ -68,12 +68,12 @@ class Html
 
 		//	...
 		if( isset($attr['class']) ){
-			$temp[] = sprintf('class="%s"', $attr['class']);
+			$temp[] = sprintf(' class="%s"', $attr['class']);
 		}
 
 		//	...
 		if( isset($attr['style']) ){
-			$temp[] = sprintf('style="%s"', $attr['style']);
+			$temp[] = sprintf(' style="%s"', $attr['style']);
 		}
 
 		//	...
