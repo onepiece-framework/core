@@ -319,8 +319,16 @@ class Router
 
 	/** Init route table.
 	 *
+	 * <pre>
 	 * 1. Search end-point by request uri.
 	 * 2. Generate smart-url's arguments by request uri.
+	 *
+	 * Structure:
+	 * {
+	 *   "args" : [],
+	 *   "end-point" : "/index.html"
+	 * }
+	 * </pre>
 	 *
 	 * @return array
 	 */
@@ -392,6 +400,14 @@ class Router
 	}
 
 	/** Get dispatch route by request uri.
+	 *
+	 * <pre>
+	 * Structure:
+	 * {
+	 *   "args" : [],
+	 *   "end-point" : "/index.html"
+	 * }
+	 * </pre>
 	 *
 	 * @return array
 	 */
