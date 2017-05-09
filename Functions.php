@@ -182,7 +182,7 @@ function Hasha1($var, $length=8){
  * @param  mixed $alternate
  * @return mixed
  */
-function ifset(&$check, $alternate = NULL)
+function ifset(&$check, $alternate=null)
 {
-	return (isset($check)) ? $check : $alternate;
+	return isset($check) ? $check : $alternate;
 }
