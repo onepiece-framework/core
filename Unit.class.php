@@ -98,13 +98,16 @@ class Unit
 		}
 
 		//	...
-		if(!file_exists("{$dir}/{$name}/index.php")){
+		$path = "{$dir}/{$name}/index.php";
+
+		//	...
+		if(!file_exists($path)){
 			$message = "Does not exists unit controller. (index.php)";
 			Notice::Set($message, debug_backtrace());
 			return false;
 		}
 
 		//	...
-		return include("{$dir}/{$name}/index.php");
+		return include($path);
 	}
 }
