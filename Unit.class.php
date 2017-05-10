@@ -43,7 +43,7 @@ class Unit
 	 *
 	 * @var array
 	 */
-	static $_pool;
+	static private $_pool;
 
 	/** Return instance. (singleton)
 	 *
