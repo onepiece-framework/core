@@ -91,19 +91,50 @@ class Notice
 	static function Shutdown()
 	{
 		if(!Env::isAdmin()){
-			while( $notice = self::Get() ){
-				//	...
-				$to = Env::Get(Env::_ADMIN_MAIL_);
-				$subject = $notice['message'];
-				$content = Template::Get('op:/Template/Notice/Sendmail.phtml', $notice);
 
-				//	...
-				$mail = new EMail();
-				$mail->From($mail->GetLocalAddress());
-				$mail->To($to);
-				$mail->Subject($subject);
-				$mail->Content($content);
-				$mail->Send();
+			//	...
+			$file_path = ConvertPath('op:/Template/Notice/Sendmail.phtml');
+			if(!file_exists($file_path) ){
+				print "<p>Does not file exists. ($file_path)</p>";
+				return;
+			}
+
+			//	...
+			$to = Env::Get(Env::_ADMIN_MAIL_);
+
+			//	...
+			while( $notice = self::Get() ){
+				if(!$to){
+					print "<p>Has not been set admin mail address.</p>";
+					return;
+				}
+
+				try {
+					$subject = $notice['message'];
+
+					//	...
+					if(!ob_start()){
+						print '<p>"ob_start" was failed. (Notice::Shutdown)</p>';
+						return;
+					}
+
+					//	...
+					include($file_path);
+
+					//	...
+					$content = ob_get_clean();
+
+					//	...
+					$mail = new EMail();
+					$mail->From($mail->GetLocalAddress());
+					$mail->To($to);
+					$mail->Subject($subject);
+					$mail->Content($content);
+					$mail->Send();
+				} catch ( Throwable $e ) {
+					// var_dump($e);
+					return;
+				}
 			}
 		}
 	}
