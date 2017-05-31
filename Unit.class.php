@@ -81,7 +81,7 @@ class Unit
 	static function Fetch($name)
 	{
 		//	...
-		$current_dir = getcwd();
+		$save_dir = getcwd();
 
 		//	...
 		if(!$unit_dir = Env::Get(self::_DIRECTORY_)){
@@ -99,7 +99,7 @@ class Unit
 		$return = exec($command, $output, $status);
 
 		//	...
-		chdir($current_dir);
+		chdir($save_dir);
 
 		//	...
 		switch( ifset($status, 0) ){
@@ -111,7 +111,7 @@ class Unit
 				break;
 
 			default:
-				Notice::Set("Command execution has failed. ($status)");
+				Notice::Set("Command execution has failed. ($status, $command)");
 		}
 
 		//	...
@@ -136,7 +136,7 @@ class Unit
 
 		//	...
 		if(!file_exists($dir)){
-			$message = "Does not exists unit directory.";
+			$message = "Does not exists unit directory. ($dir)";
 			Notice::Set($message, debug_backtrace());
 			return false;
 		}
@@ -144,8 +144,6 @@ class Unit
 		//	...
 		if(!file_exists("{$dir}/{$name}")){
 			if(!self::Fetch($name) ){
-				$message = "Does not exists this unit. ($name)";
-				Notice::Set($message, debug_backtrace());
 				return false;
 			}
 		}
