@@ -50,7 +50,7 @@ class Env
 			if( self::isLocalhost() ){
 				self::$_is_admin = true;
 			}else{
-				self::$_is_admin = self::$_env[self::_ADMIN_IP_] === $_SERVER['REMOTE_ADDR'] ? true: false;
+				self::$_is_admin = ifset(self::$_env[self::_ADMIN_IP_]) === $_SERVER['REMOTE_ADDR'] ? true: false;
 			}
 		}
 		return self::$_is_admin;
