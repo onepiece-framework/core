@@ -170,7 +170,10 @@ class Unit
 
 		//	...
 		if(!file_exists("{$dir}/{$name}")){
+			//	...
 			if(!self::Fetch($name) ){
+				$message = "Does not exists this unit. ($dir, $name)";
+				Notice::Set($message, debug_backtrace());
 				return false;
 			}
 		}
