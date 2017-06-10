@@ -51,6 +51,33 @@ class Unit
 	 */
 	static private $_pool;
 
+	/** Get/Set unit directory.
+	 *
+	 * @param  string|null         $dir
+	 * @return string|null|boolean $dir
+	 */
+	static function Directory($dir=null)
+	{
+		if( $dir ){
+			if( strpos($dir, ':') ){
+				$dir = rtrim(ConvertPath($dir), '/').'/';
+			}
+
+			//	...
+			if(!file_exists($dir)){
+				$message = "Does not exists unit directory.";
+				Notice::Set($message, debug_backtrace());
+				return false;
+			}
+
+			//	...
+			Env::Set(self::_DIRECTORY_, $dir);
+		}
+
+		//	...
+		return $dir ? null: Env::Get(self::_DIRECTORY_);
+	}
+
 	/** Return instance. (singleton)
 	 *
 	 * @param  string $name
