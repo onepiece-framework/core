@@ -93,6 +93,26 @@ class Html
 		$class::Tag('P', $text, $attr);
 	}
 
+	/** Html entity encode.
+	 *
+	 * @param  string $string
+	 * @return string $string
+	 */
+	static function Encode($string)
+	{
+		return htmlentities($string, ENT_QUOTES, 'utf-8', false);
+	}
+
+	/** Html entity decode.
+	 *
+	 * @param  string $string
+	 * @return string $string
+	 */
+	static function Decode($string)
+	{
+		return html_entity_decode($string, ENT_QUOTES, 'utf-8');
+	}
+
 	/** Output P tag.
 	 *
 	 * @param string $text
