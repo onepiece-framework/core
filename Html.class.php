@@ -96,21 +96,29 @@ class Html
 	/** Html entity encode.
 	 *
 	 * @param  string $string
+	 * @param  string $encoding
 	 * @return string $string
 	 */
-	static function Encode($string)
+	static function Encode($string, $encoding=null)
 	{
-		return htmlentities($string, ENT_QUOTES, 'utf-8', false);
+		if( $encoding === null ){
+			$encoding = Http::Charset();
+		}
+		return htmlentities($string, ENT_QUOTES, $encoding, false);
 	}
 
 	/** Html entity decode.
 	 *
 	 * @param  string $string
+	 * @param  string $encoding
 	 * @return string $string
 	 */
-	static function Decode($string)
+	static function Decode($string, $encoding=null)
 	{
-		return html_entity_decode($string, ENT_QUOTES, 'utf-8');
+		if( $encoding === null ){
+			$encoding = Http::Charset();
+		}
+		return html_entity_decode($string, ENT_QUOTES, $encoding);
 	}
 
 	/** Output P tag.
@@ -123,7 +131,7 @@ class Html
 		$class::Tag(__FUNCTION__, $text, $arrt);
 	}
 
-	/** Output P tag.
+	/** Output SPAN tag.
 	 *
 	 * @param string $text
 	 */
