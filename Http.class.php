@@ -48,10 +48,20 @@ class Http
 
 		//	...
 		if( $charset ){
-			$_charset = $charset;
-		}else{
-			return $_charset;
+			if( $_charset ){
+				Notice::Set("Charset is already set.");
+			}else{
+				$_charset = $charset;
+			}
 		}
+
+		//	...
+		if(!$_charset ){
+			Notice::Set("Charset has not been set.");
+		}
+
+		//	...
+		return $_charset;
 	}
 
 	/** Get access domain name by url.
