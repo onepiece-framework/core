@@ -92,7 +92,7 @@ class Http
 		header("$key: $val");
 	}
 
-	/** Set location.
+	/** Set transfer location.
 	 *
 	 * @param string $url
 	 */
@@ -175,5 +175,14 @@ class Http
 
 		//	...
 		return $request;
+	}
+
+	/** Get current scheme.
+	 *
+	 * @return string
+	 */
+	static function Scheme()
+	{
+		return ifset($_SERVER['HTTPS']) ? 'https': 'http';
 	}
 }
