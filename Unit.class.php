@@ -183,7 +183,7 @@ class Unit
 
 		//	...
 		if(!file_exists($path)){
-			$message = "Does not exists unit controller. (index.php)";
+			$message = "Does not exists unit controller. ({$name}/index.php)";
 			Notice::Set($message, debug_backtrace());
 			return false;
 		}
