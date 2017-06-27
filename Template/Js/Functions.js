@@ -11,7 +11,7 @@
 function CompressPath( path ){
 	//	...
 	if(!__meta_root__){
-		return;
+		return path;
 	}
 
 	//	...
@@ -29,7 +29,7 @@ function CompressPath( path ){
 function ConvertPath( path ){
 	//	...
 	if(!__meta_root__){
-		return;
+		return path;
 	}
 
 	//	...
