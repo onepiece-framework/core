@@ -283,6 +283,9 @@ class EMail
 	private function _get_mail_address()
 	{
 		//	...
+		$header = [];
+
+		//	...
 		foreach(['from','cc','bcc','reply-to','return-path','errors-to'] as $key){
 			//	...
 			if( empty($this->_head[$key]) ){ continue; }
