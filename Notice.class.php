@@ -72,15 +72,22 @@ class Notice
 		$timestamp = gmdate('Y-m-d H:i:s', time()+date('Z'));
 
 		//	...
-		if( isset($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key]) ){
-			$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key]['count']++;
-			$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key]['updated'] = $timestamp;
+		if(!isset($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key]) ){
+		          $_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key] = [];
+		}
+
+		//	...
+		$reference = &$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key];
+
+		//	...
+		if( empty($reference) ){
+			$reference['count']		 = 1;
+			$reference['message']	 = $message;
+			$reference['backtrace']	 = $backtrace;
+			$reference['created']	 = $timestamp;
 		}else{
-			$notice['count']     = 1;
-			$notice['message']   = $message;
-			$notice['backtrace'] = $backtrace;
-			$notice['created']   = $timestamp;
-			$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key] = $notice;
+			$reference['count']		+= 1;
+			$reference['updated']	 = $timestamp;
 		}
 	}
 
@@ -101,18 +108,19 @@ class Notice
 			$to = Env::Get(Env::_ADMIN_MAIL_);
 
 			//	...
-			while( $notice = self::Get() ){
-				if(!$to){
-					print "<p>Has not been set admin mail address.</p>";
-					return;
-				}
+			if(!$to){
+				Html::P('Has not been set admin mail address.');
+				return;
+			}
 
+			//	...
+			while( $notice = self::Get() ){
 				try {
 					$subject = $notice['message'];
 
 					//	...
 					if(!ob_start()){
-						print '<p>"ob_start" was failed. (Notice::Shutdown)</p>';
+						Html::P('"ob_start" was failed. (Notice::Shutdown)');
 						return;
 					}
 
@@ -128,10 +136,11 @@ class Notice
 					$mail->To($to);
 					$mail->Subject($subject);
 					$mail->Content($content);
-					$mail->Send();
+					if(!$io = $mail->Send()){
+						return;
+					}
 				} catch ( Throwable $e ) {
-					// var_dump($e);
-					return;
+					Html::P($e->GetMessage());
 				}
 			}
 		}
