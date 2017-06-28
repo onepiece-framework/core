@@ -51,7 +51,6 @@ class Notice
 	{
 		//	...
 		if( $e instanceof Throwable ){
-			var_dump($e);
 			$message   = $e->getMessage();
 			$backtrace = $e->getTrace();
 			$file      = $e->getFile();
@@ -91,7 +90,6 @@ class Notice
 	static function Shutdown()
 	{
 		if(!Env::isAdmin()){
-
 			//	...
 			$file_path = ConvertPath('op:/Template/Notice/Sendmail.phtml');
 			if(!file_exists($file_path) ){
