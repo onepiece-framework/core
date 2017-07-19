@@ -31,6 +31,23 @@ class Notice
 	 */
 	const _NAME_SPACE_ = 'NOTICE';
 
+	/** Dump of notice.
+	 *
+	 * @param array $notice
+	 */
+	static function Dump( $notice )
+	{
+		$mime = Env::Mime();
+		switch( $mime ){
+			case 'text/html':
+				echo '<div class="notice">';
+				echo json_encode($notice);
+				echo '</div>'."\r\n";
+				break;
+			default:
+		}
+	}
+
 	/** Get notice array.
 	 *
 	 * @return array
