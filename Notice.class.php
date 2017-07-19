@@ -113,29 +113,30 @@ class Notice
 	 */
 	static function Shutdown()
 	{
-		if(!Env::isAdmin()){
+		try {
 			//	...
-			$file_path = ConvertPath('op:/Template/Notice/Sendmail.phtml');
-			if(!file_exists($file_path) ){
-				print "<p>Does not file exists. ($file_path)</p>";
-				return;
-			}
+			if(!$is_admin = Env::isAdmin()){
+				//	...
+				if(!$to = Env::Get(Env::_ADMIN_MAIL_)){
+					Html::P('Has not been set admin mail address.');
+					return;
+				}
 
-			//	...
-			$to = Env::Get(Env::_ADMIN_MAIL_);
+				//	...
+				$file_path = ConvertPath('op:/Template/Notice/Sendmail.phtml');
 
-			//	...
-			if(!$to){
-				Html::P('Has not been set admin mail address.');
-				return;
+				//	...
+				if( file_exists($file_path) === false ){
+					print "<p>Does not file exists. ($file_path)</p>";
+					return;
+				}
 			}
 
 			//	...
 			while( $notice = self::Get() ){
-				try {
-					$subject = $notice['message'];
-
-					//	...
+				if( $is_admin ){
+					self::Dump($notice);
+				}else{
 					if(!ob_start()){
 						Html::P('"ob_start" was failed. (Notice::Shutdown)');
 						return;
@@ -148,6 +149,9 @@ class Notice
 					$content = ob_get_clean();
 
 					//	...
+					$subject = $notice['message'];
+
+					//	...
 					$mail = new EMail();
 					$mail->From($mail->GetLocalAddress());
 					$mail->To($to);
@@ -156,10 +160,10 @@ class Notice
 					if(!$io = $mail->Send()){
 						return;
 					}
-				} catch ( Throwable $e ) {
-					Html::P($e->GetMessage());
 				}
 			}
+		} catch ( Throwable $e ) {
+			Html::P($e->GetMessage());
 		}
 	}
 }
