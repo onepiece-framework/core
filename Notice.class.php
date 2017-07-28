@@ -110,11 +110,12 @@ class Notice
 		}
 	}
 
-	/** Callback at shutodown.
+	/** Callback of app shutdown.
 	 *
 	 */
 	static function Shutdown()
 	{
+		//	...
 		try {
 			//	...
 			if(!$is_admin = Env::isAdmin()){
@@ -122,6 +123,11 @@ class Notice
 				if(!$to = Env::Get(Env::_ADMIN_MAIL_)){
 					echo '<p>Has not been set admin mail address.</p>'.PHP_EOL;
 					return;
+				}
+
+				//	...
+				if(!$from = Env::Get(Env::_MAIL_FROM_)){
+					$from = $to;
 				}
 
 				//	...
@@ -155,7 +161,7 @@ class Notice
 
 					//	...
 					$mail = new EMail();
-					$mail->From($mail->GetLocalAddress());
+					$mail->From($from);
 					$mail->To($to);
 					$mail->Subject($subject);
 					$mail->Content($content);
@@ -170,8 +176,7 @@ class Notice
 	}
 }
 
-/**
- * Register shutdown function.
+/** Register shutdown function.
  *
  * Moved from Bootstrap.php
  * If not exists Notice message, will not from call Notice class.
