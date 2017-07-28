@@ -118,7 +118,7 @@ class Notice
 			if(!$is_admin = Env::isAdmin()){
 				//	...
 				if(!$to = Env::Get(Env::_ADMIN_MAIL_)){
-					Html::P('Has not been set admin mail address.');
+					echo '<p>Has not been set admin mail address.</p>'.PHP_EOL;
 					return;
 				}
 
@@ -138,7 +138,7 @@ class Notice
 					self::Dump($notice);
 				}else{
 					if(!ob_start()){
-						Html::P('"ob_start" was failed. (Notice::Shutdown)');
+						echo '<p>"ob_start" was failed. (Notice::Shutdown)</p>'.PHP_EOL;
 						return;
 					}
 
@@ -163,7 +163,7 @@ class Notice
 				}
 			}
 		} catch ( Throwable $e ) {
-			Html::P($e->GetMessage());
+			echo '<p>'.$e->GetMessage().'</p>'.PHP_EOL;
 		}
 	}
 }
