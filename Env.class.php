@@ -31,6 +31,7 @@ class Env
 	 */
 	const _ADMIN_IP_	 = 'admin-ip';
 	const _ADMIN_MAIL_	 = 'admin-mail';
+	const _MAIL_FROM_	 = 'mail-from';
 
 	/** Private static values.
 	 *
