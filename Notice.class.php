@@ -44,7 +44,9 @@ class Notice
 				echo json_encode($notice);
 				echo '</div>'."\r\n";
 				break;
+
 			default:
+				echo PHP_EOL.$notice['message'].PHP_EOL;
 		}
 	}
 
