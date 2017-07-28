@@ -160,6 +160,7 @@ class Unit
 
 		//	...
 		$dir = ConvertPath($dir);
+		$dir = realpath($dir);
 
 		//	...
 		if(!file_exists($dir)){
@@ -172,7 +173,7 @@ class Unit
 		if(!file_exists("{$dir}/{$name}")){
 			//	...
 			if(!self::Fetch($name) ){
-				$message = "Does not exists this unit. ($dir, $name)";
+				$message = "Does not exists this unit. ($dir/$name)";
 				Notice::Set($message, debug_backtrace());
 				return false;
 			}
