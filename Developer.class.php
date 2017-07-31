@@ -113,10 +113,13 @@ class Developer
 					$value   = get_class($value);
 					break;
 			}
+			/*
 			$mark['args'][] = [
 				'type'  => $type,
 				'value' => $value,
 			];
+			*/
+			$mark['args'][] = $value;
 		}
 
 		//	...
