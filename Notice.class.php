@@ -40,7 +40,7 @@ class Notice
 		$mime = Env::Mime();
 		switch( $mime ){
 			case 'text/html':
-				echo '<div class="notice">';
+				echo '<div class="OP_NOTICE">';
 				echo json_encode($notice);
 				echo '</div>'."\r\n";
 				break;
