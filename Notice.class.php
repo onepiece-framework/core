@@ -45,6 +45,11 @@ class Notice
 				echo '</div>'."\r\n";
 				break;
 
+			case 'text/css':
+			case 'text/javascript':
+				echo "/* {$notice['message']} */".PHP_EOL;
+				break;
+
 			default:
 				echo PHP_EOL.$notice['message'].PHP_EOL;
 		}
