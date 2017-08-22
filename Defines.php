@@ -33,6 +33,12 @@ define('DOC_ROOT', 'DOC_ROOT', true);
  */
 define('_OP_NAME_SPACE_', 'ONEPIECE', true);
 
+/** App ID
+ *
+ * @var string
+ */
+define('_OP_APP_ID_', 'APP_ID', true);
+
 /** Use to salt.
  *
  * @var string
