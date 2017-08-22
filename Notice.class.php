@@ -23,13 +23,13 @@ class Notice
 	/** trait.
 	 *
 	 */
-	use OP_CORE;
+	use OP_CORE, OP_SESSION;
 
 	/** Namespace
 	 *
 	 * @var string
 	 */
-	const _NAME_SPACE_ = 'NOTICE';
+	const _NAME_SPACE_ = 'STORE';
 
 	/** Dump of notice.
 	 *
@@ -61,10 +61,24 @@ class Notice
 	 */
 	static function Get()
 	{
+		/*
 		if( empty($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_]) ){
 			$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_] = [];
 		}
 		return array_shift($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_]);
+		*/
+
+		//	Get
+		$session = self::Session(self::_NAME_SPACE_);
+
+		//	Shift
+		$notice  = array_shift($session);
+
+		//	Set
+		self::Session(self::_NAME_SPACE_, $session);
+
+		//	Return
+		return $notice;
 	}
 
 	/** Set notice array.
@@ -95,6 +109,7 @@ class Notice
 		$key = Hasha1($message);
 		$timestamp = gmdate('Y-m-d H:i:s', time()+date('Z'));
 
+		/*
 		//	...
 		if(!isset($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key]) ){
 		          $_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key] = [];
@@ -102,6 +117,13 @@ class Notice
 
 		//	...
 		$reference = &$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key];
+		*/
+
+		//	...
+		$session = self::Session(self::_NAME_SPACE_);
+
+		//	...
+		$reference = isset($session[$key]) ? $session[$key]: null;
 
 		//	...
 		if( empty($reference) ){
@@ -113,6 +135,12 @@ class Notice
 			$reference['count']		+= 1;
 			$reference['updated']	 = $timestamp;
 		}
+
+		//	...
+		$session[$key] = $reference;
+
+		//	...
+		self::Session(self::_NAME_SPACE_, $session);
 	}
 
 	/** Callback of app shutdown.
