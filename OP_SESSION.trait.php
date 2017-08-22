@@ -42,11 +42,21 @@ trait OP_SESSION
 	 */
 	static function Session($key, $value=null)
 	{
+		static $app_id;
+		if(!$app_id){
+			if(!$app_id = Env::Get(_OP_APP_ID_) ){
+				$app_id = Hasha1(ConvertPath('app:/'));
+			}
+		}
+
+		//	...
 		$class = get_called_class();
+
+		//	...
 		if( $value !== null ){
-			$_SESSION[self::_NAME_SPACE_][$class][$key] = $value;
+			$_SESSION[_OP_NAME_SPACE_][$app_id][$class][$key] = $value;
 		}else{
-			return ifset($_SESSION[self::_NAME_SPACE_][$class][$key]);
+			return ifset($_SESSION[_OP_NAME_SPACE_][$app_id][$class][$key]);
 		}
 	}
 }
