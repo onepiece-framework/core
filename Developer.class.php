@@ -53,6 +53,13 @@ class Developer
 	 */
 	static function Mark($args, $trace)
 	{
+		//	...
+		if(!class_exists('Http', false) ){
+			var_dump($args);
+			return;
+		}
+
+		//	...
 		switch( $mime = strtolower(Http::Mime()) ){
 			case 'text/css':
 				self::MarkCss($args, $trace);
