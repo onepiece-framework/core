@@ -21,13 +21,6 @@
 trait OP_SESSION
 {
 	/**
-	 * Namespace
-	 *
-	 * @var string
-	 */
-	const _NAME_SPACE_ = 'ONEPIECE';
-
-	/**
 	 * Get/Set Session value.
 	 *
 	 * Separated from each class/object.
