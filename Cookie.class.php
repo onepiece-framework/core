@@ -11,6 +11,14 @@
 
 /** Cookie
  *
+ * FEATURE:
+ * 1. Even the same key name is separated by AppID.
+ *    That is, Even in the same domain, the same key name can be used.
+ *    Because AppleID is different. Value is do not conflict.
+ *
+ * 2. Value is encrypted.
+ *    Cookie is stored user's browser. That is, User can change freely.
+ *
  * @creation  2017-02-25
  * @version   1.0
  * @package   core
@@ -24,6 +32,32 @@ class Cookie
 	 */
 	use OP_CORE;
 
+	/** Initialize App ID.
+	 *
+	 */
+	static private function _AppID()
+	{
+		static $app_id;
+
+		if(!$app_id ){
+			if(!$app_id = Env::Get(_OP_APP_ID_) ){
+				$app_id = Hasha1(ConvertPath('app:/'));
+			}
+		}
+
+		return $app_id;
+	}
+
+	/** Generate unique key by AppID and original key name.
+	 *
+	 * @param  string $key
+	 * @return string $key
+	 */
+	static private function _Key($key)
+	{
+		return Hasha1($key.', '.self::_AppID());
+	}
+
 	/** Get cookie value of key.
 	 *
 	 * @param  string $key
@@ -33,10 +67,7 @@ class Cookie
 	static function Get($key, $val=null)
 	{
 		//	...
-		$domain = '';
-
-		//	...
-		$key = Hasha1("$key, $domain");
+		$key = self::_Key($key);
 
 		//	...
 		return isset($_COOKIE[$key]) ? unserialize($_COOKIE[$key]): null;
@@ -50,10 +81,7 @@ class Cookie
 	static function Set($key, $val, $expire=null, $option=null)
 	{
 		//	...
-		$domain = '';
-
-		//	...
-		$key = Hasha1("$key, $domain");
+		$key = self::_Key($key);
 
 		//	...
 		if( $expire === null ){
