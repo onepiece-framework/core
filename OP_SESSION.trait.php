@@ -38,9 +38,9 @@ trait OP_SESSION
 	 * </pre>
 	 *
 	 * @param string
-	 * @param null|boolean|integer|string|array
+	 * @param reference
 	 */
-	static function Session($key, $value=null)
+	static function &Session($key, $value=null)
 	{
 		static $app_id;
 		if(!$app_id){
@@ -55,8 +55,14 @@ trait OP_SESSION
 		//	...
 		if( $value !== null ){
 			$_SESSION[_OP_NAME_SPACE_][$app_id][$class][$key] = $value;
-		}else{
-			return ifset($_SESSION[_OP_NAME_SPACE_][$app_id][$class][$key]);
 		}
+
+		//	...
+		if(!isset($_SESSION[_OP_NAME_SPACE_][$app_id][$class][$key]) ){
+			      $_SESSION[_OP_NAME_SPACE_][$app_id][$class][$key] = null;
+		}
+
+		//	...
+		return $_SESSION[_OP_NAME_SPACE_][$app_id][$class][$key];
 	}
 }
