@@ -65,7 +65,7 @@ class Unit
 
 			//	...
 			if(!file_exists($dir)){
-				$message = "Does not exists unit directory.";
+				$message = "Does not exists unit directory. ($dir)";
 				Notice::Set($message, debug_backtrace());
 				return false;
 			}
