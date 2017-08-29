@@ -368,8 +368,14 @@ class EMail
 	 */
 	private function _get_parameters()
 	{
-		$local_user = self::GetLocalAddress();
-		$parameters = "-f $local_user";
+		if(!$addr = ifset($this->_head['From'][0]['addr']) ){
+			$addr = self::GetLocalAddress();
+		}
+
+		//	...
+		$parameters = "-f $addr";
+
+		//	...
 		return $parameters;
 	}
 
