@@ -39,7 +39,7 @@ function CompressPath($path)
 	foreach( _GetRootsPath() as $key => $var ){
 		if( strpos($path, $var) === 0 ){
 			$path = substr($path, strlen($var));
-			return $key.$path;
+			return $key . ltrim($path,'/');
 		}
 	}
 	return $path;
