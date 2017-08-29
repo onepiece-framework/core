@@ -53,7 +53,8 @@ trait OP_SESSION
 		$class = get_called_class();
 
 		//	...
-		if( $value !== null ){
+	//	if( $value !== null ){
+		if( func_num_args() === 2 ){
 			$_SESSION[_OP_NAME_SPACE_][$app_id][$class][$key] = $value;
 		}
 
