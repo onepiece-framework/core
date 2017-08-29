@@ -61,13 +61,6 @@ class Notice
 	 */
 	static function Get()
 	{
-		/*
-		if( empty($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_]) ){
-			$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_] = [];
-		}
-		return array_shift($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_]);
-		*/
-
 		//	Get
 		$session = self::Session(self::_NAME_SPACE_);
 
