@@ -31,19 +31,35 @@ if( $time_std !== $time_app ){
 //	Information
 $ip			 = ifset($_SERVER['REMOTE_ADDR']    );
 $host		 = gethostbyaddr($ip);
-$domain		 = "$host ($ip)";
+$visitor	 = "$host ($ip)";
 $ua			 = ifset($_SERVER['HTTP_USER_AGENT']);
-$server		 = ifset($_SERVER['HTTP_HOST']      );
-$url		 = ifset($_SERVER['REQUEST_URI']    );
 $referer	 = ifset($_SERVER['HTTP_REFERER']   );
-
+$scheme		 = ifset($_SERVER['HTTPS']) ? 'https':'http';
+$host		 = ifset($_SERVER['HTTP_HOST']      );
+$url		 = ifset($_SERVER['REQUEST_URI']    );
+$url		 = $scheme .'://'. $host . $url;
 ?>
 <div style="font-size:9pt;">
+	<p style="font-size:120%;">
+		<?php if( $messages = explode("\n", $notice['message']."\n") ): ?>
+			<?php for($i=0; $i<count($messages); $i++): ?>
+				<?php if( $i === 0 ): ?>
+					<b><?= $messages[$i] ?></b>
+				<?php elseif($messages[$i]): ?>
+					<i><?= $messages[$i] ?></i>
+				<?php endif; ?>
+			<?php endfor; ?>
+		<?php endif; ?>
+	</p>
 	<table>
 		<tr><th> Timestamp	 </th><td> <?= $timestamp ?> <td></tr>
-		<tr><th> Domain		 </th><td> <?= $domain ?>	 <td></tr>
-		<tr><th> UserAgent	 </th><td> <?= $ua ?>		 <td></tr>
-		<tr><th> Server		 </th><td> <?= $server ?>	 <td></tr>
+		<tr>
+			<th> Visitor	 </th>
+			<td>
+				<?= $visitor ?><br/>
+				<?= $ua ?>
+			<td>
+		</tr>
 		<tr><th> URL		 </th><td> <?= $url ?>		 <td></tr>
 		<tr><th> Referer	 </th><td> <?= $referer ?>	 <td></tr>
 	</table>
