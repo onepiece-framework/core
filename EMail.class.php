@@ -327,12 +327,12 @@ class EMail
 	private function _get_to()
 	{
 		$join = [];
-		foreach($this->_head['to'] as $temp){
+		foreach($this->_head['To'] as $temp){
 			$addr = $temp['addr'];
 			$name = $temp['name'];
 			$join[] = $this->_get_full_name($addr, $name);
 		}
-		return 'To: '.join(', ',$join);
+		return join(', ',$join);
 	}
 
 	/** Generate named e-mail address.
