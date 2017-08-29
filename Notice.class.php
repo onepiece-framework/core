@@ -167,7 +167,13 @@ class Notice
 			}
 
 			//	...
-			while( $notice = self::Get() ){
+			$session = self::Session(self::_NAME_SPACE_);
+
+			//	...
+			self::Session(self::_NAME_SPACE_, null);
+
+			//	...
+			foreach( $session as $notice ){
 				if( $is_admin ){
 					self::Dump($notice);
 				}else{
