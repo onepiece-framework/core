@@ -196,7 +196,7 @@ class Notice
 					$mail->From($from);
 					$mail->To($to);
 					$mail->Subject($subject);
-					$mail->Content($content);
+					$mail->Content($content, 'text/html');
 					if(!$io = $mail->Send()){
 						return;
 					}
