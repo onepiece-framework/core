@@ -16,6 +16,7 @@
 function _GetRootsPath()
 {
 	global $_OP;
+	$root['unit:/']= realpath(Env::Get(Unit::_DIRECTORY_));
 	$root['app:/'] = $_OP['APP_ROOT'];
 	$root['doc:/'] = $_OP['DOC_ROOT'];
 	$root['op:/']  = $_OP['OP_ROOT'];
