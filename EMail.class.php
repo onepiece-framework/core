@@ -214,6 +214,14 @@ class EMail
 		return $io;
 	}
 
+	/** Show debug information for developer.
+	 *
+	 */
+	function Debug()
+	{
+		D($this->_debug);
+	}
+
 	/** Use PHP's mail function.
 	 *
 	 * @return boolean
@@ -241,6 +249,7 @@ class EMail
 		$this->_debug['content'] = $content;
 		$this->_debug['headers'] = $headers;
 		$this->_debug['parameters'] = $parameters;
+		$this->_debug['head'] = $this->_head;
 		$this->_debug['body'] = $this->_body;
 
 		return $io;
@@ -284,6 +293,9 @@ class EMail
 	{
 		//	...
 		$header = [];
+
+		//	...
+		$header[] = "X-SENDER: onepiece-framework:EMail";
 
 		//	...
 		foreach(['from','cc','bcc','reply-to','return-path','errors-to'] as $key){
