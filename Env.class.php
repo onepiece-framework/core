@@ -102,9 +102,18 @@ class Env
 	 */
 	static function Set($key, $var)
 	{
+		//	...
+		$result = isset(self::$_env[$key]) ? 1: 0;
+
+		//	...
 		if( $key === self::_ADMIN_IP_ ){
 			self::$_is_admin = null;
 		}
+
+		//	...
 		self::$_env[$key] = $var;
+
+		//	...
+		return $result +1;
 	}
 }
