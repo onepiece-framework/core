@@ -102,16 +102,6 @@ class Notice
 		$key = Hasha1($message);
 		$timestamp = gmdate('Y-m-d H:i:s', time()+date('Z'));
 
-		/*
-		//	...
-		if(!isset($_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key]) ){
-		          $_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key] = [];
-		}
-
-		//	...
-		$reference = &$_SESSION[_OP_NAME_SPACE_][self::_NAME_SPACE_][$key];
-		*/
-
 		//	...
 		$session = self::Session(self::_NAME_SPACE_);
 
