@@ -37,29 +37,29 @@ class Autoloader
 		//	...
 		global $_OP;
 
-		//	Which to class and trait.
+		//	...
+		if( strpos($class_name, 'OP\\') === 0 ){
+			$class_name = substr($class_name, 3);
+		}
+
+		//	...
+		if( class_exists($class_name, false) ){
+			return;
+		}
+
+		//	Which to class or trait.
 		if( strpos($class_name, 'OP_') === false ){
 			$file_name = "{$class_name}.class.php";
 		}else{
 			$file_name = "{$class_name}.trait.php";
 		}
 
-		//	Initialization is only the first.
-		if(!$_include_path ){
+		//	Generate full path.
+		$file_path = $_OP['OP_ROOT'].$file_name;
 
-			//	Current directory.
-			$_include_path[] = '.';
-
-			//	Add op-core's root.
-			$_include_path[] = $_OP['OP_ROOT'];
-		}
-
-		//	Challenge to include.
-		foreach( $_include_path as $path ){
-			$file_path = rtrim($path, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR.$file_name;
-			if( $io = file_exists($file_path) ){
-				$io = include_once($file_path);
-			}
+		//	...
+		if( $io = file_exists($file_path) ){
+			$io = include_once($file_path);
 		}
 	}
 }
