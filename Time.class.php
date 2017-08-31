@@ -120,7 +120,7 @@ class Time
 	/** Set frozen time.
 	 *
 	 * <pre>
-	 * Time::Set('2020-01-01');
+	 * Time::Set('2020-01-01'); // 2020-01-01 00:00:00
 	 * </pre>
 	 *
 	 * @param null|integer|string $time
