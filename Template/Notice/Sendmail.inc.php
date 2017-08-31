@@ -43,8 +43,10 @@ function _backtrace($backtraces){
 //	Serialize arguments.
 function _args($args){
 	$join = [];
-	foreach($args as $arg){
-		$join[] = _arg($arg);
+	if( $args ){
+		foreach($args as $arg){
+			$join[] = _arg($arg);
+		}
 	}
 	return join(', ', $join);
 }
