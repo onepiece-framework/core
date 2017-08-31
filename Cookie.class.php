@@ -92,7 +92,7 @@ class Cookie
 		$path = ifset( $option['path'], '/');
 
 		//	...
-		$domain = ifset( $option['domain'], Http::Domain());
+		$domain = ifset( $option['domain'], $_SERVER['SERVER_NAME']);
 
 		//	...
 		$secure = false;
