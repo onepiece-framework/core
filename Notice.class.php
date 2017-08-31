@@ -201,8 +201,8 @@ class Notice
 /** Register shutdown function.
  *
  * Moved from Bootstrap.php
- * If not exists Notice message, will not from call Notice class.
- * So far, has always been called up.
+ * So far, This routine has always been called up.
+ * Currently, This shutdown function is called only when there is the Notice.
  *
  * @creation  2016-11-17
  * @moved     2017-01-19
