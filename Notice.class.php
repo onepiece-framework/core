@@ -41,7 +41,7 @@ class Notice
 		switch( $mime ){
 			case 'text/html':
 				echo '<div class="OP_NOTICE">';
-				echo json_encode($notice);
+				echo json_encode(Escape($notice));
 				echo '</div>'."\r\n";
 				break;
 
