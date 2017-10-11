@@ -130,6 +130,7 @@ class Time
 		//	...
 		if(!self::$_time){
 			self::$_time = strtotime( gmdate('Y-m-d H:i:s') );
+			self::$_time+= date('Z');
 		}
 
 		//	...
