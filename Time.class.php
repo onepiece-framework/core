@@ -57,6 +57,25 @@ class Time
 		return date($format, $time);
 	}
 
+	/** Initialize
+	 *
+	 */
+	static function Init($timezone)
+	{
+		//	Timezone - System
+		ini_set('date.timezone', $timezone);
+
+		//	Timezone - user land
+		if( geoip_db_avail(GEOIP_COUNTRY_EDITION) ){
+			$host = Env::isLocalhost() ? 'yahoo.co.jp': $_SERVER['REMOTE_ADDR'];
+			$temp = geoip_record_by_name($host);
+			$timezone = geoip_time_zone_by_country_and_region($temp['country_code'], $temp['region']);
+		}
+
+		//	Timezone - user land
+		Time::Timezone($timezone);
+	}
+
 	/** Return date. (not include time)
 	 *
 	 * @return string
