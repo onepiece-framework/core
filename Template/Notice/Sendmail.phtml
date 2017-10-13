@@ -28,12 +28,14 @@ if( $time_std !== $time_app ){
 	$timestamp .= ", <b>App: $time_app</b>";
 }
 
-//	Information
+//	Information of Visitor.
 $ip			 = ifset($_SERVER['REMOTE_ADDR']    );
 $host		 = gethostbyaddr($ip);
 $visitor	 = "$host ($ip)";
 $ua			 = ifset($_SERVER['HTTP_USER_AGENT']);
 $referer	 = ifset($_SERVER['HTTP_REFERER']   );
+
+//	Information of Server.
 $scheme		 = ifset($_SERVER['HTTPS']) ? 'https':'http';
 $host		 = ifset($_SERVER['HTTP_HOST']      );
 $url		 = ifset($_SERVER['REQUEST_URI']    );
