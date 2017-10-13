@@ -460,7 +460,7 @@ class EMail
 			}else{
 				$attachment_name = "attachment-{$i}.{$ext}";
 				$name = isset($_body['name']) ? $_body['name']: $attachment_name;
-				$name = Toolbox::toUTF8($name);
+				$name = mb_convert_encoding( $name,'utf-8','ASCII, JIS, UTF-8, eucJP-win, SJIS-win'); // TODO: Japanese only
 				$name = mb_encode_mimeheader($name,'utf-8');
 
 			//	$multibody .= "Content-Type: application/octet-stream; name=\"{$name}\"\n";
