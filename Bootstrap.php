@@ -56,11 +56,7 @@ $_OP[DOC_ROOT] = rtrim($_SERVER['DOCUMENT_ROOT'], '/').'/';
  *
  */
 include(__DIR__.'/Autoloader.class.php');
-if(!spl_autoload_register('Autoloader::Autoload',true,true)){
-	function __autoload($class){
-		Autoloader::Autoload($class);
-	}
-}
+spl_autoload_register('Autoloader::Autoload',true,true);
 
 /** Check mbstring installed.
  *
