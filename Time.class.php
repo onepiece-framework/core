@@ -123,14 +123,22 @@ class Time
 
 	/** Get frozen time.
 	 *
+	 * <pre>
+	 * $time = Time::Get();
+	 * $gmt  = Time::Get(true);
+	 * </pre>
+	 *
+	 * @param  boolean $gmt True is return GMT
 	 * @return integer
 	 */
-	static function Get()
+	static function Get($gmt=false)
 	{
 		//	...
 		if(!self::$_time){
 			self::$_time = strtotime( gmdate('Y-m-d H:i:s') );
-			self::$_time+= date('Z');
+			if(!$gmt ){
+				self::$_time += date('Z');
+			}
 		}
 
 		//	...
