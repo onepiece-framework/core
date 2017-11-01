@@ -121,6 +121,16 @@ class Time
 		}
 	}
 
+	/** Get GMT date time.
+	 *
+	 * @param string $format
+	 */
+	static function GMT($format='Y-m-d H:i:s')
+	{
+		$time = self::Get(true);
+		return date($format, $time);
+	}
+
 	/** Get frozen time.
 	 *
 	 * <pre>
