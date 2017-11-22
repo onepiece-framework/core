@@ -53,7 +53,7 @@ class Cookie
 	 * @param  string $key
 	 * @return string $key
 	 */
-	static private function _Key($key)
+	static function _Key($key)
 	{
 		return Hasha1($key.', '.self::_AppID());
 	}
@@ -64,19 +64,19 @@ class Cookie
 	 * @param  string $val default
 	 * @return mixed
 	 */
-	static function Get($key, $val=null)
+	static function Get($key, $default=null)
 	{
 		//	...
 		$key = self::_Key($key);
 
 		//	...
-		return isset($_COOKIE[$key]) ? unserialize($_COOKIE[$key]): null;
+		return isset($_COOKIE[$key]) ? unserialize( Encrypt::Dec($_COOKIE[$key]) ): $default;
 	}
 
-	/**
+	/** Set cookie value.
 	 *
-	 * @param unknown $key
-	 * @param unknown $val
+	 * @param string $key
+	 * @param mixed  $val
 	 */
 	static function Set($key, $val, $expire=null, $option=null)
 	{
@@ -101,9 +101,15 @@ class Cookie
 		$httponly = false;
 
 		//	...
-		if( setcookie($key, serialize($val), $expire, $path, $domain, $secure, $httponly) ){
+		$val = serialize($val);
+
+		//	...
+		$val = Encrypt::Enc($val);
+
+		//	...
+		if( setcookie($key, $val, $expire, $path, $domain, $secure, $httponly) ){
 			//	Successful.
-			$_COOKIE[$key] = serialize($val);
+			$_COOKIE[$key] = $val;
 		}else{
 			//	Failed.
 			if( headers_sent($file, $line) ){
