@@ -33,6 +33,11 @@ include_once(__DIR__.'/Functions.php');
  */
 include_once(__DIR__.'/Defines.php');
 
+/** Include Error hendler.
+ *
+ */
+include_once(__DIR__.'/Error.php');
+
 /** Include OP CORE.
  *
  */
