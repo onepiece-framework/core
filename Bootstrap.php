@@ -52,6 +52,7 @@ $_SERVER['PHP_SELF'] = $_SERVER['SCRIPT_NAME'];
 /** OP_ROOT, APP_ROOT
  *
  */
+global $_OP;
 $_OP[OP_ROOT]  = __DIR__.'/';
 $_OP[APP_ROOT] = dirname($_SERVER['SCRIPT_FILENAME']).'/';
 $_OP[DOC_ROOT] = rtrim($_SERVER['DOCUMENT_ROOT'], '/').'/';
