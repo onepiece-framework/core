@@ -61,7 +61,7 @@ class Cookie
 	/** Get cookie value of key.
 	 *
 	 * @param  string $key
-	 * @param  string $val default
+	 * @param  mixed  $default
 	 * @return mixed
 	 */
 	static function Get($key, $default=null)
@@ -80,6 +80,12 @@ class Cookie
 	 */
 	static function Set($key, $val, $expire=null, $option=null)
 	{
+		//	Failed.
+		if( headers_sent($file, $line) ){
+			Notice::Set("Header has already been sent. ($file, $line)");
+			return;
+		}
+
 		//	...
 		$key = self::_Key($key);
 
@@ -111,12 +117,7 @@ class Cookie
 			//	Successful.
 			$_COOKIE[$key] = $val;
 		}else{
-			//	Failed.
-			if( headers_sent($file, $line) ){
-				Notice::Set("Header has already been sent. ($file, $line)");
-			}else{
-				Notice::Set("Set cookie was failed.");
-			}
+			Notice::Set("Set cookie was failed.");
 		}
 	}
 }
