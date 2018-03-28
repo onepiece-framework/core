@@ -52,8 +52,8 @@ class Autoloader
 		$file_path = __DIR__.'/'.$file_name;
 
 		//	...
-		if( $io = file_exists($file_path) ){
-			$io = include_once($file_path);
+		if( file_exists( $file_path) ){
+			include_once($file_path);
 		}
 	}
 }
