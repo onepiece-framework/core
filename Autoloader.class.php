@@ -32,9 +32,6 @@ class Autoloader
 	static function Autoload($class_name)
 	{
 		//	...
-		static $_include_path;
-
-		//	...
 		global $_OP;
 
 		//	...
