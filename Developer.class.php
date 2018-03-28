@@ -111,8 +111,11 @@ class Developer
 		foreach( $args as $value ){
 			switch( $type = gettype($value) ){
 				case 'array':
+					//	Stack
 					$later[] = $value;
-					$value   = $type;
+					//	Look and feel to array.
+					$count   = count($value);
+					$value   = $type."($count)"; // --> array(1)
 					break;
 
 				case 'object':
