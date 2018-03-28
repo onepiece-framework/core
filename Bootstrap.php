@@ -12,9 +12,8 @@
 /** Checking PHP version.
  *
  */
-if( version_compare(PHP_VERSION, '5.4.0') < 0 ){
-	print '<p>onepiece-framework is not support to this php version.('.PHP_VERSION.')</p>';
-	exit;
+if( version_compare(PHP_VERSION, '7.0.0') < 0 ){
+	exit('<p>onepiece-framework is not support to this php version.('.PHP_VERSION.')</p>');
 }
 
 /** Auto start of session.
