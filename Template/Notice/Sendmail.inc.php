@@ -35,7 +35,7 @@ function _backtrace($backtraces){
 		$args = _args($args);
 
 		//	...
-		print "<tr><td> {$file} </td><td> {$line} </td><td> {$func}($args) </td></tr>";
+		print "<tr><td> {$file} </td><td> {$line} </td><td> {$func}($args) </td></tr>\n";
 	}
 	print '</table>';
 }
