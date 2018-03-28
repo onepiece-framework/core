@@ -41,7 +41,7 @@ class Time
 	 * @param  string $calc  '1 month'
 	 * @return string
 	 */
-	static private function _Format($format, $calc)
+	static function _Format($format, $calc=null)
 	{
 		//	...
 		$time = self::Get();
