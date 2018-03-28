@@ -32,9 +32,6 @@ class Autoloader
 	static function Autoload($class_name)
 	{
 		//	...
-		global $_OP;
-
-		//	...
 		if( strpos($class_name, 'OP\\') === 0 ){
 			$class_name = substr($class_name, 3);
 		}
@@ -52,7 +49,7 @@ class Autoloader
 		}
 
 		//	Generate full path.
-		$file_path = $_OP['OP_ROOT'].$file_name;
+		$file_path = __DIR__.'/'.$file_name;
 
 		//	...
 		if( $io = file_exists($file_path) ){
