@@ -164,6 +164,7 @@ function _EscapeArray($arr)
  */
 function _EscapeString($var)
 {
+	$var = str_replace("\0", "", $var);
 	return htmlentities($var, ENT_QUOTES, 'utf-8', false);
 }
 
