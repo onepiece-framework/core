@@ -126,19 +126,26 @@ function D()
 	OP\UNIT\Dump::Mark();
 }
 
-/** Escape mixid value;
+/** Escape mixid value.
  *
- * @param  boolean|integer|string|array|object $var
- * @return boolean|integer|string|array|object
+ * @param  mixed  $var
+ * @param  string $charset
+ * @return mixed  $var
  */
-function Escape($var)
+function Escape($var, $charset=null)
 {
+	//	...
+	if(!$charset ){
+		$charset = Env::Charset();
+	}
+
+	//	...
 	switch( $type = gettype($var) ){
 		case 'string':
-			return _EscapeString($var);
+			return _EscapeString($var, $charset);
 
 		case 'array':
-			$var = _EscapeArray($var);
+			$var = _EscapeArray($var, $charset);
 			break;
 
 		case 'object':
@@ -147,6 +154,8 @@ function Escape($var)
 
 		default:
 	}
+
+	//	...
 	return $var;
 }
 
@@ -155,15 +164,23 @@ function Escape($var)
  * @param  array $arr
  * @return array
  */
-function _EscapeArray($arr)
+function _EscapeArray($arr, $charset)
 {
+	//	...
 	$new = [];
+
+	//	...
 	foreach( $arr as $key => $var ){
+		//	Escape index key in case of string.
 		if( is_string($key) ){
-			$key = _EscapeString($key);
+			$key = _EscapeString($key, $charset);
 		}
+
+		//	Escape value.
 		$new[$key] = Escape($var);
 	}
+
+	//	...
 	return $new;
 }
 
@@ -172,10 +189,10 @@ function _EscapeArray($arr)
  * @param  string $var
  * @return string
  */
-function _EscapeString($var)
+function _EscapeString($var, $charset)
 {
 	$var = str_replace("\0", "", $var);
-	return htmlentities($var, ENT_QUOTES, 'utf-8', false);
+	return htmlentities($var, ENT_QUOTES, $charset, false);
 }
 
 /** To hash
