@@ -15,10 +15,20 @@
  */
 function _GetRootsPath()
 {
+	//	...
 	global $_OP;
+
+	//	...
 	if( class_exists('Unit', false) ){
 		$root['unit:/']= realpath(Env::Get(Unit::_DIRECTORY_));
 	}
+
+	//	...
+	if( isset($_OP['LAYOUT']) ){
+		$root['layout:/'] = $_OP['LAYOUT'];
+	}
+
+	//	...
 	$root['app:/'] = $_OP['APP_ROOT'];
 	$root['doc:/'] = $_OP['DOC_ROOT'];
 	$root['op:/']  = $_OP['OP_ROOT'];
