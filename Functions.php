@@ -151,7 +151,9 @@ function _EscapeArray($arr)
 {
 	$new = [];
 	foreach( $arr as $key => $var ){
-		$key = is_string($key) ? _EscapeString($key) : $key;
+		if( is_string($key) ){
+			$key = _EscapeString($key);
+		}
 		$new[$key] = Escape($var);
 	}
 	return $new;
