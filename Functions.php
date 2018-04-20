@@ -117,15 +117,13 @@ function D()
 		return;
 	}
 
-	//	Get trace.
-	if( version_compare('5.4.0', PHP_VERSION) >= 1 ){
-		$trace = debug_backtrace( DEBUG_BACKTRACE_PROVIDE_OBJECT || DEBUG_BACKTRACE_IGNORE_ARGS );
-	}else{
-		$trace = debug_backtrace( DEBUG_BACKTRACE_PROVIDE_OBJECT || DEBUG_BACKTRACE_IGNORE_ARGS, 1);
+	//	...
+	if(!Unit::Load('dump') ){
+		return;
 	}
 
 	//	Dump.
-	Developer::Mark(func_get_args(), $trace[0]);
+	OP\UNIT\Dump::Mark();
 }
 
 /** Escape mixid value;
