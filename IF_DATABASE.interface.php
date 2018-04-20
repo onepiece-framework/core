@@ -27,5 +27,6 @@ interface IF_DATABASE
 	public function Delete($config);
 	public function Quick($config);
 	public function Query($config);
+	public function Quote($config);
 	public function Queries($config);
 }
