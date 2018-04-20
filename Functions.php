@@ -126,6 +126,29 @@ function D()
 	OP\UNIT\Dump::Mark();
 }
 
+/** Decode single string.
+ *
+ * @param  string $string
+ * @param  string $charset
+ * @return string $var
+ */
+function Decode($string, $charset=null)
+{
+	$charset = Env::Charset();
+	return html_entity_decode($string, ENT_QUOTES, $charset);
+}
+
+/** Encode mixed value.
+ *
+ * @param  mixed  $var
+ * @param  string $charset
+ * @return mixed  $var
+ */
+function Encode($var, $charset=null)
+{
+	return Escape($var, $charset);
+}
+
 /** Escape mixid value.
  *
  * @param  mixed  $var
