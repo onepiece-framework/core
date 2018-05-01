@@ -220,7 +220,7 @@ function Escape($var, $charset=null)
  * @param  array $arr
  * @return array
  */
-function _EscapeArray($arr, $charset)
+function _EscapeArray($arr, $charset='utf-8')
 {
 	//	...
 	$new = [];
@@ -233,7 +233,7 @@ function _EscapeArray($arr, $charset)
 		}
 
 		//	Escape value.
-		$new[$key] = Escape($var);
+		$new[$key] = Escape($var, $charset);
 	}
 
 	//	...
@@ -245,7 +245,7 @@ function _EscapeArray($arr, $charset)
  * @param  string $var
  * @return string
  */
-function _EscapeString($var, $charset)
+function _EscapeString($var, $charset='utf-8')
 {
 	$var = str_replace("\0", "", $var);
 	return htmlentities($var, ENT_QUOTES, $charset, false);
