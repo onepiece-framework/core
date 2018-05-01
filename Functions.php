@@ -156,7 +156,7 @@ function D()
 	}
 
 	//	Dump.
-	OP\UNIT\Dump::Mark();
+	OP\UNIT\Dump::Mark(func_get_args());
 }
 
 /** Decode single string.
