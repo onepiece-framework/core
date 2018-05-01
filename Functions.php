@@ -172,7 +172,7 @@ function Escape($var, $charset=null)
 			break;
 
 		case 'object':
-			Notice::Set("Objects are not yet supported.");
+			D("Objects are not yet supported.");
 			break;
 
 		default:
