@@ -69,12 +69,6 @@ class Notice
 		}
 
 		//	...
-		if(!$backtrace ){
-			$backtrace = debug_backtrace();
-		//	array_shift($backtrace); Do not use for app world.
-		}
-
-		//	...
 		$key		 = Hasha1($message);
 		$timestamp	 = gmdate('Y-m-d H:i:s', time()+date('Z'));
 
@@ -86,10 +80,11 @@ class Notice
 
 		//	...
 		if( empty($reference) ){
+			//	...
 			$reference['count']		 = 1;
-			$reference['message']	 = $message;
-			$reference['backtrace']	 = $backtrace;
 			$reference['created']	 = $timestamp;
+			$reference['message']	 = $message;
+			$reference['backtrace']	 = $backtrace ?? debug_backtrace(false);
 		}else{
 			$reference['count']		+= 1;
 			$reference['updated']	 = $timestamp;
