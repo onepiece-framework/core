@@ -152,13 +152,10 @@ class Time
 		//	...
 		if(!self::$_time){
 			self::$_time = strtotime( gmdate('Y-m-d H:i:s') );
-			if(!$gmt ){
-				self::$_time += date('Z');
-			}
 		}
 
 		//	...
-		return self::$_time;
+		return $gmt ? self::$_time: self::$_time + date('Z');
 	}
 
 	/** Set frozen time.
