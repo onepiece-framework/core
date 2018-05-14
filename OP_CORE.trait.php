@@ -31,13 +31,20 @@ trait OP_CORE
 		foreach( $args as $val ){
 			switch( $type = gettype($val) ){
 				case 'array':
+					$count  = count($val);
+					$join[] = $type."($count)";
+					break;
+
 				case 'object':
 					$join[] = $type;
 					break;
+
 				default:
 					$join[] = $val;
 			}
 		}
+
+		//	...
 		$class   = get_class($this);
 		$serial  = join(', ', $join);
 		$message = "This method has not been exists. ({$class}->{$name}({$serial}))";
