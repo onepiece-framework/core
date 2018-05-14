@@ -237,7 +237,10 @@ function Escape($var, $charset=null)
 			break;
 
 		case 'object':
+			/*
 			D("Objects are not yet supported.");
+			*/
+			$var = get_class($var);
 			break;
 
 		default:
