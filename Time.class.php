@@ -28,11 +28,11 @@ class Time
 	 */
 	use OP_CORE;
 
-	/** Frozen time.
+	/** Frozen time. (Save at GMT)
 	 *
 	 * @var integer
 	 */
-	static $_time;
+	static protected $_time;
 
 	/** Format
 	 *
