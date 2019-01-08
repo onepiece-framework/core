@@ -14,7 +14,7 @@
  *
  * <pre>
  * //	Set unit directory.
- * Env::Set(Unit::_DIRECTORY_, '/www/op/7/unit/');
+ * Unit::Director('app:/asset/unit');
  *
  * //	Factory
  * $obj = Unit::Factory('UnitName');
@@ -32,12 +32,6 @@ class Unit
 	 *
 	 */
 	use OP_CORE;
-
-	/** Search directory.
-	 *
-	 * @var string
-	 */
-	const _DIRECTORY_ = 'unit-dir';
 
 	/** Repository
 	 *
@@ -58,7 +52,11 @@ class Unit
 	 */
 	static function Directory($dir=null)
 	{
+		static $_dir;
+
+		//	...
 		if( $dir ){
+			//	...
 			if( strpos($dir, ':') ){
 				$dir = rtrim(ConvertPath($dir), '/').'/';
 			}
@@ -71,11 +69,11 @@ class Unit
 			}
 
 			//	...
-			Env::Set(self::_DIRECTORY_, $dir);
+			$_dir = $dir;
 		}
 
 		//	...
-		return $dir ? null: Env::Get(self::_DIRECTORY_);
+		return $_dir;
 	}
 
 	/** Return instance. (singleton)
@@ -162,9 +160,9 @@ class Unit
 		}
 
 		//	...
-		if(!$dir = Env::Get(self::_DIRECTORY_)){
-			$message = "Has not been set unit directory.\n".' Example: Env::Set(Unit::_DIRECTORY_, "/www/op/unit");';
 			Notice::Set($message, debug_backtrace());
+		if(!$dir = self::Directory() ){
+			$message = "Has not been set unit directory.\n".' Example: Unit::Directory("app:/asset/unit");';
 			return false;
 		}
 
