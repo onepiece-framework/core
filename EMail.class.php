@@ -76,7 +76,7 @@ class EMail
 	 */
 	function Bcc($addr)
 	{
-		$this->_set_addr($addr, $name, 'bcc');
+		$this->_set_addr($addr, '', 'bcc');
 	}
 
 	/** Set reply-to header.
