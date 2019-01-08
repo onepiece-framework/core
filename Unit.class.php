@@ -16,6 +16,8 @@
  * //	Set unit directory.
  * Unit::Director('app:/asset/unit');
  *
+ * //	Get instance.
+ * $obj = Unit::Instance('UnitName');
  * </pre>
  *
  * @creation  2016-11-28
@@ -60,6 +62,31 @@ class Unit
 
 		//	...
 		return $_dir;
+	}
+
+	/** Return new instance.
+	 *
+	 * @param  string $name
+	 * @return object
+	 */
+	static function Instance($name)
+	{
+		//	...
+		if(!self::Load($name)){
+			return false;
+		}
+
+		//	...
+		try{
+			//	Generate name space path.
+			$path = '\OP\UNIT\\'.$name;
+
+			//	Instantiate.
+			return new $path();
+
+		}catch( Throwable $e ){
+			Notice::Set($e);
+		}
 	}
 
 	/** Load of unit controller.
