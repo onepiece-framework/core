@@ -31,12 +31,6 @@ class Unit
 	 */
 	use OP_CORE;
 
-	/** Repository
-	 *
-	 * @var string
-	 */
-	const _REPOSITORY_ = 'https://github.com/onepiece-framework/';
-
 	/** Get/Set unit directory.
 	 *
 	 * @param  string|null         $dir
@@ -66,51 +60,6 @@ class Unit
 
 		//	...
 		return $_dir;
-	}
-
-	/** Fetch git repository from github.
-	 *
-	 * @param  string $name
-	 * @return boolean
-	 */
-	static function Fetch($name)
-	{
-		//	...
-		$save_dir = getcwd();
-
-		//	...
-		if(!$unit_dir = Env::Get(self::_DIRECTORY_)){
-			return false;
-		}
-
-		//	...
-		$unit_dir = ConvertPath($unit_dir);
-
-		//	...
-		chdir($unit_dir);
-
-		//	...
-		$command = 'git clone '. self::_REPOSITORY_ ."unit-{$name}.git $name";
-		$return = exec($command, $output, $status);
-
-		//	...
-		chdir($save_dir);
-
-		//	...
-		switch( ifset($status, 0) ){
-			case 0: // successful
-				break;
-
-			case 128:
-				$status = 'Permission denied';
-				break;
-
-			default:
-				Notice::Set("Command execution has failed. ($status, $command)");
-		}
-
-		//	...
-		return $status === 0 ? true: false;
 	}
 
 	/** Load of unit controller.
@@ -150,11 +99,9 @@ class Unit
 		//	...
 		if(!file_exists("{$dir}/{$name}")){
 			//	...
-			if(!self::Fetch($name) ){
-				$message = "Does not exists this unit. ($dir/$name)";
-				Notice::Set($message, debug_backtrace());
-				return false;
-			}
+			$message = "Does not exists this unit. ($dir/$name)";
+			Notice::Set($message, debug_backtrace());
+			return false;
 		}
 
 		//	...
