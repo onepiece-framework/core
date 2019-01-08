@@ -16,8 +16,6 @@
  * //	Set unit directory.
  * Unit::Director('app:/asset/unit');
  *
- * //	Factory
- * $obj = Unit::Factory('UnitName');
  * </pre>
  *
  * @creation  2016-11-28
@@ -38,12 +36,6 @@ class Unit
 	 * @var string
 	 */
 	const _REPOSITORY_ = 'https://github.com/onepiece-framework/';
-
-	/** Pooling of object. (singleton)
-	 *
-	 * @var array
-	 */
-	static private $_pool;
 
 	/** Get/Set unit directory.
 	 *
@@ -74,28 +66,6 @@ class Unit
 
 		//	...
 		return $_dir;
-	}
-
-	/** Return instance. (singleton)
-	 *
-	 * @param  string $name
-	 * @return boolean|object
-	 */
-	static function Factory($name)
-	{
-		//	...
-		if( isset( self::$_pool[$name] ) ){
-			return self::$_pool[$name];
-		}
-
-		//	...
-		if(!self::Load($name)){
-			return false;
-		}
-
-		//	Instantiate.
-		self::$_pool[$name] = new $name();
-		return self::$_pool[$name];
 	}
 
 	/** Fetch git repository from github.
