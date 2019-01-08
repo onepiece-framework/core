@@ -55,7 +55,7 @@ class Unit
 			//	...
 			if(!file_exists($dir)){
 				$message = "Does not exists unit directory. ($dir)";
-				Notice::Set($message, debug_backtrace());
+				Notice::Set($message);
 				return false;
 			}
 
@@ -133,9 +133,9 @@ class Unit
 		}
 
 		//	...
-			Notice::Set($message, debug_backtrace());
 		if(!$dir = self::Directory() ){
 			$message = "Has not been set unit directory.\n".' Example: Unit::Directory("app:/asset/unit");';
+			Notice::Set($message);
 			return false;
 		}
 
@@ -146,7 +146,7 @@ class Unit
 		//	...
 		if(!file_exists($dir)){
 			$message = "Does not exists unit directory. ($dir)";
-			Notice::Set($message, debug_backtrace());
+			Notice::Set($message);
 			return false;
 		}
 
@@ -154,7 +154,7 @@ class Unit
 		if(!file_exists("{$dir}/{$name}")){
 			//	...
 			$message = "Does not exists this unit. ($dir/$name)";
-			Notice::Set($message, debug_backtrace());
+			Notice::Set($message);
 			return false;
 		}
 
@@ -164,7 +164,7 @@ class Unit
 		//	...
 		if(!file_exists($path)){
 			$message = "Does not exists unit controller. ({$name}/index.php)";
-			Notice::Set($message, debug_backtrace());
+			Notice::Set($message);
 			return false;
 		}
 
