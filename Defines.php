@@ -9,11 +9,11 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/** onepiece-framework's installed path.
+/** onepiece-framework's core files installed path.
  *
  * @var string
  */
-define('OP_ROOT', 'OP_ROOT', true);
+define('OP_ROOT', 'OP_ROOT', false);
 
 /** onepiece-framework's asset files installed path.
  *
@@ -25,25 +25,25 @@ define('ASSET_ROOT', 'ASSET_ROOT', false);
  *
  * @var string
  */
-define('APP_ROOT', 'APP_ROOT', true);
+define('APP_ROOT', 'APP_ROOT', false);
 
 /** Web server's document root path.
  *
  * @var string
  */
-define('DOC_ROOT', 'DOC_ROOT', true);
+define('DOC_ROOT', 'DOC_ROOT', false);
 
 /** Namespace
  *
  * @var string
  */
-define('_OP_NAME_SPACE_', 'ONEPIECE', true);
+define('_OP_NAME_SPACE_', 'ONEPIECE', false);
 
 /** App ID
  *
  * @var string
  */
-define('_OP_APP_ID_', 'APP_ID', true);
+define('_OP_APP_ID_', 'APP_ID', false);
 
 /** Use to salt.
  *
