@@ -97,6 +97,15 @@ class Notice
 		self::Session(self::_NAME_SPACE_, $session);
 	}
 
+	/** If has notice.
+	 *
+	 * @return  boolean
+	 */
+	static function Has()
+	{
+		return self::Session(self::_NAME_SPACE_) ? true: false;
+	}
+
 	/** Load notice unit.
 	 *
 	 */
