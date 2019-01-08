@@ -1,23 +1,23 @@
 <?php
 /**
- * IF_SQL.interface.php
+ * IF_SQL_DDL_CREATE.interface.php
  *
- * @creation  2018-04-20
+ * @creation  2019-01-08
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/** IF_SQL
+/** IF_SQL_DDL_CREATE
  *
- * @creation  2018-04-20
+ * @creation  2019-01-08
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-interface IF_SQL
+interface IF_SQL_DDL_CREATE
 {
 	/** IF_DATABASE
 	 *
@@ -32,27 +32,27 @@ interface IF_SQL
 	 */
 	public function __construct(\IF_DATABASE $_DB);
 
-	/** Data Definition Language.
+	/** Generate Create user SQL.
 	 *
 	 * @creation 2019-01-08
 	 * @param	 array		 $config
-	 * @return	\IF_SQL_DDL	 $_DDL
+	 * @return	 string		 $sql
 	 */
-	public function DDL($config);
+	public function User(array $config);
 
-	/** Data Manipulation Language.
+	/** Generate Create database SQL.
 	 *
 	 * @creation 2019-01-08
 	 * @param	 array		 $config
-	 * @return	\IF_SQL_DML	 $_DML
+	 * @return	 string		 $sql
 	 */
-	public function DML($config);
+	public function Database(array $config);
 
-	/** Data Control Language
+	/** Generate Create table SQL.
 	 *
 	 * @creation 2019-01-08
 	 * @param	 array		 $config
-	 * @return	\IF_SQL_DCL	 $_DCL
+	 * @return	 string		 $sql
 	 */
-	public function DCL($config);
+	public function Table(array $config);
 }
