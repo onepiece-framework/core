@@ -122,6 +122,9 @@ class Unit
 		static $_result;
 
 		//	...
+		$name = strtolower($name);
+
+		//	...
 		$hash = Hasha1($name);
 
 		//	...
