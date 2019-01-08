@@ -18,6 +18,9 @@
  *
  * //	Get instance.
  * $obj = Unit::Instance('UnitName');
+ *
+ * //	Get singleton instance.
+ * $obj = Unit::Singleton('UnitName');
  * </pre>
  *
  * @creation  2016-11-28
@@ -87,6 +90,27 @@ class Unit
 		}catch( Throwable $e ){
 			Notice::Set($e);
 		}
+	}
+
+	/** Return already instantiated instance.
+	 *
+	 * @param  string $name
+	 * @return boolean|object
+	 */
+	static function Singleton($name)
+	{
+		static $_pool;
+
+		//	...
+		if( isset( $_pool[$name] ) ){
+			return $_pool[$name];
+		}
+
+		//	Instantiate.
+		$_pool[$name] = self::Instance($name);
+
+		//	...
+		return $_pool[$name];
 	}
 
 	/** Load of unit controller.
