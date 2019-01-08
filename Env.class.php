@@ -118,7 +118,7 @@ class Env
 
 	/** Get/Set charset.
 	 *
-	 * This charset is end user land charset.
+	 * This charset is just html only.
 	 * For developers charset is not yet consider.
 	 * Source code is always UTF-8.
 	 *
@@ -153,6 +153,9 @@ class Env
 	{
 		static $_mime;
 		if( $mime ){
+			//	...
+			$file = $line = null;
+
 			//	...
 			if( headers_sent($file, $line) ){
 				Notice::Set("Header has already sent. ($file, $line)");
