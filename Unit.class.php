@@ -9,8 +9,7 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/**
- * Unit
+/** Unit
  *
  * <pre>
  * //	Set unit directory.
@@ -21,6 +20,12 @@
  *
  * //	Get singleton instance.
  * $obj = Unit::Singleton('UnitName');
+ *
+ * //	Load static class.
+ * Unit::Load('unitname');
+ *
+ * //	Use static class.
+ * $val = OP\UNIT\NAME::Get();
  * </pre>
  *
  * @creation  2016-11-28
