@@ -31,7 +31,7 @@ interface IF_FORM
 	 * @param	 array		 $config
 	 * @return	 array		 $config
 	 */
-	public function Config($config);
+	public function Config(array $config);
 
 	/** Token validation.
 	 *
@@ -109,11 +109,18 @@ interface IF_FORM
 	 */
 	public function GetValue($input_name);
 
-	/** Input validation.
+	/** Validate input value.
 	 *
 	 * @addition 2018-06-29
 	 * @param    string  $input_name
 	 * @return   array   $validate
 	 */
 	public function Validate($input_name='');
+
+	/** Is validation result.
+	 *
+	 * @addition 2019-03-15
+	 * @return  boolean  $io
+	 */
+	public function isValidate();
 }
