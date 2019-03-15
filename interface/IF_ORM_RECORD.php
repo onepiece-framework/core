@@ -9,6 +9,12 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
+/** namespace
+ *
+ * @creation  2019-03-05
+ */
+namespace OP;
+
 /** IF_ORM_RECORD
  *
  * @creation  2018-06-29
@@ -39,7 +45,7 @@ interface IF_ORM_RECORD
 
 	/** Return already instantiated Form object. (So-call singleton)
 	 *
-	 * @return	 \IF_FORM	 $form
+	 * @return	 IF_FORM	 $form
 	 */
 	public function Form();
 }

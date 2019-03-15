@@ -9,42 +9,31 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/** Return meta root path array.
+/** namespace
  *
- * @param  string $meta
- * @param  string $path
- * @return array
+ * @creation  2019-02-19
  */
-function _GetRootsPath($meta=null, $path=null)
+namespace OP;
+
+/** Meta label root path.
+ *
+ * @param string $meta
+ * @param string $path
+ */
+function RootPath(string $meta='', string $path='')
 {
 	//	...
 	static $root;
 
 	//	...
-	if(!$root or ($meta and $path) ){
-		//	...
-		global $_OP;
+	if( $meta and $path ){
+		$root[$meta] = rtrim($path,'/').'/';
+	};
 
-		//	...
-		if( $meta and $path ){
-			//	...
-			$temp = strtoupper($meta) . '_ROOT';
-
-			//	...
-			$_OP[$temp] = $path;
-		}
-
-		//	...
-		$root = [];
-
-		//	...
-		foreach( $_OP as $key => $val ){
-			list($key1, $key2) = explode('_', $key);
-			if( $key2 === 'ROOT' ){
-				$root[ strtolower($key1) . ':/' ] = rtrim($val, '/').'/';
-			}
-		}
-	}
+	//	...
+	if( $meta ){
+		return $root[$meta] ?? null;
+	};
 
 	//	...
 	return $root;
@@ -61,13 +50,23 @@ function _GetRootsPath($meta=null, $path=null)
  */
 function CompressPath($path)
 {
-	foreach( _GetRootsPath() as $key => $var ){
-		if( strpos($path, $var) === 0 ){
-			$path = substr($path, strlen($var));
-			return $key . ltrim($path,'/');
-		}
-	}
-	return $path;
+	//	...
+	foreach( RootPath() as $meta => $root ){
+		//	...
+		$pos = strpos($path, $root);
+
+		//	...
+		if( $pos === 0 ){
+			//	...
+			$path = substr($path, strlen($root));
+
+			//	...
+			return "{$meta}:/{$path}";
+		};
+	};
+
+	//	...
+	return false;
 }
 
 /** Convert to local file path from meta path.
@@ -81,16 +80,27 @@ function CompressPath($path)
  */
 function ConvertPath($path)
 {
-	foreach( _GetRootsPath() as $key => $var ){
-		if( strpos($path, $key) === 0 ){
-			$path = substr($path, strlen($key));
-			return $var.$path;
-		}
-	}
-	return $path;
+	//	...
+	$root = RootPath();
+
+	//	...
+	if(!$pos = strpos($path, ':/') ){
+		return false;
+	};
+
+	//	...
+	$meta = substr($path, 0, $pos);
+
+	//	...
+	if( empty($root[$meta]) ){
+		return false;
+	};
+
+	//	...
+	return $root[$meta] . substr($path, $pos+2);
 }
 
-/** Convert to Document root URL from meta path.
+/** Convert to Document root URL from meta path or full path.
  *
  * This function is for abstract whatever path the application on placed.
  *
@@ -107,104 +117,33 @@ function ConvertPath($path)
 function ConvertURL($url)
 {
 	//	...
-	global $_OP;
-
-	//	Full path.
-	$rewrite_base = rtrim($_OP[DOC_ROOT], '/');
+	$root = RootPath();
 
 	//	...
-	if( strpos($url, 'app:/') === 0 ){
+	if( $pos = strpos($url, ':/') ){
 
-		/** Convert to application root path from meta path.
-		 *
-		 * app:/foo/bar --> /op/7/app-skeleton-2018/foo/bar/
-		 *
-		 * @var string $result
-		 */
-		$result = substr($_OP[APP_ROOT], strlen($rewrite_base)).substr($url, 5);
+		//	...
+		$meta = substr($url, 0, $pos);
+		$path = substr($url, $pos+2);
 
-	}else if( strpos($url, $_OP[DOC_ROOT]) === 0 ){
+		//	...
+		if( empty($root[$meta]) ){
+			return false;
+		};
 
-		/** Convert to document root url path from full path.
-		 *
-		 * /var/www/html/index.html --> /index.html
-		 *
-		 * @var string $result
-		 */
-		$result = substr($url, strlen($rewrite_base));
+		//	Convert to URL from meta path.
+		//	app:/foo/bar --> /app/path/foo/bar
+		$result = substr($root[$meta] . $path, strlen($_SERVER['DOCUMENT_ROOT']));
 
-	}else{
-		//	What is this?
-		$key = ':/';
+	}else if( strpos($url, $_SERVER['DOCUMENT_ROOT']) === 0 ){
 
-		//	???
-		$len = strpos($url, $key) + strlen($key);
-
-		//	Why?
-		foreach( _GetRootsPath() as $key => $dir ){
-			//	match
-			if( strpos($url, $key) === 0 ){
-				//	Convert
-				$result = ConvertURL( CompressPath($dir . substr($url, $len)) );
-			}
-		}
-	}
-
-	/** Add slash to URL tail.
-	 *
-	 * Apache will automatic transfer, in case of directory.
-	 */
-
-	//	Separate url query.
-	if( $pos = strpos($result, '?') ){
-		$url = substr($result, 0, $pos);
-		$que = substr($result, $pos);
-	}else{
-		$url = $result;
-		$que = '';
-	}
-
-	// Right slash position.
-	$pos = strrpos($url, '/') +1;
-
-	//	If URL is closed by slash.
-	if( strlen($url) === ($pos) ){
-		//	OK
-	}else{
-		//	Get file name.
-		$file = substr($url, $pos);
-
-		//	File name has extension.
-		if( strpos($file, '.') ){
-			//	/foo/bar/index.html
-		}else{
-			//	/foo/bar --> /foo/bar/
-			$url .= '/';
-		}
-	}
+		//	Convert to URL from full path.
+		//	/var/www/html/app/path/index.html --> /app/path/index.html
+		$result = substr($url, strlen($_SERVER['DOCUMENT_ROOT']));
+	};
 
 	//	...
-	return $url . $que;
-}
-
-/** Dump value for developers only.
- *
- * @param boolean|integer|string|array|object $value
- */
-function D()
-{
-	//	If not admin will skip.
-	if(!Env::isAdmin()){
-		return;
-	}
-
-	//	...
-	if(!Unit::Load('dump') ){
-		return;
-	}
-
-	//	Dump.
-	OP\UNIT\Dump::Mark(func_get_args());
+	return $result;
 }
 
 /** Decode
@@ -221,17 +160,17 @@ function Decode($value, $charset=null)
 	}
 
 	//	...
-	switch( $type = gettype($value) ){
+	switch( gettype($value) ){
 		//	...
 		case 'string':
-			$value = DecodeString($value, $charset);
+			$value = html_entity_decode($value, ENT_QUOTES, $charset);
 			break;
 
 		//	...
 		case 'array':
 			$result = [];
 			foreach( $value as $key => $val ){
-				$key = is_string($key) ? DecodeString($key, $charset): $key;
+				$key = is_string($key) ? Decode($key, $charset): $key;
 				$val = Decode($val, $charset);
 				$result[$key] = $val;
 			}
@@ -246,29 +185,13 @@ function Decode($value, $charset=null)
 	return $value;
 }
 
-function DecodeString($string, $charset)
-{
-	return html_entity_decode($string, ENT_QUOTES, $charset);
-}
-
 /** Encode mixed value.
  *
  * @param  mixed  $var
  * @param  string $charset
  * @return mixed  $var
  */
-function Encode($var, $charset=null)
-{
-	return Escape($var, $charset);
-}
-
-/** Escape mixid value.
- *
- * @param  mixed  $var
- * @param  string $charset
- * @return mixed  $var
- */
-function Escape($var, $charset=null)
+function Encode($value, $charset=null)
 {
 	//	...
 	if(!$charset ){
@@ -276,62 +199,33 @@ function Escape($var, $charset=null)
 	}
 
 	//	...
-	switch( $type = gettype($var) ){
+	switch( gettype($value) ){
 		case 'string':
-			return _EscapeString($var, $charset);
+			$value = str_replace("\0", '\0', $value);
+			return htmlentities($value, ENT_QUOTES, $charset, false);
 
 		case 'array':
-			$var = _EscapeArray($var, $charset);
+			$result = [];
+			foreach( $value as $key => $val ){
+				$key = is_string($key) ? Encode($key, $charset): $key;
+				$val = Encode($val, $charset);
+				$result[$key] = $val;
+			}
+			$value = $result;
 			break;
 
 		case 'object':
 			/*
 			D("Objects are not yet supported.");
 			*/
-			$var = get_class($var);
+			$value = get_class($value);
 			break;
 
 		default:
 	}
 
 	//	...
-	return $var;
-}
-
-/** Escape array.
- *
- * @param  array $arr
- * @return array
- */
-function _EscapeArray($arr, $charset='utf-8')
-{
-	//	...
-	$new = [];
-
-	//	...
-	foreach( $arr as $key => $var ){
-		//	Escape index key in case of string.
-		if( is_string($key) ){
-			$key = _EscapeString($key, $charset);
-		}
-
-		//	Escape value.
-		$new[$key] = Escape($var, $charset);
-	}
-
-	//	...
-	return $new;
-}
-
-/** Escape string.
- *
- * @param  string $var
- * @return string
- */
-function _EscapeString($var, $charset='utf-8')
-{
-	$var = str_replace("\0", "", $var);
-	return htmlentities($var, ENT_QUOTES, $charset, false);
+	return $value;
 }
 
 /** To hash

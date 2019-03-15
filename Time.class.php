@@ -13,6 +13,12 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
+/** namespace
+ *
+ * @creation  2019-02-21
+ */
+namespace OP;
+
 /** Time
  *
  * @creation  2016-11-17
@@ -133,8 +139,7 @@ class Time
 	 */
 	static function GMT($format='Y-m-d H:i:s')
 	{
-		$time = self::Get(true);
-		return date($format, $time);
+		return date($format, self::Get(true));
 	}
 
 	/** Get frozen time.

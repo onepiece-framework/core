@@ -9,6 +9,12 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
+/** namespace
+ *
+ * @creation  2019-02-21
+ */
+namespace OP;
+
 /** Cookie
  *
  * FEATURE:

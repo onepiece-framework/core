@@ -1,6 +1,6 @@
 <?php
 /**
- * IF_SQL_DDL_CREATE.interface.php
+ * IF_SQL_DML.interface.php
  *
  * @creation  2019-01-08
  * @version   1.0
@@ -9,7 +9,13 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/** IF_SQL_DDL_CREATE
+ /** namespace
+ *
+ * @creation  2019-03-04
+ */
+namespace OP;
+
+/** IF_SQL_DML
  *
  * @creation  2019-01-08
  * @version   1.0
@@ -17,42 +23,44 @@
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-interface IF_SQL_DDL_CREATE
+interface IF_SQL_DML
 {
-	/** IF_DATABASE
-	 *
-	 * @var \IF_DATABASE
-	 */
-	private $_DB;
-
 	/** Construct.
 	 *
 	 * @creation 2019-01-08
-	 * @param	\IF_DATABASE $_DB
+	 * @param    IF_DATABASE $_DB
 	 */
-	public function __construct(\IF_DATABASE $_DB);
+	public function __construct(IF_DATABASE & $_DB);
 
-	/** Generate Create user SQL.
+	/** Generate Insert SQL.
 	 *
 	 * @creation 2019-01-08
 	 * @param	 array		 $config
 	 * @return	 string		 $sql
 	 */
-	public function User(array $config);
+	public function Insert(array $config);
 
-	/** Generate Create database SQL.
+	/** Generate Select SQL.
 	 *
 	 * @creation 2019-01-08
 	 * @param	 array		 $config
 	 * @return	 string		 $sql
 	 */
-	public function Database(array $config);
+	public function Select(array $config);
 
-	/** Generate Create table SQL.
+	/** Generate Update SQL.
 	 *
 	 * @creation 2019-01-08
 	 * @param	 array		 $config
 	 * @return	 string		 $sql
 	 */
-	public function Table(array $config);
+	public function Update(array $config);
+
+	/** Generate Delete SQL.
+	 *
+	 * @creation 2019-01-08
+	 * @param	 array		 $config
+	 * @return	 string		 $sql
+	 */
+	public function Delete(array $config);
 }

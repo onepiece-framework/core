@@ -9,6 +9,17 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
+/** namespace
+ *
+ * @creation  2019-02-20
+ */
+namespace OP;
+
+/** Used class
+ *
+ */
+use Exception;
+
 /** Unit
  *
  * <pre>
@@ -17,9 +28,6 @@
  *
  * //	Get instance.
  * $obj = Unit::Instance('UnitName');
- *
- * //	Get singleton instance.
- * $obj = Unit::Singleton('UnitName');
  *
  * //	Load static class.
  * Unit::Load('unitname');
@@ -41,52 +49,6 @@ class Unit
 	 */
 	use OP_CORE;
 
-	/** Get/Set unit directory.
-	 *
-	 * @param  string|null         $dir
-	 * @return string|null|boolean $dir
-	 */
-	static function Directory($dir=null)
-	{
-		static $_dir;
-
-		//	...
-		if( $dir ){
-			//	...
-			if( strpos($dir, ':') ){
-				$dir = rtrim(ConvertPath($dir), '/').'/';
-			}
-
-			//	...
-			_GetRootsPath('unit', $dir);
-
-			//	...
-			if(!file_exists($dir)){
-				$message = "Does not exists unit directory. ($dir)";
-				Notice::Set($message);
-				return false;
-			}
-
-			//	...
-			$_dir = $dir;
-		}
-
-		//	...
-		return $_dir;
-	}
-
-	/** Return new instance.
-	 *
-	 * This method is wrapper method of Instantiate.
-	 *
-	 * @param  string $name
-	 * @return object
-	 */
-	static function Instance($name)
-	{
-		return self::Instantiate($name);
-	}
-
 	/** Return new instance.
 	 *
 	 * @param  string $name
@@ -99,39 +61,39 @@ class Unit
 			return false;
 		}
 
-		//	...
-		try{
-			//	Generate name space path.
-			$path = '\OP\UNIT\\'.$name;
-
-			//	Instantiate.
-			return new $path();
-
-		}catch( Throwable $e ){
-			Notice::Set($e);
-			return false;
-		}
-	}
-
-	/** Return already instantiated instance.
-	 *
-	 * @param  string $name
-	 * @return boolean|object
-	 */
-	static function Singleton($name)
-	{
-		static $_pool;
-
-		//	...
-		if( isset( $_pool[$name] ) ){
-			return $_pool[$name];
-		}
+		//	Generate name space path.
+		$class = '\OP\UNIT\\'.$name;
 
 		//	Instantiate.
-		$_pool[$name] = self::Instance($name);
+		if(!class_exists($class, true) ){
+			throw new Exception("Has not been exists class. ($class)");
+		};
 
 		//	...
-		return $_pool[$name];
+		$classes = class_implements($class);
+
+		//	Check IF_UNIT is implemented.
+		if(!isset($classes['OP\IF_UNIT']) ){
+			throw new Exception("This unit has not implemented IF_UNIT. ($class)");
+		};
+
+		//	Check implemented restriction.
+		switch( strtolower($name) ){
+			case 'form':
+			case 'database':
+			case 'sql':
+				//	...
+				$key = "OP\IF_".strtoupper($name);
+
+				//	...
+				if(!isset($classes[$key]) ){
+					throw new Exception("This unit has not implemented {$key}. ($name)");
+				};
+			break;
+		};
+
+		//	...
+		return new $class();
 	}
 
 	/** Load of unit controller.
@@ -140,59 +102,53 @@ class Unit
 	 */
 	static function Load($name)
 	{
-		static $_result;
+		//	...
+		static $_result = [];
+		static $_dir;
 
 		//	...
 		$name = strtolower($name);
 
 		//	...
-		$hash = Hasha1($name);
+		if( isset( $_result[$name] ) ){
+			return $_result[$name];
+		};
 
 		//	...
-		if( isset( $_result[$hash] ) ){
-			return $_result[$hash];
-		}
-
-		//	...
-		if(!$dir = self::Directory() ){
-			$message = "Has not been set unit directory.\n".' Example: Unit::Directory("app:/asset/unit");';
-			Notice::Set($message);
-			return false;
-		}
-
-		//	...
-		$dir = ConvertPath($dir);
-		$dir = realpath($dir);
-
-		//	...
-		if(!file_exists($dir)){
-			$message = "Does not exists unit directory. ($dir)";
-			Notice::Set($message);
-			return false;
-		}
-
-		//	...
-		if(!file_exists("{$dir}/{$name}")){
+		if(!$_dir ){
 			//	...
-			$message = "Does not exists this unit. ($dir/$name)";
-			Notice::Set($message);
-			return false;
-		}
+			if(!$_dir = Env::Get('unit')['directory'] ?? null ){
+				throw new Exception('Has not been set unit directory.');
+			};
+
+			//	...
+			$_dir = ConvertPath($_dir);
+
+			//	...
+			if(!file_exists($_dir)){
+				throw new Exception("Does not exists unit directory. ($_dir)");
+			};
+		};
 
 		//	...
-		$path = "{$dir}/{$name}/index.php";
+		if(!file_exists("{$_dir}/{$name}") ){
+			throw new Exception("Does not exists this unit. ($name)");
+		};
 
 		//	...
-		if(!file_exists($path)){
-			$message = "Does not exists unit controller. ({$name}/index.php)";
-			Notice::Set($message);
-			return false;
-		}
+		$path = "{$_dir}/{$name}/index.php";
 
 		//	...
-		$_result[$hash] = include($path);
+		if(!file_exists($path) ){
+			throw new Exception("Does not exists unit controller. ($path)");
+		};
 
 		//	...
-		return $_result[$hash];
+		$_result[$name] = call_user_func(function($path){
+			return include($path);
+		}, $path);
+
+		//	...
+		return $_result[$name];
 	}
 }

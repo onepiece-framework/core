@@ -9,6 +9,12 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
+/** namespace
+ *
+ * @creation  2019-02-20
+ */
+namespace OP;
+
 /** Encrypt
  *
  * @creation  2017-11-22

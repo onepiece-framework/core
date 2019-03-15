@@ -1,6 +1,6 @@
 <?php
 /**
- * OP_CORE.trait.php
+ * OP_CORE.php
  *
  * @creation  2017-02-16
  * @version   1.0
@@ -9,8 +9,13 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/**
- * OP_CORE
+/** namespace
+ *
+ * @creation  2019-02-20
+ */
+namespace OP;
+
+/** OP_CORE
  *
  * @creation  2016-12-05
  * @version   1.0
@@ -36,7 +41,7 @@ trait OP_CORE
 					break;
 
 				case 'object':
-					$join[] = get_class($type);
+					$join[] = get_class($val);
 					break;
 
 				default:
@@ -99,5 +104,73 @@ trait OP_CORE
 	function __wakeup()
 	{
 
+	}
+
+	/** Get/Set Session
+	 *
+	 * @return array
+	 */
+	function &Session($key=null, $val=null)
+	{
+		//	...
+		$app_id = Env::Get(_OP_APP_ID_);
+		$class  = get_called_class();
+
+		//	...
+		if( $key ){
+			//	...
+			if( $val !== null ){
+				$_SESSION[$app_id][$class][$key] = $val;
+			};
+		};
+
+		//	...
+		if( $key ){
+			return $_SESSION[$app_id][$class][$key];
+		}else{
+			return $_SESSION[$app_id][$class];
+		};
+	}
+
+	/** Convert to path from meta path.
+	 *
+	 * @param   string  $path
+	 * @return  string
+	 */
+	function Path(string $path)
+	{
+		return \OP\ConvertPath($path);
+	}
+
+	/** Convert to url from meta url.
+	 *
+	 * @param   string  $path
+	 * @return  string
+	 */
+	function URL(string $url)
+	{
+		return \OP\ConvertURL($url);
+	}
+
+	/** Encode to secure string from internet.
+	 *
+	 * @param   mixed  $values
+	 * @param   string $charset
+	 * @return  mixed  $values
+	 */
+	function Encode($values, $charset=null)
+	{
+		return \OP\Encode($values, $charset);
+	}
+
+	/** Decode to real string from secure string.
+	 *
+	 * @param   mixed  $values
+	 * @param   string $charset
+	 * @return  mixed  $values
+	 */
+	function Decode($values, $charset=null)
+	{
+		return \OP\Decode($values, $charset);
 	}
 }

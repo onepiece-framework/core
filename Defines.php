@@ -9,30 +9,6 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
-/** onepiece-framework's core files installed path.
- *
- * @var string
- */
-define('OP_ROOT', 'OP_ROOT', false);
-
-/** onepiece-framework's asset files installed path.
- *
- * @var string
- */
-define('ASSET_ROOT', 'ASSET_ROOT', false);
-
-/** onepiece-framework's application installed path.
- *
- * @var string
- */
-define('APP_ROOT', 'APP_ROOT', false);
-
-/** Web server's document root path.
- *
- * @var string
- */
-define('DOC_ROOT', 'DOC_ROOT', false);
-
 /** Namespace
  *
  * @var string

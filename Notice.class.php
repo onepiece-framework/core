@@ -9,6 +9,12 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
+/** namespace
+ *
+ * @creation  2019-02-20
+ */
+namespace OP;
+
 /**
  * Notice
  *
@@ -23,31 +29,55 @@ class Notice
 	/** trait.
 	 *
 	 */
-	use OP_CORE, OP_SESSION;
+	use OP_CORE;
 
-	/** Namespace
+	/** Get/Pop Notice array.
 	 *
-	 * @var string
+	 * @param	 boolean	 true=Get(First in), false=Pop(Last in)
+	 * @return	 array
 	 */
-	const _NAME_SPACE_ = 'STORE';
-
-	/** Get notice array.
-	 *
-	 * @return array
-	 */
-	static function Get()
+	static function _Get(bool $is_get=true) : array
 	{
+		//	...
+		$app_id = Env::Get(_OP_APP_ID_);
+
+		//	...
+		if(!isset($_SESSION[$app_id][__CLASS__]) ){
+			$_SESSION[$app_id][__CLASS__] = [];
+		};
+
 		//	Get
-		$session = self::Session(self::_NAME_SPACE_);
+		$session = &$_SESSION[$app_id][__CLASS__];
 
 		//	Shift
-		$notice  = array_shift($session);
-
-		//	Set
-		self::Session(self::_NAME_SPACE_, $session);
+		if( $is_get ){
+			//	...
+			$notice  = array_shift($session);
+		}else{
+			//	...
+			$notice  = array_pop($session);
+		};
 
 		//	Return
-		return $notice;
+		return $notice ?? [];
+	}
+
+	/** Get Notice array.
+	 *
+	 * @return	 array
+	 */
+	static function Get() : array
+	{
+		return self::_Get(true);
+	}
+
+	/** Pop Notice array.
+	 *
+	 * @return	 array
+	 */
+	static function Pop() : array
+	{
+		return self::_Get(false);
 	}
 
 	/** Set notice array.
@@ -57,7 +87,18 @@ class Notice
 	static function Set($e, $backtrace=null)
 	{
 		//	...
-		if( $e instanceof Throwable ){
+		$app_id = Env::Get(_OP_APP_ID_);
+
+		//	...
+		if(!isset($_SESSION[$app_id][__CLASS__]) ){
+			$_SESSION[$app_id][__CLASS__] = [];
+		};
+
+		//	Get
+		$session = &$_SESSION[$app_id][__CLASS__];
+
+		//	...
+		if( $e instanceof \Throwable ){
 			$message   = $e->getMessage();
 			$backtrace = $e->getTrace();
 			$file      = $e->getFile();
@@ -70,9 +111,6 @@ class Notice
 		//	...
 		$key		 = Hasha1($message);
 		$timestamp	 = gmdate('Y-m-d H:i:s', time()+date('Z'));
-
-		//	...
-		$session	 = self::Session(self::_NAME_SPACE_);
 
 		//	...
 		$reference	 = isset($session[$key]) ? $session[$key]: null;
@@ -91,9 +129,6 @@ class Notice
 
 		//	...
 		$session[$key] = $reference;
-
-		//	...
-		self::Session(self::_NAME_SPACE_, $session);
 	}
 
 	/** If has notice.
@@ -102,23 +137,23 @@ class Notice
 	 */
 	static function Has()
 	{
-		return self::Session(self::_NAME_SPACE_) ? true: false;
-	}
+		//	...
+		$app_id = Env::Get(_OP_APP_ID_);
 
-	/** Load notice unit.
-	 *
-	 */
-	static function Shutdown()
-	{
-		Unit::Load('notice');
+		//	...
+		if(!isset($_SESSION[$app_id][__CLASS__]) ){
+			$_SESSION[$app_id][__CLASS__] = [];
+		};
+
+		//	...
+		return count($_SESSION[$app_id][__CLASS__]) ? true: false;
 	}
 }
 
 /** Register shutdown function.
  *
- * Moved from Bootstrap.php
- * So far, This routine has always been called up.
- * Currently, This shutdown function is called only when there is the Notice.
+ *  This shutdown function is called only when there is the Notice.
+ *  If not have Notice, this file will not be called.
  *
  * @creation  2016-11-17
  * @moved     2017-01-19
@@ -127,4 +162,12 @@ class Notice
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
-register_shutdown_function('Notice::Shutdown');
+register_shutdown_function(function(){
+	if( $notice = Unit::Instantiate('Notice') ){
+		$notice->Auto();
+	}else{
+		while( $notice = Notice::Get() ){
+			var_dump($notice);
+		};
+	};
+});

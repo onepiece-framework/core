@@ -9,6 +9,12 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
+/** namespace
+ *
+ * @creation  2019-03-04
+ */
+namespace OP;
+
 /** IF_SQL_DDL_SHOW
  *
  * @creation  2019-01-08
@@ -19,18 +25,12 @@
  */
 interface IF_SQL_DDL_SHOW
 {
-	/** IF_DATABASE
-	 *
-	 * @var \IF_DATABASE
-	 */
-	private $_DB;
-
 	/** Construct.
 	 *
 	 * @creation 2019-01-08
-	 * @param	\IF_DATABASE $_DB
+	 * @param    IF_DATABASE $_DB
 	 */
-	public function __construct(\IF_DATABASE $_DB);
+	public function __construct(IF_DATABASE $_DB);
 
 	/** Generate Show Database SQL.
 	 *

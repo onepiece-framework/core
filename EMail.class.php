@@ -9,6 +9,12 @@
  * @copyright 2015 (C) Tomoaki Nagahara All right reserved.
  */
 
+ /** namespace
+ *
+ * @created   2019-02-28
+ */
+namespace OP;
+
 /**
  * EMail
  *
@@ -32,7 +38,7 @@ class EMail
 	/** trait.
 	 *
 	 */
-	use OP_CORE;
+	use \OP\OP_CORE;
 
 	//	...
 	private $_head	 = [];

@@ -9,6 +9,12 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
+/** namespace
+ *
+ * @creation  2019-03-04
+ */
+namespace OP;
+
 /** IF_DATABASE
  *
  * @creation  2018-04-20
@@ -92,13 +98,6 @@ interface IF_DATABASE
 	 */
 	public function Delete($config);
 
-	/** Execute Quick Query Language string.
-	 *
-	 * @addition 2018-04-20
-	 * @param	 array	 $config
-	 */
-	public function Quick($config, $options);
-
 	/** Quote to SQL at each product.
 	 *
 	 * @addition 2018-04-20
@@ -113,12 +112,12 @@ interface IF_DATABASE
 	 * @param	 string	 $type
 	 * @return	 array	 $record
 	 */
-	public function SQL($SQL, $type);
+	public function SQL(string $SQL, string $type);
 
-	/** Display debug information.
+	/** Execute Quick Query Language string.
 	 *
 	 * @addition 2018-04-20
 	 * @param	 array	 $config
 	 */
-	public function Debug();
+	public function QQL(string $config, array $options);
 }
