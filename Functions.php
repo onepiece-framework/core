@@ -339,7 +339,7 @@ function Html($string, $attr=null, $escape=true)
 {
 	//	Escape tag and quote.
 	if( $escape ){
-		$string = Escape($string);
+		$string = Encode($string);
 	}
 
 	//	...
