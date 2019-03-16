@@ -98,9 +98,22 @@ class Cookie
 		//	...
 		$key = self::_Key($key);
 
-		//	...
+		/** Separate from ICE AGE time.
+		 *  Because expire time is calculate by local browser.
+		 */
+		$time = time();
+
+		//	2020-01-01 --> 1577804400
+		if(!is_numeric($expire) ){
+			$expire = strtotime($expire);
+		}else
+		//	null --> current time + 10 year
 		if( $expire === null ){
-			$expire = Time::Get() + (60*60*24*365*10);
+			$expire = $time + (60*60*24*365*10);
+		}else
+		//	60 --> current time + 60 sec
+		if( $expire < $time ){
+			$expire+= $time;
 		}
 
 		//	...
