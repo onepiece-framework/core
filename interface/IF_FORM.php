@@ -31,7 +31,7 @@ interface IF_FORM
 	 * @param	 array		 $config
 	 * @return	 array		 $config
 	 */
-	public function Config(array $config);
+	public function Config($config);
 
 	/** Token validation.
 	 *
@@ -120,7 +120,7 @@ interface IF_FORM
 	/** Is validation result.
 	 *
 	 * @addition 2019-03-15
-	 * @return  boolean  $io
+	 * @return   boolean
 	 */
-	public function isValidate();
+	public function isValidate():bool;
 }
