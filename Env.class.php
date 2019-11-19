@@ -29,7 +29,7 @@ class Env
 	/** trait.
 	 *
 	 */
-	use OP_CORE;
+	use OP_CORE, OP_DEBUG;
 
 	/** Constant.
 	 *
@@ -69,21 +69,39 @@ class Env
 	 */
 	static function isLocalhost()
 	{
+		//	...
 		if(!self::$_is_localhost){
-			self::$_is_localhost = ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' or $_SERVER['REMOTE_ADDR'] === '::1') ? true : false;
+			//	...
+			if( self::isHttp() ){
+				//	...
+				self::$_is_localhost = ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' or $_SERVER['REMOTE_ADDR'] === '::1') ? true : false;
+			}else{
+				//	Shell
+				self::$_is_localhost = true;
+			};
 		}
+
+		//	...
 		return self::$_is_localhost;
+	}
+
+	/** Is Http
+	 *
+	 * @return boolean
+	 */
+	static function isHttp()
+	{
+		return isset($_SERVER['REDIRECT_STATUS']);
 	}
 
 	/** Get environment value.
 	 *
 	 * @param  string $key
-	 * @param  string|integer|boolean|array|object $default
 	 * @return string|integer|boolean|array|object
 	 */
-	static function Get($key, $default=null)
+	static function Get($key)
 	{
-		return ifset(self::$_env[$key], $default);
+		return self::$_env[strtolower($key)] ?? null;
 	}
 
 	/** Set environment value.
@@ -94,26 +112,99 @@ class Env
 	static function Set($key, $var)
 	{
 		//	...
+		$key = strtolower($key);
+
+		//	...
 		if( $key === self::_ADMIN_IP_ ){
 			self::$_is_admin = null;
 		}
 
 		//	...
-		self::$_env[$key] = $var;
+		if( isset(self::$_env[$key]) and is_array($var) ){
+			/** About array merge.
+			 *
+			 *  array_replace_recursive() is all replace.
+			 *  array_merge_recursive() is number index is renumbering.
+			 *
+			 */
+		//	self::$_env[$key] = array_merge_recursive(self::$_env[$key], $var);
+			self::$_env[$key] = array_replace_recursive(self::$_env[$key], $var);
+		}else{
+			self::$_env[$key] = $var;
+		};
+
+		//	...
+		if( self::isAdmin() ){
+			//	...
+			$trace = debug_backtrace(null, 1)[0];
+
+			//	...
+			if( is_array($var) ){
+				$val = $var;
+				$val['trace'] = $trace;
+			}else{
+				$val = [$var,'trace'=>$trace];
+			};
+
+			//	...
+			self::__DebugSet($key, $val);
+		};
 	}
 
-	/** Get/Set lang.
+	/** Get/Set Lang.
 	 *
-	 * @param  string $lang
-	 * @return string $lang
+	 * @created 2019-04-27
+	 * @param   string     $lang
+	 * @return  string     $lang
 	 */
 	static function Lang($lang=null)
 	{
-		static $_lang;
+		//	...
 		if( $lang ){
-			$_lang = $lang;
-		}
-		return $_lang;
+			$cont = self::Country();
+			self::$_env['locale'] = $lang.':'.$cont;
+		}else{
+			return explode(':', self::Locale())[0];
+		};
+	}
+
+	/** Get/Set Country.
+	 *
+	 * @created 2019-04-29
+	 * @param   string     $country
+	 * @return  string     $country
+	 */
+	static function Country($country=null)
+	{
+		//	...
+		if( $country ){
+			$lang = self::Lang();
+			self::$_env['locale'] = $lang.':'.$country;
+		}else{
+			return strtoupper(explode(':',self::Locale())[1] ?? null);
+		};
+	}
+
+	/** Get/Set Locale.
+	 *
+	 * @created 2019-04-27
+	 * @param   string     $locale
+	 * @return  string     $locale
+	 */
+	static function Locale($locale=null)
+	{
+		//	...
+		if( $locale ){
+			self::$_env['locale'] = $locale;
+		};
+
+		//	...
+		if( empty(self::$_env['locale']) ){
+			$locale = Cookie::Get('locale') ?? self::$_env['g11n']['default'] ?? 'en:US';
+		};
+
+		//	...
+		return $locale;
 	}
 
 	/** Get/Set charset.
@@ -127,21 +218,22 @@ class Env
 	 */
 	static function Charset($charset=null)
 	{
-		static $_charset;
+		//	...
+		if( $charset ){
+			if( self::$_env['charset'] ){
+				Notice::Set("Charset was already set.");
+			}else{
+				self::$_env['charset'] = $charset;
+			};
+		};
 
 		//	...
-		if( $_charset  ){
-			//	Alrady set.
-		}else if( $charset ){
-			//	Cant not override.
-			$_charset = $charset;
-		}else{
-			//	Initialized.
-			$_charset = 'utf-8';
-		}
+		if( empty(self::$_env['charset']) ){
+			self::$_env['charset'] = 'utf-8';
+		};
 
 		//	...
-		return $_charset;
+		return self::$_env['charset'];
 	}
 
 	/** Get/Set MIME
@@ -151,7 +243,7 @@ class Env
 	 */
 	static function Mime($mime=null)
 	{
-		static $_mime;
+		//	...
 		if( $mime ){
 			//	...
 			$file = $line = null;
@@ -161,13 +253,13 @@ class Env
 				Notice::Set("Header has already sent. ($file, $line)");
 			}else{
 				//	...
-				$_mime = strtolower($mime);
+				self::$_env['mime'] = strtolower($mime);
 
 				//	...
 				$header = "Content-type: $mime";
 
 				//	...
-				if( $charset = Env::Charset()){
+				if( $charset = self::Charset()){
 					$header .= "; charset={$charset}";
 				}
 
@@ -175,6 +267,55 @@ class Env
 				header($header);
 			}
 		}
-		return $_mime;
+
+		//	...
+		return self::$_env['mime'];
+	}
+
+	/** Get frozen unix time.
+	 *
+	 * @param  integer|string $time
+	 * @return integer        $time
+	 */
+	static function Time($time=null)
+	{
+		//	...
+		if( $time ){
+			//	...
+			if( self::$_env['time'] ?? null ){
+				Notice::Set("Frozen time has already set.");
+			};
+
+			//	...
+			self::$_env['time'] = is_int($time) ? $time: strtotime($time);
+		};
+
+		//	...
+		if( empty(self::$_env['time']) ){
+			self::$_env['time'] = time();
+		};
+
+		//	...
+		return self::$_env['time'];
+	}
+
+	/** Get local timezone timestamp.
+	 *
+	 * @created  2019-09-24
+	 * @return   string      $timestamp
+	 */
+	static function Timestamp($gmt=null)
+	{
+		return $gmt ? gmdate(_OP_DATE_TIME_, self::Time()) : date(_OP_DATE_TIME_, self::Time());
+	}
+
+	/** Get App ID.
+	 *
+	 * @created  2019-09-13
+	 * @return   string
+	 */
+	static function AppID()
+	{
+		return self::Get(_OP_APP_ID_);
 	}
 }

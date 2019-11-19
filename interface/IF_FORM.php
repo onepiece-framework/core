@@ -28,15 +28,15 @@ interface IF_FORM
 	/** Set configuration.
 	 *
 	 * @addition 2018-04-20
-	 * @param	 array		 $config
-	 * @return	 array		 $config
+	 * @param    array|null  $config
+	 * @return   array       $config
 	 */
 	public function Config($config);
 
 	/** Token validation.
 	 *
 	 * @addition 2019-03-08
-	 * @return  boolean  True is token is match.
+	 * @return   boolean    True is token is match.
 	 */
 	public function Token();
 

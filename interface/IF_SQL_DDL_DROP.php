@@ -30,7 +30,7 @@ interface IF_SQL_DDL_DROP
 	 * @creation 2019-01-08
 	 * @param    IF_DATABASE $_DB
 	 */
-	public function __construct(IF_DATABASE $_DB);
+	public function __construct(IF_DATABASE & $_DB);
 
 	/** Generate Drop User SQL.
 	 *

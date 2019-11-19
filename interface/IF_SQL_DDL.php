@@ -35,40 +35,34 @@ interface IF_SQL_DDL
 	/** Generate Show Object.
 	 *
 	 * @creation 2019-01-08
-	 * @param    array		 $config
 	 * @return   IF_SQL_DDL_SHOW
 	 */
-	public function Show(array $config);
+	public function Show();
 
 	/** Generate Create Object.
 	 *
 	 * @creation 2019-01-08
-	 * @param    array		 $config
 	 * @return   IF_SQL_DDL_CREATE
 	 */
-	public function Create(array $config);
+	public function Create();
 
 	/** Generate Drop Object.
 	 *
 	 * @creation 2019-01-08
-	 * @param    array		 $config
 	 * @return   IF_SQL_DDL_CREATE
 	 */
-	public function Drop(array $config);
+	public function Drop();
 
 	/** Generate Alter Object.
 	 *
 	 * @creation 2019-01-08
-	 * @param    array		 $config
 	 * @return   IF_SQL_DDL_CREATE
 	 */
-	public function Alter(array $config);
+	public function Alter();
 
 	/** Generate Truncate SQL.
 	 *
 	 * @creation 2019-01-08
-	 * @param	 array		 $config
-	 * @return	 string		 $sql
 	 */
-	public function Truncate(array $config);
+	public function Truncate();
 }

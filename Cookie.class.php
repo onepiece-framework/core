@@ -38,22 +38,6 @@ class Cookie
 	 */
 	use OP_CORE;
 
-	/** Initialize App ID.
-	 *
-	 */
-	static private function _AppID()
-	{
-		static $app_id;
-
-		if(!$app_id ){
-			if(!$app_id = Env::Get(_OP_APP_ID_) ){
-				$app_id = Hasha1(ConvertPath('app:/'));
-			}
-		}
-
-		return $app_id;
-	}
-
 	/** Generate unique key by AppID and original key name.
 	 *
 	 * @param  string $key
@@ -61,7 +45,7 @@ class Cookie
 	 */
 	static function _Key($key)
 	{
-		return Hasha1($key.', '.self::_AppID());
+		return Hasha1($key.', ' . Env::Get(_OP_APP_ID_));
 	}
 
 	/** Get cookie value of key.
@@ -81,8 +65,11 @@ class Cookie
 
 	/** Set cookie value.
 	 *
-	 * @param string $key
-	 * @param mixed  $val
+	 * @param  string         $key
+	 * @param  mixed          $val
+	 * @param  mixed          $expire
+	 * @param  array          $option
+	 * @return boolean|string $date
 	 */
 	static function Set($key, $val, $expire=null, $option=null)
 	{
@@ -92,7 +79,7 @@ class Cookie
 		//	Failed.
 		if( headers_sent($file, $line) ){
 			Notice::Set("Header has already been sent. ($file, $line)");
-			return;
+			return false;
 		}
 
 		//	...
@@ -117,16 +104,10 @@ class Cookie
 		}
 
 		//	...
-		$path = ifset( $option['path'], '/');
-
-		//	...
-		$domain = ifset( $option['domain'], $_SERVER['SERVER_NAME']);
-
-		//	...
-		$secure = false;
-
-		//	...
-		$httponly = false;
+		$path     = $option['path']     ?? ConvertURL('app:/');
+		$domain   = $option['domain']   ?? $_SERVER['SERVER_NAME'];
+		$secure   = $option['secure']   ?? false; // If TRUE, Sends the cookie to the server only for https.
+		$httponly = $option['httponly'] ?? false; // If TRUE, Cookies can not be referenced from JavaScript.
 
 		//	...
 		$val = serialize($val);
@@ -135,25 +116,14 @@ class Cookie
 		$val = Encrypt::Enc($val);
 
 		//	...
-		if( setcookie($key, $val, $expire, $path, $domain, $secure, $httponly) ){
+		if( $io = setcookie($key, $val, $expire, $path, $domain, $secure, $httponly) ){
 			//	Successful.
 			$_COOKIE[$key] = $val;
 		}else{
 			Notice::Set("Set cookie was failed.");
 		}
-	}
 
-	/** Unique User ID.
-	 *
-	 * @return string
-	 */
-	static function UUID()
-	{
 		//	...
-		if(!$uuid = self::Get('uuid') ){
-			$uuid = Hasha1( $_SERVER['REMOTE_ADDR'] . microtime() );
-			self::Set('uuid', $uuid);
-		}
-		return $uuid;
+		return $io ? date('Y-m-d H:i:s', $expire): false;
 	}
 }

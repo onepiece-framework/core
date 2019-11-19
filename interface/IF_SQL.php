@@ -30,19 +30,19 @@ interface IF_SQL
 	 * @creation 2019-01-08
 	 * @return	 IF_SQL_DDL	 $_DDL
 	 */
-	public function DDL(IF_DATABASE & $_DB);
+	public function DDL();
 
 	/** Data Manipulation Language.
 	 *
 	 * @creation 2019-01-08
 	 * @return	 IF_SQL_DML	 $_DML
 	 */
-	public function DML(IF_DATABASE & $_DB);
+	public function DML();
 
 	/** Data Control Language
 	 *
 	 * @creation 2019-01-08
 	 * @return	 IF_SQL_DCL	 $_DCL
 	 */
-	public function DCL(IF_DATABASE & $_DB);
+	public function DCL();
 }

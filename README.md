@@ -8,7 +8,7 @@ The onepiece-framework's Core for PHP7
 ### We will not support these.
 
  * PHP version 4 and 5 code.
- * feature phone.
+ * Mobile Phone.
 
 ## The NewWorld is a new world.
 
@@ -22,7 +22,7 @@ The onepiece-framework's Core for PHP7
 ### Html path through
 
  HTML file does not need a controller (endpoint).
- Of course it will be laid out.
+ Of course it will be layout.
 
 ## Developers friendly
 

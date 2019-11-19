@@ -15,6 +15,11 @@
  */
 namespace OP;
 
+/** Used class
+ *
+ */
+use Exception;
+
 /** Meta label root path.
  *
  * @param string $meta
@@ -22,20 +27,37 @@ namespace OP;
  */
 function RootPath(string $meta='', string $path='')
 {
-	//	...
+	//	Stack root list.
 	static $root;
 
-	//	...
+	//	Register root path.
 	if( $meta and $path ){
-		$root[$meta] = rtrim($path,'/').'/';
+
+		//	Replace duplicate slash.
+		$path = str_replace('//', '/', $path);
+
+		//	Added slash to tail.
+		$path = rtrim($path, '/');
+
+		//	Check if alias.
+		if( isset($root['alias']) ){
+			//	Check if match alias root.
+			if( strpos($path, $root['alias']) === 0 ){
+				//	Replace to app root.
+				$path = $root['app'] . substr($path, strlen($root['alias']));
+			};
+		};
+
+		//	Register.
+		$root[$meta] = $path.'/';
 	};
 
-	//	...
+	//	Return meta root path.
 	if( $meta ){
 		return $root[$meta] ?? null;
 	};
 
-	//	...
+	//	Return root list.
 	return $root;
 }
 
@@ -51,7 +73,7 @@ function RootPath(string $meta='', string $path='')
 function CompressPath($path)
 {
 	//	...
-	foreach( RootPath() as $meta => $root ){
+	foreach( array_reverse(RootPath()) as $meta => $root ){
 		//	...
 		$pos = strpos($path, $root);
 
@@ -80,24 +102,25 @@ function CompressPath($path)
  */
 function ConvertPath($path)
 {
-	//	...
+	//	Get root list.
 	$root = RootPath();
 
-	//	...
-	if(!$pos = strpos($path, ':/') ){
-		return false;
+	//	Search meta label.
+	/* @var $match array */
+	if(!preg_match('|([-_a-z]+):/|', $path, $match) ){
+		throw new Exception("This path is not meta path. ({$path})");
 	};
 
-	//	...
-	$meta = substr($path, 0, $pos);
+	//	Get meta label.
+	$meta = $match[1];
 
-	//	...
+	//	Check exists meta label.
 	if( empty($root[$meta]) ){
-		return false;
+		throw new Exception("This meta label has not been set. ({$meta})");
 	};
 
-	//	...
-	return $root[$meta] . substr($path, $pos+2);
+	//	Return full path.
+	return $root[$meta] . substr($path, strlen($meta)+2);
 }
 
 /** Convert to Document root URL from meta path or full path.
@@ -116,34 +139,75 @@ function ConvertPath($path)
  */
 function ConvertURL($url)
 {
-	//	...
-	$root = RootPath();
+	//	Check if full path.
+	if( $url[0] === '/' and $url[1] !== '/' ){
 
-	//	...
-	if( $pos = strpos($url, ':/') ){
+		//	Calc document root.
+		foreach(['doc','alias'] as $key){
+			//	...
+			$doc_root = RootPath()[$key];
+
+			//	Check if document root.
+			if( 0 === strpos($url, $doc_root) ){
+				//	Return compressed document root path.
+				return substr($url, strlen($doc_root));
+			}
+		}
 
 		//	...
-		$meta = substr($url, 0, $pos);
-		$path = substr($url, $pos+2);
+		throw new \Exception("This full path is not document root path. ($url)");
+	}
 
-		//	...
-		if( empty($root[$meta]) ){
-			return false;
-		};
-
-		//	Convert to URL from meta path.
-		//	app:/foo/bar --> /app/path/foo/bar
-		$result = substr($root[$meta] . $path, strlen($_SERVER['DOCUMENT_ROOT']));
-
-	}else if( strpos($url, $_SERVER['DOCUMENT_ROOT']) === 0 ){
-
-		//	Convert to URL from full path.
-		//	/var/www/html/app/path/index.html --> /app/path/index.html
-		$result = substr($url, strlen($_SERVER['DOCUMENT_ROOT']));
+	//	Separate URL Query.
+	if( $pos = strpos($url, '?') ){
+		$que = substr($url, $pos);
+		$url = substr($url, 0, $pos);
 	};
 
-	//	...
-	return $result;
+	//	In case of current URL.
+	if( $url === '.' ){
+		//	...
+		$scheme = $_SERVER['REQUEST_SCHEME'];
+
+		//	...
+		$host = $_SERVER['HTTP_HOST'];
+
+		//	...
+		$uri = $_SERVER['REQUEST_URI'];
+
+		//	...
+		return "{$scheme}://{$host}{$uri}";
+	};
+
+	//	Convert to full path.
+	$full_path = ConvertPath($url);
+
+	//	Document root.
+	$doc_root = rtrim($_SERVER['DOCUMENT_ROOT'], '/');
+
+	//	Check whether document root path.
+	if( strpos($full_path, $doc_root) !== 0 ){
+		throw new Exception("This path has not been document root path. ({$full_path})");
+	};
+
+	//	Generate document root path.
+	$url = substr($full_path, strlen($doc_root));
+
+	//	Add slash if directory.
+	if( is_dir($full_path) ){
+		//	Check if already added slash.
+		if( $url[strlen($url)-1] !== '/' ){
+			$url = rtrim($url, '/') . '/';
+		};
+	};
+
+	//	Check if had URL Query.
+	if( isset($que) ){
+		$url .= $que;
+	};
+
+	//	Remove document root path.
+	return $url;
 }
 
 /** Decode
@@ -232,11 +296,18 @@ function Encode($value, $charset=null)
  *
  * This function is convert to fixed length unique string from long or short strings.
  *
- * @param  null|integer|float|string|array|object $var
- * @param  integer $length
- * @return string  $hash
+ * @param   null|integer|float|string|array|object $var
+ * @param   integer  $length
+ * @param   string   $salt
+ * @return  string   $hash
  */
-function Hasha1($var, $length=8){
+function Hasha1($var, $length=8, $salt=null)
+{
+	//	...
+	if( $salt === null ){
+		$salt = Env::Get(_OP_APP_ID_);
+	};
+
 	//	...
 	if( is_string($var) ){
 		//	...
@@ -245,7 +316,7 @@ function Hasha1($var, $length=8){
 	}
 
 	//	...
-	return substr(sha1($var . _OP_SALT_), 0, $length);
+	return substr(sha1($var . $salt), 0, $length);
 }
 
 /** ifset
@@ -312,7 +383,7 @@ function Attribute(string $attr)
  */
 function Json($json, $attr)
 {
-	//	Decode
+	//	HTML Decode
 	$json = Decode($json);
 
 	//	Convert to json.
@@ -368,5 +439,96 @@ function Html($string, $attr=null, $escape=true)
 		printf('<%s%s>%s</%s>'.PHP_EOL, $tag, $attr, $string, $tag);
 	}else{
 		printf('<%s%s>%s</%s>'.PHP_EOL, $tag, $attr, $string, $tag);
+	}
+}
+
+/** Canonical
+ *
+ * @created  2019-04-17
+ * @param    string     $url
+ * @return   string     $fqdn
+ */
+function Canonical($url=null)
+{
+	$config = Env::Get('canonical');
+
+	//	...
+	$scheme = $config['scheme'] ?? empty($_SERVER['HTTPS']) ? 'http':'https';
+	$domain = $config['domain'] ?? $_SERVER['HTTP_HOST'];
+	$uri    = $url              ?? $_SERVER['REQUEST_URI'];
+
+	//	...
+	return "{$scheme}://{$domain}{$uri}";
+}
+
+/** Data Sourse Name parse and build.
+ *
+ * @created  2019-04-21
+ * @param    string|array $value
+ * @return   string|array $value
+ */
+function DSN($arg)
+{
+	//	...
+	if( is_string($arg) ){
+		//	...
+		$arr = parse_url($arg);
+
+		//	...
+		if( $arr['query'] ?? null ){
+			$tmp = [];
+			parse_str($arr['query'], $tmp);
+
+			//	...
+			if( $tmp['pass'] ?? null ){
+				$tmp['password'] = $tmp['pass'];
+				unset($tmp['pass']);
+			};
+
+			//	...
+			unset($arr['query']);
+
+			//	...
+			$arr = array_merge($arr, $tmp);
+		};
+
+		//	...
+		return $arr;
+	}else
+
+	//	...
+	if( is_array($arg) ){
+		//	...
+		$scheme = $arg['scheme'] ?? 'unknown';
+
+		//	...
+		if( $user = ($arg['user'] ?? null) ){
+			if( isset($arg['password']) ){
+				$user .= ':'.$arg['password'];
+				unset($arg['args']['password']);
+			}else if( isset( $arg['args']['password']) ){
+				$user .= ':'.$arg['args']['password'];
+			};
+
+			//	...
+			$user .= '@';
+		};
+
+		//	...
+		$host = $arg['host'];
+
+		//	Add port number to domain name.
+		if( $arg['port'] ){
+			$host .= ':'.$arg['port'];
+		};
+
+		//	...
+		$path = $arg['path'] ?? null;
+
+		//	...
+		$query = isset($arg['args']) ? '?'.http_build_query($arg['args']) : null;
+
+		//	...
+		return "{$scheme}://{$user}{$host}{$path}{$query}";
 	}
 }

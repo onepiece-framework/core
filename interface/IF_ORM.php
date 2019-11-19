@@ -2,7 +2,7 @@
 /**
  * IF_ORM.interface.php
  *
- * @creation  2018-06-29
+ * @created   2018-06-29
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -11,7 +11,7 @@
 
 /** IF_ORM
  *
- * @creation  2018-06-29
+ * @created   2018-06-29
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -21,14 +21,17 @@ interface IF_ORM
 {
 	/** Find record at QQL.
 	 *
-	 * @param	 string	 $qql
-	 * @return
+	 * @created  2018-06-29
+	 * @param    string      $QQL
+	 * @param    array       $conditions
+	 * @return  \OP\IF_ORM_RECORD
 	 */
-	public function Find($qql);
+	public function Find($qql, $conditions);
 
 	/** Save array of record to database.
 	 *
-	 * @param	 array	 $record
+	 * @created  2018-06-29
+	 * @param   \OP\IF_ORM_RECORD
 	 */
 	public function Save($record);
 }

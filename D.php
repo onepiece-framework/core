@@ -36,7 +36,7 @@ function D()
 
 	//	Dump.
 	if( class_exists('\OP\UNIT\Dump') ){
-		'\OP\UNIT\Dump'::Mark(func_get_args());
+		\OP\UNIT\Dump::Mark(func_get_args());
 	}else{
 		var_dump(func_get_args());
 	};

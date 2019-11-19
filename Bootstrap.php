@@ -20,6 +20,13 @@ if( version_compare(PHP_VERSION, '7.0.0') < 0 ){
  *
  */
 if(!session_id()){
+	//	...
+	$name = session_name();
+
+	//	...
+	session_name($name . PHP_VERSION_ID);
+
+	//	...
 	if(!session_start() ){
 		exit("<p>Session start was failed.</p>");
 	}

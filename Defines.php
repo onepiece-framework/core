@@ -21,8 +21,14 @@ define('_OP_NAME_SPACE_', 'ONEPIECE', false);
  */
 define('_OP_APP_ID_', 'APP_ID', false);
 
-/** Used for encryption.
+/** Date format. (Not include hour, min, sec)
  *
  * @var string
  */
-define('_OP_SALT_', __FILE__, false);
+define('_OP_DATE_', 'Y-m-d', false);
+
+/** Date and time format.
+ *
+ * @var string
+ */
+define('_OP_DATE_TIME_', 'Y-m-d H:i:s', false);
