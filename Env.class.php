@@ -221,7 +221,7 @@ class Env
 		//	...
 		if( $charset ){
 			if( self::$_env['charset'] ){
-				Notice::Set("Charset was already set.");
+				throw new \Exception("Charset was already set.");
 			}else{
 				self::$_env['charset'] = $charset;
 			};
@@ -250,7 +250,7 @@ class Env
 
 			//	...
 			if( headers_sent($file, $line) ){
-				Notice::Set("Header has already sent. ($file, $line)");
+				throw new \Exception("Header has already sent. ($file, $line)");
 			}else{
 				//	...
 				self::$_env['mime'] = strtolower($mime);
@@ -283,7 +283,7 @@ class Env
 		if( $time ){
 			//	...
 			if( self::$_env['time'] ?? null ){
-				Notice::Set("Frozen time has already set.");
+				throw new \Exception("Frozen time has already set.");
 			};
 
 			//	...
