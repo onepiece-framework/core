@@ -29,7 +29,7 @@ class Env
 	/** trait.
 	 *
 	 */
-	use OP_CORE, OP_DEBUG;
+	use OP_CORE;
 
 	/** Constant.
 	 *
@@ -131,23 +131,6 @@ class Env
 			self::$_env[$key] = array_replace_recursive(self::$_env[$key], $var);
 		}else{
 			self::$_env[$key] = $var;
-		};
-
-		//	...
-		if( self::isAdmin() ){
-			//	...
-			$trace = debug_backtrace(null, 1)[0];
-
-			//	...
-			if( is_array($var) ){
-				$val = $var;
-				$val['trace'] = $trace;
-			}else{
-				$val = [$var,'trace'=>$trace];
-			};
-
-			//	...
-			self::__DebugSet($key, $val);
 		};
 	}
 
