@@ -101,7 +101,11 @@ class Env
 	 */
 	static function Get($key)
 	{
-		return self::$_env[strtolower($key)] ?? null;
+		//	Always lowercase.
+		$key = strtolower($key);
+
+		//	...
+		return self::$_env[$key] ?? null;
 	}
 
 	/** Set environment value.
