@@ -287,13 +287,26 @@ class Env
 		return $gmt ? gmdate(_OP_DATE_TIME_, self::Time()) : date(_OP_DATE_TIME_, self::Time());
 	}
 
-	/** Get App ID.
+	/** Get/Set App ID.
 	 *
 	 * @created  2019-09-13
-	 * @return   string
+	 * @param    string      $app_id
+	 * @return   string      $app_id
 	 */
-	static function AppID()
+	static function AppID($app_id=null)
 	{
-		return self::Get(_OP_APP_ID_);
+		//	...
+		if( $app_id ){
+			//	...
+			if( isset(self::$_env[_OP_APP_ID_]) ){
+				throw new \Exception("AppID is already set.");
+			}
+
+			//	...
+			self::$_env[_OP_APP_ID_] = $app_id;
+		}
+
+		//	...
+		return self::$_env[_OP_APP_ID_];
 	}
 }
