@@ -47,7 +47,7 @@ trait OP_UNIT
 	 * @param	 string		 $name
 	 * @return	 object
 	 */
-	function Unit($name)
+	static function Unit($name)
 	{
 		//	...
 		static $_instance = [];
