@@ -129,6 +129,9 @@ class Unit
 			if(!file_exists($_dir)){
 				throw new Exception("Does not exists this unit directory. ($_dir)");
 			};
+
+			//	Register meta path.
+			RootPath('unit', $_dir);
 		};
 
 		//	Path of file that initialize unit.
