@@ -15,11 +15,6 @@
  */
 namespace OP;
 
-/** Used class
- *
- */
-use Exception;
-
 /** OP_UNIT
  *
  * @created   2019-02-21
@@ -30,15 +25,6 @@ use Exception;
  */
 trait OP_UNIT
 {
-	/** App
-	 *
-	 * @return UNIT\App
-	 */
-	function App()
-	{
-		return $this->Unit('App');
-	}
-
 	/** Unit
 	 *
 	 *  Always return instantiated instance.
@@ -50,35 +36,9 @@ trait OP_UNIT
 	static function Unit($name)
 	{
 		//	...
-		static $_instance = [];
+		throw new \Exception('This method will obsolete. Please usage following method.'.PHP_EOL."Unit::Singleton({$name})");
 
 		//	...
-		$orig = $name;
-
-		//	...
-		$name = strtolower($name);
-
-		//	...
-		if(!isset($_instance[$name]) ){
-			try{
-				//	...
-				$_instance[$name] = Unit::Instantiate($orig);
-			}catch( Exception $e ){
-				$_instance[$name] = new Ghost($orig);
-
-				//	...
-				Notice::Set($e);
-			};
-
-			/*
-			//	...
-			if( Env::isAdmin() ){
-				self::__DebugSet('instantiate', [$name => (get_class($_instance[$name]) === 'OP\Ghost') ? false: true]);
-			};
-			*/
-		};
-
-		//	...
-		return $_instance[$name];
+		return Unit::Singleton($name);
 	}
 }
