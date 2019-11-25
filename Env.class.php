@@ -47,6 +47,36 @@ class Env
 	static private $_is_admin;
 	static private $_is_localhost;
 
+	/** Load config file.
+	 *
+	 * @created  2019-11-25
+	 * @param    array
+	 * @throws  \Exception
+	 */
+	static private function _Load($key)
+	{
+		//	...
+		if( isset(self::$_env[$key]) ){
+			return;
+		}
+
+		//	...
+		self::$_env[$key] = [];
+
+		//	...
+		$path = RootPath()['asset']."config/{$key}.php";
+
+		//	...
+		if(!file_exists($path) ){
+			throw new \Exception("Config file does not exists. ($path)");
+		}
+
+		//	...
+		call_user_func(function($path){
+			include($path);
+		}, $path);
+	}
+
 	/** Is Admin
 	 *
 	 * @return boolean
@@ -104,6 +134,9 @@ class Env
 		//	Always lowercase.
 		$key = strtolower($key);
 
+		//	File load is only when needed.
+		self::_Load($key);
+
 		//	...
 		return self::$_env[$key] ?? null;
 	}
@@ -122,6 +155,9 @@ class Env
 		if( $key === self::_ADMIN_IP_ ){
 			self::$_is_admin = null;
 		}
+
+		//	File load is only when needed.
+		self::_Load($key);
 
 		//	...
 		if( isset(self::$_env[$key]) and is_array($var) ){
