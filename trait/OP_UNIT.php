@@ -36,7 +36,7 @@ trait OP_UNIT
 	static function Unit($name)
 	{
 		//	...
-		throw new \Exception('This method will obsolete. Please usage following method.'.PHP_EOL."Unit::Singleton({$name})");
+		Notice::Set('This method will obsolete. Please usage following method.'.PHP_EOL."Unit::Singleton({$name})");
 
 		//	...
 		return Unit::Singleton($name);
