@@ -54,6 +54,12 @@ function RootPath(string $meta='', string $path='')
 
 	//	Return meta root path.
 	if( $meta ){
+		//	...
+		if( empty($root[$meta]) ){
+			throw new \Exception("This meta label has not been set. ($meta)");
+		}
+
+		//	...
 		return $root[$meta] ?? null;
 	};
 
