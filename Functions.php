@@ -451,25 +451,6 @@ function Html($string, $attr=null /* , $escape=true */ )
 	}
 }
 
-/** Canonical
- *
- * @created  2019-04-17
- * @param    string     $url
- * @return   string     $fqdn
- */
-function Canonical($url=null)
-{
-	$config = Env::Get('canonical');
-
-	//	...
-	$scheme = $config['scheme'] ?? empty($_SERVER['HTTPS']) ? 'http':'https';
-	$domain = $config['domain'] ?? $_SERVER['HTTP_HOST'];
-	$uri    = $url              ?? $_SERVER['REQUEST_URI'];
-
-	//	...
-	return "{$scheme}://{$domain}{$uri}";
-}
-
 /** Data Sourse Name parse and build.
  *
  * @created  2019-04-21
