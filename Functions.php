@@ -412,12 +412,15 @@ function Json($json, $attr)
  * @param	 string		 $config
  * @param	 boolean	 $escape tag and quote
  */
-function Html($string, $attr=null, $escape=true)
+function Html($string, $attr=null /* , $escape=true */ )
 {
 	//	Escape tag and quote.
+	/*
 	if( $escape ){
 		$string = Encode($string);
 	}
+	*/
+	$string = Encode($string);
 
 	//	...
 	if( $attr ){
