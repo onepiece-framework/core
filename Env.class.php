@@ -156,10 +156,12 @@ class Env
 		//	...
 		$key = strtolower($key);
 
-		//	...
+		//	What is this necessary for? --> Initialize when Admin-IP is set. (for re calc)
+		/* This process is necessary?
 		if( $key === self::_ADMIN_IP_ ){
 			self::$_is_admin = null;
 		}
+		*/
 
 		//	File load is only when needed.
 		self::_Load($key);
