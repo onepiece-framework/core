@@ -131,6 +131,11 @@ class Env
 	 */
 	static function Get($key)
 	{
+		//	...
+		if( $key === _OP_APP_ID_ ){
+			return self::AppID();
+		};
+
 		//	Always lowercase.
 		$key = strtolower($key);
 
