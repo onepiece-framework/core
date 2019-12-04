@@ -439,8 +439,8 @@ function Html($string, $attr=null /* , $escape=true */ )
 	}
 
 	//	...
-	$attr = $id    ? " id='$id'"      :'';
-	$attr.= $class ? " class='$class'":'';
+	$attr = $id    ? " id='$id'"      :null;
+	$attr.= $class ? " class='$class'":null;
 
 	//	...
 	if( $tag === 'a' ){
