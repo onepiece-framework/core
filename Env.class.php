@@ -64,7 +64,7 @@ class Env
 		self::$_env[$key] = [];
 
 		//	...
-		$path = RootPath()['asset']."config/{$key}.php";
+		$path = RootPath('asset')."config/{$key}.php";
 
 		//	...
 		if(!file_exists($path) ){
