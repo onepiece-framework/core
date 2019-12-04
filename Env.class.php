@@ -181,13 +181,13 @@ class Env
 		};
 	}
 
-	/** Get/Set Lang.
+	/** Get/Set Language.
 	 *
 	 * @created 2019-04-27
 	 * @param   string     $lang
 	 * @return  string     $lang
 	 */
-	static function Lang($lang=null)
+	static function Language($lang=null)
 	{
 		//	...
 		if( $lang ){
@@ -208,7 +208,7 @@ class Env
 	{
 		//	...
 		if( $country ){
-			$lang = self::Lang();
+			$lang = self::Language();
 			self::$_env['locale'] = $lang.':'.$country;
 		}else{
 			return strtoupper(explode(':',self::Locale())[1] ?? null);
