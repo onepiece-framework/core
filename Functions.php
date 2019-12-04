@@ -457,6 +457,7 @@ function Html($string, $attr=null /* , $escape=true */ )
  * @param    string|array $value
  * @return   string|array $value
  */
+/*
 function DSN($arg)
 {
 	//	...
@@ -522,3 +523,4 @@ function DSN($arg)
 		return "{$scheme}://{$user}{$host}{$path}{$query}";
 	}
 }
+*/
