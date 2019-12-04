@@ -30,8 +30,14 @@ function RootPath(string $meta='', string $path='')
 	//	Stack root list.
 	static $root;
 
+	//	Quick return.
+	if( empty($meta) ){
+		//	Return all root list.
+		return $root;
+	}
+
 	//	Register root path.
-	if( $meta and $path ){
+	if( /* $meta and */ $path ){
 
 		//	Replace duplicate slash.
 		$path = str_replace('//', '/', $path);
@@ -53,7 +59,9 @@ function RootPath(string $meta='', string $path='')
 	};
 
 	//	Return meta root path.
+	/*
 	if( $meta ){
+	*/
 		//	...
 		if( empty($root[$meta]) ){
 			throw new \Exception("This meta label has not been set. ($meta)");
@@ -61,10 +69,9 @@ function RootPath(string $meta='', string $path='')
 
 		//	...
 		return $root[$meta] ?? null;
+	/*
 	};
-
-	//	Return root list.
-	return $root;
+	*/
 }
 
 /** Compress to meta path from local file path.
