@@ -163,11 +163,26 @@ class Notice
  * @copyright Tomoaki Nagahara All right reserved.
  */
 register_shutdown_function(function(){
-	if( $notice = Unit::Instantiate('Notice') ){
-		$notice->Auto();
-	}else{
+	try{
+		//	...
+		Unit::Singleton('Notice')->Auto();
+
+	}catch( \Exception $e ){
+		//	...
+		html($e->getMessage());
+
+		//	...
 		while( $notice = Notice::Get() ){
-			var_dump($notice);
+			html($notice['message'], 'b');
+			foreach($notice['backtrace'] as $backtrace){
+				html(
+					($backtrace['file']  ?? null).' '.($backtrace['line'] ?? null).' '.
+					($backtrace['class'] ?? null).($backtrace['type'] ?? null).($backtrace['function'] ?? null)
+				);
+				if(!empty($backtrace['args']) ){
+					var_dump($backtrace['args']);
+				}
+			}
 		};
 	};
 });
