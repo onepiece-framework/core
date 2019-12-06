@@ -72,8 +72,8 @@ class Env
 		}
 
 		//	...
-		call_user_func(function($path){
-			include($path);
+		self::$_env[$key] = call_user_func(function($path){
+			return include($path);
 		}, $path);
 	}
 
