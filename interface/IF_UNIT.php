@@ -25,5 +25,18 @@ namespace OP;
  */
 interface IF_UNIT
 {
+	/** This method is return instantiated object.
+	 *
+	 * @created   2019-12-13
+	 * @param     string       $name
+	 * @return    IF_UNIT
+	 */
 	static function Unit($name);
+
+	/** Testcase
+	 *
+	 * @created   2019-12-13
+	 * @param     array        $args
+	 */
+	function Testcase($args);
 }
