@@ -47,7 +47,7 @@ trait OP_UNIT
 	 *
 	 * @created   2019-12-13
 	 */
-	function Testcase($args)
+	static function Testcase($args)
 	{
 		//	Explode namespace.
 		$temp = explode('\\', self::class);
