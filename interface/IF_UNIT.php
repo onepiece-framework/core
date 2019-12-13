@@ -38,5 +38,5 @@ interface IF_UNIT
 	 * @created   2019-12-13
 	 * @param     array        $args
 	 */
-	function Testcase($args);
+	static function Testcase($args);
 }
