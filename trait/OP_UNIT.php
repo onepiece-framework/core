@@ -25,6 +25,20 @@ namespace OP;
  */
 trait OP_UNIT
 {
+	/** Get class name.
+	 *
+	 * @created   2019-12-13
+	 * @return    string       $class_name
+	 */
+	static private function _ClassName()
+	{
+		//	Explode namespace.
+		$temp = explode('\\', self::class);
+
+		//	Get current unit class name.
+		return strtolower(array_pop($temp));
+	}
+
 	/** Unit
 	 *
 	 *  Always return instantiated instance.
@@ -46,14 +60,12 @@ trait OP_UNIT
 	/** Testcase
 	 *
 	 * @created   2019-12-13
+	 * @param     array        $args
 	 */
 	static function Testcase($args)
 	{
-		//	Explode namespace.
-		$temp = explode('\\', self::class);
-
-		//	Get current unit class name.
-		$name = strtolower(array_pop($temp));
+		//	Get class name.
+		$name = self::_ClassName();
 
 		//	Generate testcase controlloer path.
 		$path = ConvertPath('unit:/') . $name . '/testcase/index.php';
