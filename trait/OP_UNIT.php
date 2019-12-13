@@ -50,7 +50,7 @@ trait OP_UNIT
 	function Testcase($args)
 	{
 		//	Explode namespace.
-		$temp = explode('\\', get_class($this));
+		$temp = explode('\\', self::class);
 
 		//	Get current unit class name.
 		$name = strtolower(array_pop($temp));
