@@ -30,8 +30,9 @@ trait OP_UNIT
 	 *  Always return instantiated instance.
 	 *  That so-called "Singleton" or "Factory method".
 	 *
-	 * @param	 string		 $name
-	 * @return	 object
+	 * @created
+	 * @param     string       $name
+	 * @return    object       IF_UNIT
 	 */
 	static function Unit($name)
 	{
@@ -40,5 +41,31 @@ trait OP_UNIT
 
 		//	...
 		return Unit::Singleton($name);
+	}
+
+	/** Testcase
+	 *
+	 * @created   2019-12-13
+	 */
+	function Testcase($args)
+	{
+		//	Explode namespace.
+		$temp = explode('\\', get_class($this));
+
+		//	Get current unit class name.
+		$name = strtolower(array_pop($temp));
+
+		//	Generate testcase controlloer path.
+		$path = ConvertPath('unit:/') . $name . '/testcase/index.php';
+
+		//	Check if exists.
+		if(!file_exists($path) ){
+			throw new \Exception("index.php file does not exists. ($path)");
+		}
+
+		//	include controlloer.
+		call_user_func(function($path, $args){
+			include($path);
+		}, $path, $args);
 	}
 }
