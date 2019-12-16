@@ -2,7 +2,7 @@
 /**
  * Encrypt.class.php
  *
- * @creation  2017-11-22
+ * @created   2017-11-22
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -11,13 +11,13 @@
 
 /** namespace
  *
- * @creation  2019-02-20
+ * @created   2019-02-20
  */
 namespace OP;
 
 /** Encrypt
  *
- * @creation  2017-11-22
+ * @created   2017-11-22
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>

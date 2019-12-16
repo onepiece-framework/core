@@ -2,7 +2,7 @@
 /**
  * Debug.class.php
  *
- * @creation  2019-03-20
+ * @created   2019-03-20
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -11,7 +11,7 @@
 
 /** namespace
  *
- * @creation  2019-03-20
+ * @created   2019-03-20
  */
 namespace OP;
 
@@ -19,7 +19,7 @@ namespace OP;
  *
  *  Put together debug information.
  *
- * @creation  2019-03-19
+ * @created   2019-03-19
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>

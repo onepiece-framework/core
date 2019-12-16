@@ -2,7 +2,7 @@
 /**
  * Bootstrap.php
  *
- * @creation  2015-12-10 --> 2016-06-09
+ * @created   2015-12-10 --> 2016-06-09
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>

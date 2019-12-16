@@ -13,8 +13,8 @@
 
 /** Register autoloder.
  *
- * @created   2014-11-29  That autoloader was occupied. Not yet spl.
- * @updated   2016-06-09  That has been sql, and change to class.
+ * @created   2014-11-29  Not spl, Autoload was occupied.
+ * @updated   2016-06-09  Change to class. became spl.
  * @updated   2019-02-20  Made to extremely simple.
  * @updated   2019-06-13  Load unit automatically.
  *

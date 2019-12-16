@@ -2,7 +2,7 @@
 /**
  * Error.php
  *
- * @creation  2014-02-18
+ * @created   2014-02-18
  * @updated   2016-12-07
  *
  * @version   1.0

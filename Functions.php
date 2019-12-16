@@ -2,7 +2,7 @@
 /**
  * Functions.php
  *
- * @creation  2016-11-16
+ * @created   2016-11-16
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -11,7 +11,7 @@
 
 /** namespace
  *
- * @creation  2019-02-19
+ * @created   2019-02-19
  */
 namespace OP;
 

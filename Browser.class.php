@@ -2,7 +2,7 @@
 /**
  * Browser.class.php
  *
- * @creation  2019-04-02
+ * @created   2019-04-02
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -11,13 +11,13 @@
 
 /** namespace
  *
- * @creation  2019-04-02
+ * @created   2019-04-02
  */
 namespace OP;
 
 /** Browser
  *
- * @creation  2019-04-02
+ * @created   2019-04-02
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>

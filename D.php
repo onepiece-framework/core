@@ -5,7 +5,7 @@
  * Separate from Functions.php.
  * The "D" function has out of need namespace.
  *
- * @creation  2019-02-21
+ * @created   2019-02-21
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>

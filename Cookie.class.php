@@ -2,7 +2,7 @@
 /**
  * Cookie.class.php
  *
- * @creation  2017-02-25
+ * @created   2017-02-25
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -11,7 +11,7 @@
 
 /** namespace
  *
- * @creation  2019-02-21
+ * @created   2019-02-21
  */
 namespace OP;
 
@@ -25,7 +25,7 @@ namespace OP;
  * 2. Value is encrypted.
  *    Cookie is stored user's browser. That is, User can change freely.
  *
- * @creation  2017-02-25
+ * @created   2017-02-25
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>

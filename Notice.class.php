@@ -2,7 +2,7 @@
 /**
  * Notice.class.php
  *
- * @creation  2016-11-17
+ * @created   2016-11-17
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -11,14 +11,14 @@
 
 /** namespace
  *
- * @creation  2019-02-20
+ * @created   2019-02-20
  */
 namespace OP;
 
 /**
  * Notice
  *
- * @creation  2016-11-17
+ * @created   2016-11-17
  * @version   1.0
  * @package   core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
