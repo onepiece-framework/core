@@ -108,7 +108,11 @@ trait OP_DEBUG
 		$args  = $trace['class']. $trace['type']. $trace['function']."(".join(',', $trace['args']).")";
 
 		//	...
-		$trace['file'] = CompressPath($trace['file'] ?? null);
+		if(!$trace['file'] = CompressPath(($file = $trace['file'] ?? null))){
+			$trace['file'] = $file;
+		}
+
+		//	...
 		$trace['args'] = [$args];
 
 		//	...
