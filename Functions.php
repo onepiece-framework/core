@@ -14,9 +14,17 @@
  */
 namespace OP;
 
-//	Include
+/** Used class
+ *
+ */
+
+/** Include
+ *
+ * @created   2020-01-01
+ */
 include(__DIR__.'/function/Load.php');
 include(__DIR__.'/function/Unit.php');
+include(__DIR__.'/function/encode.php');
 include(__DIR__.'/function/RootPath.php');
 include(__DIR__.'/function/ConvertPath.php');
 include(__DIR__.'/function/ConvertURL-2.php');
@@ -83,49 +91,6 @@ function Decode($value, $charset=null)
 			break;
 
 		//	...
-		default:
-	}
-
-	//	...
-	return $value;
-}
-
-/** Encode mixed value.
- *
- * @param  mixed  $var
- * @param  string $charset
- * @return mixed  $var
- */
-function Encode($value, $charset=null)
-{
-	//	...
-	if(!$charset ){
-		$charset = Env::Charset();
-	}
-
-	//	...
-	switch( gettype($value) ){
-		case 'string':
-			$value = str_replace("\0", '\0', $value);
-			return htmlentities($value, ENT_QUOTES, $charset, false);
-
-		case 'array':
-			$result = [];
-			foreach( $value as $key => $val ){
-				$key = is_string($key) ? Encode($key, $charset): $key;
-				$val = Encode($val, $charset);
-				$result[$key] = $val;
-			}
-			$value = $result;
-			break;
-
-		case 'object':
-			/*
-			D("Objects are not yet supported.");
-			*/
-			$value = get_class($value);
-			break;
-
 		default:
 	}
 
