@@ -49,6 +49,8 @@ class Env
 	 * @var array
 	 */
 	static private $_env;
+	static private $_is_admin;
+	static private $_is_localhost;
 
 	/** Is Admin
 	 *
