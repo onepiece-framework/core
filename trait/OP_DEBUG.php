@@ -50,7 +50,16 @@ trait OP_DEBUG
 				$class = substr(get_class($this), strrpos(get_class($this), '\\')+1);
 
 				//	...
-				if( false !== array_search(strtolower($class), explode(',', str_replace(' ', '', strtolower($_GET['debug'])))) ){
+				if( is_string($_GET['debug']) ){
+					$debug = strtolower($_GET['debug']);
+					$debug = str_replace(' ', '', $debug);
+					$debug = explode(',', $debug);
+				}else if( is_array($_GET['debug']) ){
+					$debug = $_GET['debug'];
+				};
+
+				//	...
+				if( false !== array_search(strtolower($class), $debug) ){
 					//	...
 					self::__DebugOut();
 				}
