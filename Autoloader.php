@@ -2,7 +2,7 @@
 /**
  * Autoloader.class.php
  *
- * @created   2014-11-29  Probably, a single file yet.
+ * @created   2014-11-29  Perhaps did not yet a single file.
  * @updated   2016-06-09  Separate from singe file.
  *
  * @version   2.0
@@ -13,9 +13,9 @@
 
 /** Register autoloder.
  *
- * @created   2014-11-29  Not spl, Autoload was occupied.
- * @updated   2016-06-09  Change to class.
- * @updated   2019-02-20  Made to extremely simple.
+ * @created   2014-11-29  Autoloader was not spl yet.
+ * @updated   2016-06-09  Autoloader is change to spl and class.
+ * @updated   2019-02-20  It is no longer a class. Load process is changed to extremely simple.
  *
  * @version   3.0
  * @package   core
