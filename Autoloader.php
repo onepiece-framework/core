@@ -2,8 +2,8 @@
 /**
  * Autoloader.class.php
  *
- * @creation  2014-11-29  Probably, a single file yet.
- * @updation  2016-06-09  Separate from singe file.
+ * @created   2014-11-29  Probably, a single file yet.
+ * @updated   2016-06-09  Separate from singe file.
  *
  * @version   2.0
  * @package   core
@@ -13,9 +13,9 @@
 
 /** Register autoloder.
  *
- * @creation  2014-11-29  Not spl, Autoload was occupied.
- * @updation  2016-06-09  Change to class.
- * @updation  2019-02-20  Made to extremely simple.
+ * @created   2014-11-29  Not spl, Autoload was occupied.
+ * @updated   2016-06-09  Change to class.
+ * @updated   2019-02-20  Made to extremely simple.
  *
  * @version   3.0
  * @package   core
