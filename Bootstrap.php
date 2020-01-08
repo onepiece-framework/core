@@ -61,3 +61,11 @@ include_once(__DIR__.'/D.php');
  *
  */
 include_once(__DIR__.'/trait/OP_CORE.php');
+
+/** Shell
+ *
+ * @created   2019-05-31
+ */
+if( empty($_SERVER['DOCUMENT_ROOT']) ){
+	include_once(__DIR__.'/Shell.php');
+};
