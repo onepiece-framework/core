@@ -16,6 +16,7 @@
  * @created   2014-11-29  Autoloader was not spl yet.
  * @updated   2016-06-09  Autoloader is change to spl and class.
  * @updated   2019-02-20  It is no longer a class. Load process is changed to extremely simple.
+ * @updated   2019-06-13  Corresponds to UNIT loading.
  *
  * @version   3.0
  * @package   core
@@ -31,6 +32,16 @@ spl_autoload_register( function($class_name)
 	//	...
 	if( $pos === false ){
 		return;
+	};
+
+	//	Challenge to automatically load of unit.
+	if( 0 === strpos($class_name, 'OP\UNIT\\') ){
+		//	If that unit name.
+		if( 2 === mb_substr_count($class_name, '\\', 'utf-8') ){
+			$pos  = strrpos($class_name, '\\');
+			$name = substr($class_name, $pos+1);
+			OP\Unit::Load($name);
+		};
 	};
 
 	//	Check namespace of OP.
