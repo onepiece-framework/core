@@ -173,6 +173,7 @@ class Env
 	 */
 	static function Language($lang=null)
 	{
+		/*
 		//	...
 		if( $lang ){
 			$cont = self::Country();
@@ -180,6 +181,13 @@ class Env
 		}else{
 			return explode(':', self::Locale())[0];
 		};
+		*/
+
+		if( $lang ){
+			Config::Set('locale', ['language'=>$lang]);
+		}else{
+			return Config::Get('locale')['language'] ?? null;
+		}
 	}
 
 	/** Get/Set Country.
@@ -190,6 +198,7 @@ class Env
 	 */
 	static function Country($country=null)
 	{
+		/*
 		//	...
 		if( $country ){
 			$lang = self::Language();
@@ -197,6 +206,14 @@ class Env
 		}else{
 			return strtoupper(explode(':',self::Locale())[1] ?? null);
 		};
+		*/
+
+
+		if( $country ){
+			Config::Set('locale', ['country'=>$country]);
+		}else{
+			return Config::Get('locale')['country'] ?? null;
+		}
 	}
 
 	/** Get/Set Locale.
@@ -207,13 +224,30 @@ class Env
 	 */
 	static function Locale($locale=null)
 	{
+		/*
 		//	...
 		if( $locale ){
 			self::$_env['locale'] = $locale;
 		};
+		*/
 
-		//	...
-		return $locale;
+		if( $locale ){
+			/* @var $match array */
+			if( preg_match('/([\w]+)([^\w])?([\w]*)/', $locale, $match) ){
+				$config = [
+					'language' => $match[0],
+					'separate' => $match[1],
+					'country'  => $match[2],
+				];
+				Config::Set('locale', $config);
+			}
+		}else{
+			$counfig  = Config::Get('locale');
+			$separate = $counfig['separate'] ?? ':';
+			$language = $counfig['language'] ?? null;
+			$country  = $counfig['country']  ?? null;
+			return "{$language}{$separate}{$country}";
+		}
 	}
 
 	/** Get/Set charset.
