@@ -124,6 +124,15 @@ class Env
 		return isset($_SERVER['REDIRECT_STATUS']);
 	}
 
+	/** Is Shell
+	 *
+	 * @return boolean
+	 */
+	static function isShell()
+	{
+		return isset($_SERVER['SHELL']);
+	}
+
 	/** Get environment value.
 	 *
 	 * @param  string $key
