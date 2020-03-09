@@ -308,7 +308,7 @@ class Env
 		}
 
 		//	...
-		return self::$_env['mime'];
+		return self::$_env['mime'] ?? null;
 	}
 
 	/** Get frozen unix time.
