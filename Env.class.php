@@ -254,11 +254,14 @@ class Env
 	{
 		//	...
 		if( $charset ){
+			/*
 			if( self::$_env['charset'] ){
 				throw new \Exception("Charset was already set.");
 			}else{
 				self::$_env['charset'] = $charset;
 			};
+			*/
+			self::$_env['charset'] = $charset;
 		};
 
 		//	...
