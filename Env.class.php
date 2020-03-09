@@ -292,6 +292,7 @@ class Env
 				//	...
 				self::$_env['mime'] = strtolower($mime);
 
+				/*
 				//	...
 				$header = "Content-type: $mime";
 
@@ -302,6 +303,7 @@ class Env
 
 				//	...
 				header($header);
+				*/
 			}
 		}
 
