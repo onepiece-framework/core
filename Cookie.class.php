@@ -126,4 +126,35 @@ class Cookie
 		//	...
 		return $io ? date('Y-m-d H:i:s', $expire): false;
 	}
+
+	/** User ID
+	 *
+	 *  This value is please limit to temporary operation.
+	 *  Not suitable for permanent use.
+	 *
+	 * @created   2020-02-26
+	 * @param     boolean      $init was create the first time UserID.
+	 * @return    string       $user_id
+	 */
+	static function UserID(&$init)
+	{
+		//	...
+		$key = 'UserID';
+
+		//	...
+		if(!$user_id = self::Get($key) ){
+			$user_id = md5($_SERVER['REMOTE_ADDR'].', '.microtime());
+
+			//	...
+			self::Set($key, $user_id);
+
+			//	...
+			if( isset($init) ){
+				$init = true;
+			}
+		}
+
+		//	...
+		return $user_id;
+	}
 }
