@@ -164,19 +164,7 @@ class Unit
 	 */
 	static function & Singleton($name)
 	{
-		//	...
-		static $_instance;
-
-		//	...
-		$label = strtolower($name);
-
-		//	...
-		if( empty($_instance[$label]) ){
-			$_instance[$label] = self::Instantiate($name);
-		};
-
-		//	...
-		return $_instance[$label];
+		return Unit($name);
 	}
 }
 
