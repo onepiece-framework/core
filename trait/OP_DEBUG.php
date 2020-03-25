@@ -141,6 +141,43 @@ trait OP_DEBUG
 		Unit::Load('dump');
 	}
 
+	/** Calculator is debug.
+	 *
+	 * @created   2020-03-02
+	 * @param     string       $class
+	 * @return    boolean      $io
+	 */
+	static function isDebug($class)
+	{
+		//	...
+		if( Env::Mime() !== 'text/html' ){
+			return;
+		}
+
+		//	...
+		if(!$debug = strtolower(Request('debug')) ){
+			return;
+		}
+
+		//	...
+		if( is_numeric($debug) or $debug === 'true' ){
+			return true;
+		}
+
+		//	...
+		$temp = explode('\\', $class);
+		$name = array_pop($temp);
+		$name = strtolower($name);
+
+		//	...
+		if( false === strpos($debug, $name) ){
+			return;
+		}
+
+		//	...
+		return true;
+	}
+
 	/** Debug
 	 *
 	 * @param string $key
