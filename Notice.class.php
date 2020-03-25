@@ -104,6 +104,11 @@ class Notice
 			$file      = $e->getFile();
 			$line      = $e->getLine();
 			array_unshift($backtrace, ['file'=>$file, 'line'=>$line]);
+		}else if( is_array($e) ){
+			$file    = $e['file'];
+			$line    = $e['line'];
+		//	$type    = $e['type'];
+			$message = $e['message'];
 		}else{
 			$message   = $e;
 		}
