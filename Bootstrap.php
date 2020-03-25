@@ -16,10 +16,14 @@ if( version_compare(PHP_VERSION, '7.0.0') < 0 ){
 	exit('<p>onepiece-framework is not support to this php version.('.PHP_VERSION.')</p>');
 }
 
-/** Auto start of session.
+/** Session management.
+ *
+ *  1. Auto start session.
+ *  2. Separate session ID for each PHP version.
  *
  */
-if(!session_id()){
+if(!session_id() and empty($_SERVER['SHELL']) ){
+
 	//	...
 	$name = session_name();
 
