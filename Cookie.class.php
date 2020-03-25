@@ -139,6 +139,11 @@ class Cookie
 	static function UserID(&$init=null)
 	{
 		//	...
+		if( Env::isShell() ){
+			return;
+		}
+
+		//	...
 		$key = 'UserID';
 
 		//	...
