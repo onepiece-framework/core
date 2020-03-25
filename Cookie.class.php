@@ -136,7 +136,7 @@ class Cookie
 	 * @param     boolean      $init was create the first time UserID.
 	 * @return    string       $user_id
 	 */
-	static function UserID(&$init)
+	static function UserID(&$init=null)
 	{
 		//	...
 		$key = 'UserID';
