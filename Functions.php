@@ -42,9 +42,6 @@ function RootPath(string $meta='', string $path='')
 		//	Replace duplicate slash.
 		$path = str_replace('//', '/', $path);
 
-		//	Added slash to tail.
-		$path = rtrim($path, '/');
-
 		//	Check if alias.
 		if( isset($root['alias']) ){
 			//	Check if match alias root.
@@ -55,7 +52,7 @@ function RootPath(string $meta='', string $path='')
 		};
 
 		//	Register.
-		$root[$meta] = $path.'/';
+		$root[$meta] = rtrim($path,'/').'/';
 	};
 
 	//	Return meta root path.
