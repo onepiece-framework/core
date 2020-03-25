@@ -40,31 +40,9 @@ trait OP_DEBUG
 	function __destruct()
 	{
 		//	...
-		if( $_GET['debug'] ?? null ){
-			//	...
-			$mime = Env::Mime();
-
-			//	...
-			if( $mime === 'text/html' and $this ){
-				//	...
-				$class = substr(get_class($this), strrpos(get_class($this), '\\')+1);
-
-				//	...
-				if( is_string($_GET['debug']) ){
-					$debug = strtolower($_GET['debug']);
-					$debug = str_replace(' ', '', $debug);
-					$debug = explode(',', $debug);
-				}else if( is_array($_GET['debug']) ){
-					$debug = $_GET['debug'];
-				};
-
-				//	...
-				if( false !== array_search(strtolower($class), $debug) ){
-					//	...
-					self::__DebugOut();
-				}
-			};
-		};
+		if( self::isDebug(get_class($this)) ){
+			self::__DebugOut();
+		}
 	}
 
 	/** Set
