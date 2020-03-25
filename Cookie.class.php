@@ -45,7 +45,7 @@ class Cookie
 	 */
 	static function _Key($key)
 	{
-		return Hasha1($key.', ' . Env::Get(_OP_APP_ID_));
+		return Hasha1($key);
 	}
 
 	/** Get cookie value of key.
