@@ -98,12 +98,30 @@ class Unit
 
 	/** Load of unit controller.
 	 *
-	 * @param  string  $name
-	 * @return boolean $io
+	 * @created
+	 * @updated 2019-06-13  To simplified.
+	 * @param   string      $name
 	 */
 	static function Load($name)
 	{
-		//	Shared under app.
+		//	...
+		if(!$dir = ConvertPath('unit:/') ){
+			throw new Exception('Has not been set meta root of unit.');
+		};
+
+		//	...
+		$path = $dir . strtolower($name) . '/index.php';
+
+		//	...
+		if(!file_exists($path) ){
+			throw new Exception("Does not exists index.php file. ($path)");
+		};
+
+		//	...
+		return require_once($path);
+
+		/*
+		//	...
 		static $_result = [];
 		static $_dir;
 
@@ -134,26 +152,27 @@ class Unit
 			RootPath('unit', $_dir);
 		};
 
-		//	Path of file that initialize unit.
-		$path = "{$_dir}/{$name}/index.php";
-
 		//	Does not exists this unit.
 		if(!file_exists("{$_dir}/{$name}") ){
 			throw new Exception("Does not exists this unit. ($name)");
 		};
 
 		//	Does not exist file that initialize unit.
+		$path = "{$_dir}/{$name}/index.php";
+
+		//	...
 		if(!file_exists($path) ){
-			throw new Exception("Does not exist file that initialize unit. ($path)");
+			throw new Exception("Does not exists unit controller. ($path)");
 		};
 
-		//	Initialize of unit.
+		//	...
 		$_result[$name] = call_user_func(function($path){
 			return include($path);
 		}, $path);
 
-		//	Return result.
+		//	...
 		return $_result[$name];
+		*/
 	}
 
 	/** Singleton
