@@ -39,9 +39,16 @@ define('_OP_DATE_', 'Y-m-d', false);
  */
 define('_OP_DATE_TIME_', 'Y-m-d H:i:s', false);
 
+/** Developer IP Address.
+ *
+ * @created   2020-01-24
+ * @var       string
+ */
+define('_OP_DEVELOPER_IP_', 'DEVELOPER_IP', false);
+
 /** Deny access IP-Address
  *
- *  The values ​​are hashed so that they do not duplicate.
+ *  The values are hashed so that they do not duplicate.
  *
  * @var string
  */
