@@ -9,6 +9,12 @@
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
+/** namespace
+ *
+ * @created   2020-01-24
+ */
+namespace OP;
+
 /** Namespace
  *
  * @var string
