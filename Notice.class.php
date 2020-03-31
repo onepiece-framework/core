@@ -100,6 +100,18 @@ class Notice
 		$key         = substr(md5($message), 0, 8);
 		$timestamp   = Env::Timestamp();
 
+		/*
+		$key		 = Hasha1($message);
+
+		//	...
+		$offset		 = date('Z');
+		$timestamp	 = gmdate('Y-m-d H:i:s');
+		if( $offset ){
+			$timestamp += ' ' . ($timestamp > 0 ? '+': '');
+			$timestamp += $offset;
+		}
+		*/
+
 		//	...
 		$reference	 = isset($session[$key]) ? $session[$key]: null;
 
