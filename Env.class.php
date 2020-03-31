@@ -40,8 +40,8 @@ class Env
 	 *
 	 * @var string
 	 */
-	const _ADMIN_IP_	 = 'admin-ip';
 	const _ADMIN_MAIL_	 = 'admin-mail';
+	const _ADMIN_IP_	 = _OP_DEVELOPER_IP_;
 	const _MAIL_FROM_	 = 'mail-from';
 
 	/** Private static values.
