@@ -46,6 +46,13 @@ define('_OP_DATE_TIME_', 'Y-m-d H:i:s', false);
  */
 define('_OP_DEVELOPER_IP_', 'DEVELOPER_IP', false);
 
+/** Developer E-Mal Address.
+ *
+ * @created   2020-01-24
+ * @var       string
+ */
+define('_OP_DEVELOPER_MAIL_', 'DEVELOPER_MAIL', false);
+
 /** Deny access IP-Address
  *
  *  The values are hashed so that they do not duplicate.
