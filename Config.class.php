@@ -41,44 +41,68 @@ class Config
 	 */
 	static private function _Init($name)
 	{
+		//	Include closure function.
+		$include = function($path){ return include($path); };
+
 		//	Force lower case.
 		$name = strtolower($name);
 
 		//	Check by class name whether config is initialized.
 		if(!isset(self::$_config[$name]) ){
+			//	Get asset root path.
+			$asset_root = RootPath('asset');
+
 			//	Ignore "unit" config. --> Got to infinity loop.
 			if( $name !== 'unit' ){
 				//	Check exists.
-				if(!file_exists($path = ConvertPath("unit:/{$name}/config.php") ) ){
-					//	...
-				//	throw new \Exception("The config file is not exists. ($path)");
-				}else{
-					//	Include default config
-					self::$_config[$name] = require_once($path);
+				if( file_exists($path = $asset_root . "unit/{$name}/config.php" ) ){
+					//	Load the config file that each unit has by default.
+					self::$_config[$name] = $include($path);
 				}
 			}
 
-			//	Generate config directory path.
-			$root = RootPath('asset') . 'config/';
+			//	Get current directory.
+			$save_directory = getcwd();
+
+			//	Chenge config direcotry.
+			chdir("{$asset_root}config/");
 
 			//	Correspond to overwrite public config at privete local config.
+			//	  --> config.php --> _config.php
 			foreach([$name, "_{$name}"] as $file_name){
+				//	Check if file exists.
+				if( file_exists($path = "{$file_name}.php") ){
+					//	Include config.
+					$config = $include($path);
 
-			//	Generate file path.
-			$path = "{$root}{$file_name}.php";
+					/** About array merge.
+					 *
+					 *  array_replace_recursive() is all replace.
+					 *  array_merge_recursive() is number index is renumbering.
+					 *
+					 */
+					self::$_config[$name] = isset(self::$_config[$name]) ? array_merge(self::$_config[$name], $config) : $config;
 
-			//	Since config is empty, load the file if it exists.
-			if(!file_exists($path) ){
-				if( $file_name{0} !== '_'  ){
-				$path = CompressPath($path);
-				throw new \Exception("This config file is not exists. ($path)");
+					//	Escape.
+					continue;
 				}
-			}else{
-				$config = include($path);
-				self::$_config[$name] = isset(self::$_config[$name]) ? array_merge(self::$_config[$name], $config) : $config;
+
+				//	Check if under score file. --> _config.php
+				if( $file_name[0] === '_'  ){
+					continue;
+				}
+
+				//	Flags
+				$fail = true;
 			}
 
-			} // end foreach
+			//	Recovery save direcotry.
+			chdir($save_directory);
+
+			//	...
+			if( $fail ?? null ){
+				throw new \Exception("This config file is not exists. ($path)");
+			}
 		}
 
 		//	...
