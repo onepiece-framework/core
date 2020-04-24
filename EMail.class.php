@@ -15,17 +15,16 @@
  */
 namespace OP;
 
-/**
- * EMail
+/** EMail
  *
-	<pre>
-	$mail = new EMail();
-	$mail->From( $mail->GetLocalAddress(), 'From name');
-	$mail->To('To address', 'To name');
-	$mail->Subject('Title');
-	$mail->Content('Message');
-	$mail->Send();
-	</pre>
+ * <pre>
+ * $mail = new EMail();
+ * $mail->From( $mail->GetLocalAddress(), 'From name');
+ * $mail->To('To address', 'To name');
+ * $mail->Subject('Title');
+ * $mail->Content('Message');
+ * $mail->Send();
+ * </pre>
  *
  * @creation  2015-04-08 --> 2016-11-17
  * @version   1.0
