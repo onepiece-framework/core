@@ -55,7 +55,7 @@ trait OP_CORE
 		$message = "This method has not been exists. ({$class}->{$name}({$serial}))";
 
 		//	...
-		throw new \Exception($message);
+		Notice::Set($message, debug_backtrace(false));
 	}
 
 	/** Calling to has not been set static method.
@@ -65,7 +65,8 @@ trait OP_CORE
 	 */
 	static function __callstatic($name, $args)
 	{
-		throw new \Exception("This method has not been exists. ($name)");
+		$message = "This method has not been exists. ($name)";
+		Notice::Set($message, debug_backtrace(false));
 	}
 
 	/** Calling to has not been set property.
@@ -74,7 +75,8 @@ trait OP_CORE
 	 */
 	function __get($name)
 	{
-		throw new \Exception("This property has not been exists. ($name)");
+		$message = "This property has not been exists. ($name)";
+		Notice::Set($message, debug_backtrace(false));
 	}
 
 	/** Calling to has not been set property.
@@ -84,7 +86,8 @@ trait OP_CORE
 	 */
 	function __set($name, $args)
 	{
-		throw new \Exception("This property has not been exists. ($name)");
+		$message = "This property has not been exists. ($name)";
+		Notice::Set($message, debug_backtrace(false));
 	}
 
 	/** Enumerate property names to serialize.
