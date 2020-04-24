@@ -28,6 +28,7 @@ include(__DIR__.'/function/encode.php');
 include(__DIR__.'/function/RootPath.php');
 include(__DIR__.'/function/ConvertPath.php');
 include(__DIR__.'/function/ConvertURL-2.php');
+include(__DIR__.'/function/Template.php');
 
 /** Compress to meta path from local file path.
  *

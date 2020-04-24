@@ -1,7 +1,7 @@
 <?php
 /** op-core:/function/Template.php
  *
- * @created   2020-05-10
+ * @created   2020-04-25
  * @version   1.0
  * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
@@ -15,51 +15,76 @@ namespace OP;
 
 /** Template
  *
- * @created   2020-05-10
- * @param     string       $function
- * @param     array        $args
+ * @created   2020-04-25
+ * @version   1.0
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @copyright Tomoaki Nagahara All right reserved.
+ * @param     string      $file
+ * @param     array       $args
  * @throws   \Exception
  */
-function Template(string $path, array $args=[]):void
+function Template(string $file, array $args=[])
 {
 	//	Trim white space.
-	$path = trim($path);
+	$file = trim($file);
 
 	//	Check if full path.
-	if( $path[0] === '/' ){
-		throw new \Exception("Template function can not specify the full path from root. ($path)");
+	if( $file[0] === '/' ){
+		throw new \Exception("Template function can not specify the full path from root. ($file)");
 	}
 
-	//	Convert path.
-	$path = ConvertPath($path);
+	//	Check if parent path include.
+	if( strpos($file, '..') !== false ){
+		throw new \Exception("Does not support specifying parent directory. ($file)");
+	}
 
-	//	Save current directory.
-	$current_dir = getcwd();
+	//	Check if meta path.
+	if( strpos($file, ':') ){
+		$file = ConvertPath($file);
+	}
 
-	//	Change to execute file in directory.
-	chdir( dirname($path) );
+	//	Change real path.
+	if(!$path = realpath($file) ){
+		throw new \Exception("There are no files in this path. ($file)");
+	}
 
-	//	Get file name.
-	$name = basename($path);
+	//	Check if file exists.
+	if(!file_exists($path) ){
+		throw new \Exception("There are no files in this path. ($path)");
+	}
 
-	//	Sandbox
-	call_user_func(function($name, $args){
+	//	Check if directory include.
+	if( strpos($path, '/') !== false ){
+		//	Get current directory.
+		$save_directory = getcwd();
 
-		//	Swap file name.
-		$md5 = 'file_' . md5(microtime());
-		${$md5} = $name;
+		//	Chenge direcotry.
+		chdir(dirname($path));
+	}
 
-		//	If variables passed.
-		if(!empty($args) ){
-			//	Extract passed variables.
-			extract($args, null, null);
-		};
+	//	Load file.
+	try {
+		(function() use ($path, $args){
+			//	Swap file name. Because avoid conflicts. --> $args['path']
+			$md5 = 'file_' . md5(microtime());
+			${$md5} = $path;
 
-		//	Execute file.
-		include(${$md5});
+			//	If variables passed.
+			if(!empty($args) ){
+				//	Extract passed variables.
+				extract($args, null, null);
+			};
 
-	}, $name, $args);
+			//	Execute file.
+			include(${$md5});
+		});
+	}catch(\Throwable $e){
+		Notice::Set($e);
+	}
 
-	//	Recovery last directory.
-	chdir($current_dir);
+	//	Check if directory changed.
+	if( $save_directory ?? null ){
+		//	Recovery save direcotry.
+		chdir($save_directory);
+	}
 }
