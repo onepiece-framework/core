@@ -45,7 +45,6 @@ class Env
 	 */
 	static private $_env;
 	static private $_is_admin;
-	static private $_is_localhost;
 
 	/** Load config file.
 	 *
@@ -99,20 +98,26 @@ class Env
 	 */
 	static function isLocalhost()
 	{
-		//	...
-		if(!self::$_is_localhost){
-			//	...
+		//	Keep calced value.
+		static $_is_localhost;
+
+		//	Check if not init.
+		if( $_is_localhost === null ){
+			//	Check if http.
 			if( self::isHttp() ){
 				//	...
-				self::$_is_localhost = ($_SERVER['REMOTE_ADDR'] === '127.0.0.1' or $_SERVER['REMOTE_ADDR'] === '::1') ? true : false;
+				$remote_addr = $_SERVER['REMOTE_ADDR'] ?? null;
+
+				//	localhost ip address
+				$_is_localhost = ($remote_addr === '127.0.0.1' or $remote_addr === '::1') ? true : false;
 			}else{
 				//	Shell
-				self::$_is_localhost = true;
-			};
+				$_is_localhost = true;
+			}
 		}
 
-		//	...
-		return self::$_is_localhost;
+		//	Return already calced static value.
+		return $_is_localhost;
 	}
 
 	/** Is Http
