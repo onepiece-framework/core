@@ -119,8 +119,13 @@ interface IF_FORM
 
 	/** Is validation result.
 	 *
+	 * <pre>
+	 * Return value is null are not match token.
+	 * Return value is bool are not match validate.
+	 * </pre>
+	 *
 	 * @addition 2019-03-15
-	 * @return   boolean
+	 * @return   null|boolean
 	 */
-	public function isValidate():bool;
+	public function isValidate();
 }
