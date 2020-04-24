@@ -25,10 +25,4 @@ namespace OP;
  */
 interface IF_UNIT
 {
-	/** Testcase
-	 *
-	 * @created   2019-12-13
-	 * @param     array        $args
-	 */
-	static function Testcase($args);
 }
