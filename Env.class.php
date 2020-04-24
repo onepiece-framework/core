@@ -44,7 +44,6 @@ class Env
 	 * @var array
 	 */
 	static private $_env;
-	static private $_is_admin;
 
 	/** Load config file.
 	 *
@@ -82,14 +81,20 @@ class Env
 	 */
 	static function isAdmin()
 	{
-		if( self::$_is_admin === null ){
+		//	Keep calced value.
+		static $_is_admin;
+
+		//	Check if not init.
+		if( $_is_admin === null ){
 			if( self::isLocalhost() ){
-				self::$_is_admin = true;
+				$_is_admin = true;
 			}else{
-				self::$_is_admin = ifset(self::$_env[self::_ADMIN_IP_]) === $_SERVER['REMOTE_ADDR'] ? true: false;
+				$_is_admin = (self::$_env[self::_ADMIN_IP_] ?? null) === ($_SERVER['REMOTE_ADDR'] ?? null) ? true: false;
 			}
 		}
-		return self::$_is_admin;
+
+		//	Return already calced static value.
+		return $_is_admin;
 	}
 
 	/** Is localhost
@@ -171,7 +176,10 @@ class Env
 		$key = strtolower($key);
 
 		//	What is this necessary for? --> Initialize when Admin-IP is set. (for re calc)
-		/* This process is necessary?
+		/*	This process is necessary?  --> Change admin ip feature.
+		 *
+		 * @disabled 2020-04-24
+
 		if( $key === self::_ADMIN_IP_ ){
 			self::$_is_admin = null;
 		}
