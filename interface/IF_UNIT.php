@@ -25,4 +25,5 @@ namespace OP;
  */
 interface IF_UNIT
 {
+	static function Unit($name);
 }
