@@ -125,12 +125,8 @@ class Env
 			return self::AppID();
 		};
 
-		//	Always lowercase.
-		$key = strtolower($key);
-
-
 		//	...
-		return self::$_env[$key] ?? null;
+		return Config::Get($key);
 	}
 
 	/** Set environment value.
@@ -140,33 +136,7 @@ class Env
 	 */
 	static function Set($key, $var)
 	{
-		//	...
-		$key = strtolower($key);
-
-		//	What is this necessary for? --> Initialize when Admin-IP is set. (for re calc)
-		/*	This process is necessary?  --> Change admin ip feature.
-		 *
-		 * @disabled 2020-04-24
-
-		if( $key === self::_ADMIN_IP_ ){
-			self::$_is_admin = null;
-		}
-		*/
-
-
-		//	...
-		if( isset(self::$_env[$key]) and is_array($var) ){
-			/** About array merge.
-			 *
-			 *  array_replace_recursive() is all replace.
-			 *  array_merge_recursive() is number index is renumbering.
-			 *
-			 */
-		//	self::$_env[$key] = array_merge_recursive(self::$_env[$key], $var);
-			self::$_env[$key] = array_replace_recursive(self::$_env[$key], $var);
-		}else{
-			self::$_env[$key] = $var;
-		};
+		Config::Set($key, $var);
 	}
 
 	/** Get/Set Language.
