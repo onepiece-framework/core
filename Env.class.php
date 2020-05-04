@@ -112,14 +112,19 @@ class Env
 	/** Get environment value.
 	 *
 	 * @param  string $key
-	 * @return string|integer|boolean|array|object
+	 * @return mixed  $var
 	 */
 	static function Get($key)
 	{
 		//	...
-		if( $key === _OP_APP_ID_ ){
-			return self::AppID();
-		};
+		switch( $key ){
+			case _OP_APP_ID_:
+				return self::AppID();
+
+			case self::_ADMIN_IP_:
+			case self::_ADMIN_MAIL_:
+				return self::$_env[$key];
+		}
 
 		//	...
 		return Config::Get($key);
@@ -128,10 +133,19 @@ class Env
 	/** Set environment value.
 	 *
 	 * @param string $key
-	 * @param string|integer|boolean|array|object $var
+	 * @param mixed  $var
 	 */
 	static function Set($key, $var)
 	{
+		//	...
+		switch( $key ){
+			case self::_ADMIN_IP_:
+			case self::_ADMIN_MAIL_:
+				self::$_env[$key] = $var;
+			return;
+		}
+
+		//	...
 		Config::Set($key, $var);
 	}
 
