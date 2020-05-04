@@ -56,11 +56,7 @@ class Env
 
 		//	Check if not init.
 		if( $_is_admin === null ){
-			if( self::isLocalhost() ){
-				$_is_admin = true;
-			}else{
-				$_is_admin = (self::$_env[self::_ADMIN_IP_] ?? null) === ($_SERVER['REMOTE_ADDR'] ?? null) ? true: false;
-			}
+			$_is_admin = include(__DIR__.'/include/isAdmin.php');
 		}
 
 		//	Return already calced static value.
