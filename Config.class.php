@@ -41,14 +41,15 @@ class Config
 	 */
 	static private function _Init($name)
 	{
-		//	Include closure function.
-		$include = function($path){ return include($path); };
-
 		//	Force lower case.
 		$name = strtolower($name);
 
 		//	Check by class name whether config is initialized.
 		if(!isset(self::$_config[$name]) ){
+
+			//	Include closure function.
+			$include = function($path){ return include($path); };
+
 			//	Get asset root path.
 			$asset_root = RootPath('asset');
 
@@ -101,7 +102,7 @@ class Config
 
 			//	...
 			if( $fail ?? null ){
-				throw new \Exception("This config file is not exists. ($path)");
+				Notice::Set("This config file is not exists. ($name)");
 			}
 		}
 
