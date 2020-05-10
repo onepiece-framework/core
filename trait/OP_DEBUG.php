@@ -133,9 +133,12 @@ trait OP_DEBUG
 		}
 
 		//	...
-		if(!$debug = strtolower(Request('debug')) ){
+		if(!$debug = Request('debug') ){
 			return;
 		}
+
+		//	...
+		$debug = strtolower($debug);
 
 		//	...
 		if( is_numeric($debug) or $debug === 'true' ){
