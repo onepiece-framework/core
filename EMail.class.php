@@ -18,12 +18,12 @@ namespace OP;
 /** EMail
  *
  * <pre>
- * $mail = new EMail();
- * $mail->From( $mail->GetLocalAddress(), 'From name');
- * $mail->To('To address', 'To name');
- * $mail->Subject('Title');
- * $mail->Content('Message');
- * $mail->Send();
+	$mail = new EMail();
+	$mail->From( $mail->GetLocalAddress(), 'From name');
+	$mail->To('To address', 'To name');
+	$mail->Subject('Title');
+	$mail->Content('Message');
+	$mail->Send();
  * </pre>
  *
  * @created   2015-04-08 --> 2016-11-17
@@ -335,7 +335,7 @@ class EMail
 	private function _get_to()
 	{
 		$join = [];
-		foreach($this->_head['To'] as $temp){
+		foreach($this->_head['to'] as $temp){
 			$addr = $temp['addr'];
 			$name = $temp['name'];
 			$join[] = $this->_get_full_name($addr, $name);
@@ -376,7 +376,7 @@ class EMail
 	 */
 	private function _get_parameters()
 	{
-		if(!$addr = ifset($this->_head['From'][0]['addr']) ){
+		if(!$addr = ifset($this->_head['from'][0]['addr']) ){
 			$addr = self::GetLocalAddress();
 		}
 
@@ -502,11 +502,12 @@ class EMail
 	 */
 	private function _set_addr($addr, $name, $key)
 	{
+		$key  = strtolower($key);
 		$addr = preg_replace('/\n/', '\n', $addr);
 		$head = [];
 		$head['addr'] = $addr;
 		$head['name'] = $name;
-		$this->_head[ucfirst(strtolower($key))][] = $head;
+		$this->_head[$key][] = $head;
 	}
 
 	/** Set error messge for developer.
