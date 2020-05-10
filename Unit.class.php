@@ -105,7 +105,7 @@ class Unit
 	static function Load($name)
 	{
 		//	...
-		if(!$dir = ConvertPath('unit:/') ){
+		if(!$dir = RootPath('asset') . 'unit/' ){
 			throw new Exception('Has not been set meta root of unit.');
 		};
 
@@ -147,9 +147,6 @@ class Unit
 			if(!file_exists($_dir)){
 				throw new Exception("Does not exists this unit directory. ($_dir)");
 			};
-
-			//	Register meta path.
-			RootPath('unit', $_dir);
 		};
 
 		//	Does not exists this unit.
