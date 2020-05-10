@@ -324,7 +324,7 @@ class Env
 		if( $app_id ){
 			//	...
 			if( isset(self::$_env[_OP_APP_ID_]) ){
-				throw new \Exception("AppID is already set.");
+				Notice::Set("AppID is already set.");
 			}
 
 			//	...
