@@ -25,20 +25,6 @@ namespace OP;
  */
 trait OP_UNIT
 {
-	/** Get class name.
-	 *
-	 * @created   2019-12-13
-	 * @return    string       $class_name
-	 */
-	static private function _ClassName()
-	{
-		//	Explode namespace.
-		$temp = explode('\\', self::class);
-
-		//	Get current unit class name.
-		return strtolower(array_pop($temp));
-	}
-
 	/** Config
 	 *
 	 * @created   2019-12-13   Moved from Env::Get().
