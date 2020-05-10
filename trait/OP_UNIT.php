@@ -91,10 +91,15 @@ trait OP_UNIT
 	static function Unit($name)
 	{
 		//	...
+		return Unit($name);
+
+		/*
+		//	...
 		Notice::Set('This method will obsolete. Please usage following method.'.PHP_EOL."Unit::Singleton({$name})");
 
 		//	...
 		return Unit::Singleton($name);
+		*/
 	}
 
 	/** Testcase
