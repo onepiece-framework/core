@@ -102,6 +102,7 @@ trait OP_UNIT
 	 * @created   2019-12-13
 	 * @param     array        $args
 	 */
+	/*
 	static function Testcase($args)
 	{
 		//	Get class name.
@@ -120,4 +121,5 @@ trait OP_UNIT
 			include($path);
 		}, $path, $args);
 	}
+	*/
 }
