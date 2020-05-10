@@ -277,39 +277,48 @@ class Env
 
 	/** Get frozen unix time.
 	 *
-	 * @param  integer|string $time
-	 * @return integer        $time
+	 * @param  boolean $utc
+	 * @param  string  $time
+	 * @return integer $time
 	 */
-	static function Time($time=null)
+	static function Time(bool $utc=false, string $time=''):int
 	{
 		//	...
 		if( $time ){
 			//	...
 			if( self::$_env['time'] ?? null ){
-				throw new \Exception("Frozen time has already set.");
+				Notice::Set("Frozen time has already set.");
 			};
 
 			//	...
-			self::$_env['time'] = is_int($time) ? $time: strtotime($time);
+			self::$_env['time'] = strtotime($time);
+
+			//	...
+			if(!$utc ){
+				//	Add timezone offset at php.ini timezone.
+				self::$_env['time'] -= date('Z');
+			}
 		};
 
 		//	...
 		if( empty(self::$_env['time']) ){
-			self::$_env['time'] = time();
+			//	Always UTC.
+			self::$_env['time'] = time() - date('Z');
 		};
 
 		//	...
-		return self::$_env['time'];
+		return $utc ? self::$_env['time'] : self::$_env['time'] + date('Z');
 	}
 
 	/** Get local timezone timestamp.
 	 *
 	 * @created  2019-09-24
+	 * @param    boolean     $utc
 	 * @return   string      $timestamp
 	 */
-	static function Timestamp($gmt=null)
+	static function Timestamp(bool $utc=false):string
 	{
-		return $gmt ? gmdate(_OP_DATE_TIME_, self::Time()) : date(_OP_DATE_TIME_, self::Time());
+		return date(_OP_DATE_TIME_, self::Time($utc));
 	}
 
 	/** Get/Set App ID.
