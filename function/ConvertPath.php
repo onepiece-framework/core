@@ -22,7 +22,7 @@ namespace OP;
  * @param  string $meta_path
  * @return string
  */
-function ConvertPath($path)
+function ConvertPath(string $path, bool $check_file_exists=true):string
 {
 	//	Parent path.
 	if( strpos($path, '..') !== false ){
@@ -54,7 +54,7 @@ function ConvertPath($path)
 	};
 
 	// Check if file exists.
-	if(!file_exists($path) ){
+	if( $check_file_exists and !file_exists($path) ){
 		throw new \Exception("File is not exists. ($path)");
 	}
 
