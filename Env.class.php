@@ -15,6 +15,11 @@
  */
 namespace OP;
 
+/** use
+ *
+ */
+use function OP\Encode;
+
 /**
  * Env
  *
@@ -328,5 +333,27 @@ class Env
 
 		//	...
 		return self::$_env[_OP_APP_ID_];
+	}
+
+	static function Request($_key=null, $_default=null)
+	{
+		//	...
+		static $_request = null;
+
+		//	...
+		if( $_request === null ){
+			//	In case of shell.
+			if( isset($_SERVER['argv']) ){
+				$_request = require_once(__DIR__.'/include/request_cli.php');
+			}else{
+				$_request = require_once(__DIR__.'/include/request_web.php');
+			}
+
+			//	...
+			$_request = Encode($_request);
+		}
+
+		//	...
+		return empty($_key) ? $_request: ($_request[$_key] ?? $_default);
 	}
 }
