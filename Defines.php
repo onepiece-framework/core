@@ -32,3 +32,19 @@ define('_OP_DATE_', 'Y-m-d', false);
  * @var string
  */
 define('_OP_DATE_TIME_', 'Y-m-d H:i:s', false);
+
+/** Deny access IP-Address
+ *
+ *  The values ​​are hashed so that they do not duplicate.
+ *
+ * @var string
+ */
+define('_OP_DENY_IP_', substr(md5(__FILE__), 0, 10), false);
+
+/** Deny access.
+ *
+ * @created   2020-05-11
+ */
+if( $_SERVER[_OP_DENY_IP_] ?? null ){
+	exit("Your IP-Adderss in blacklist.");
+}
