@@ -20,9 +20,10 @@ namespace OP;
  * </pre>
  *
  * @param  string $meta_path
+ * @param  bool   $throw_exception
  * @return string
  */
-function ConvertPath(string $path, bool $check_file_exists=true):string
+function ConvertPath(string $path, bool $throw_exception=true):string
 {
 	//	Parent path.
 	if( strpos($path, '..') !== false ){
@@ -54,8 +55,14 @@ function ConvertPath(string $path, bool $check_file_exists=true):string
 	};
 
 	// Check if file exists.
-	if( $check_file_exists and !file_exists($path) ){
-		throw new \Exception("File is not exists. ($path)");
+	if(!file_exists($path) ){
+		//	...
+		if( $throw_exception === false ){
+			//	Return false.
+			$path = false;
+		}else{
+			throw new \Exception("File is not exists. ($path)");
+		}
 	}
 
 	//	Return calculated value.
