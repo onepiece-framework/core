@@ -1,5 +1,5 @@
 <?php
-/** ConvertPath.php
+/** op-core:/function/ConvertPath.php
  *
  * @created   2020-05-10
  * @version   1.0

@@ -1,6 +1,5 @@
 <?php
-/**
- * ConvertURL-2.php
+/** op-core:/function/ConvertURL-2.php
  *
  * @created   2020-03-08
  * @version   1.0

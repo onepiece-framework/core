@@ -1,5 +1,5 @@
 <?php
-/** GetTemplate.php
+/** op-core:/function/GetTemplate.php
  *
  * @created   2020-05-10
  * @version   1.0

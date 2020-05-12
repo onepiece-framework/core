@@ -1,6 +1,5 @@
 <?php
-/**
- * op-core:/function/Load.php
+/** op-core:/function/Load.php
  *
  * @created   2020-05-08
  * @package   op-core

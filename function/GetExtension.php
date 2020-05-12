@@ -1,6 +1,5 @@
 <?php
-/**
- * op-core:/function/GetExtension.php
+/** op-core:/function/GetExtension.php
  *
  * @created   2020-05-08
  * @package   op-core

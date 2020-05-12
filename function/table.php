@@ -1,6 +1,5 @@
 <?php
-/**
- * function/table.php
+/** op-core:/function/table.php
  *
  * @created   2019-11-25
  * @version   1.0
