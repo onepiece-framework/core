@@ -285,16 +285,6 @@ function Html($string, $attr=null /* , $escape=true */ )
 	}
 }
 
-/** Display HTML Table tag.
- *
- * @param array $array
- */
-function Table($array)
-{
-	require_once(__DIR__.'/function/table.php');
-	\OP\FUNC\HTML\TABLE\_Build($array);
-}
-
 /** Data Sourse Name parse and build.
  *
  * @created  2019-04-21
