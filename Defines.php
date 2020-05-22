@@ -45,6 +45,6 @@ define('_OP_DENY_IP_', substr(md5(__FILE__), 0, 10), false);
  *
  * @created   2020-05-11
  */
-if( $_SERVER[_OP_DENY_IP_] ?? null ){
+if( $_SESSION[_OP_DENY_IP_] ?? null ){
 	exit("Your IP-Adderss in blacklist.");
 }
