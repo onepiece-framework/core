@@ -312,13 +312,29 @@ class Env
 
 	/** Get local timezone timestamp.
 	 *
+	 * <pre>
+	 * $localtime = Env::Timestamp();
+	 * $utc       = Env::Timestamp(true);
+	 * $offset    = Env::Timestamp(true, '-1 month');
+	 * </pre>
+	 *
 	 * @created  2019-09-24
 	 * @param    boolean     $utc
+	 * @param    string      $offset
 	 * @return   string      $timestamp
 	 */
-	static function Timestamp(bool $utc=false):string
+	static function Timestamp(bool $utc=false, $offset=null):string
 	{
-		return date(_OP_DATE_TIME_, self::Time($utc));
+		//	...
+		$time = self::Time($utc);
+
+		//	...
+		if( $offset ){
+			$time = strtotime($offset, $time);
+		}
+
+		//	...
+		return date(_OP_DATE_TIME_, $time);
 	}
 
 	/** Get/Set App ID.
