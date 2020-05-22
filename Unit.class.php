@@ -119,57 +119,6 @@ class Unit
 
 		//	...
 		return require_once($path);
-
-		/*
-		//	...
-		static $_result = [];
-		static $_dir;
-
-		//	Label of unit name is always lower case.
-		$name = strtolower($name);
-
-		//	Already loaded.
-		if( isset( $_result[$name] ) ){
-			return $_result[$name];
-		};
-
-		//	If dir is empty, find dir.
-		if(!$_dir ){
-			//	Get meta path from config file.
-			if(!$_dir = Env::Get('unit')['directory'] ?? null ){
-				throw new Exception('Has not been set unit directory.');
-			};
-
-			//	Change to real path from meta path.
-			$_dir = ConvertPath($_dir);
-
-			//	Does not exists this unit directory.
-			if(!file_exists($_dir)){
-				throw new Exception("Does not exists this unit directory. ($_dir)");
-			};
-		};
-
-		//	Does not exists this unit.
-		if(!file_exists("{$_dir}/{$name}") ){
-			throw new Exception("Does not exists this unit. ($name)");
-		};
-
-		//	Does not exist file that initialize unit.
-		$path = "{$_dir}/{$name}/index.php";
-
-		//	...
-		if(!file_exists($path) ){
-			throw new Exception("Does not exists unit controller. ($path)");
-		};
-
-		//	...
-		$_result[$name] = call_user_func(function($path){
-			return include($path);
-		}, $path);
-
-		//	...
-		return $_result[$name];
-		*/
 	}
 
 	/** Singleton
