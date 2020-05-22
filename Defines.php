@@ -41,6 +41,13 @@ define('_OP_DATE_TIME_', 'Y-m-d H:i:s', false);
  */
 define('_OP_DENY_IP_', substr(md5(__FILE__), 0, 10), false);
 
+/** If empty host name or user agent.
+ *
+ */
+if( empty($_SERVER['HTTP_HOST']) or empty($_SERVER['HTTP_USER_AGENT']) ){
+	$_SESSION[_OP_DENY_IP_] = true;
+}
+
 /** Deny access.
  *
  * @created   2020-05-11
