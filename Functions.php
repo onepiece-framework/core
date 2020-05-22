@@ -15,61 +15,8 @@
  */
 namespace OP;
 
-/** Used class
- *
- */
-use Exception;
-
-/** Meta label root path.
- *
- * @param string $meta
- * @param string $path
- */
-function RootPath(string $meta='', string $path='')
-{
-	//	Stack root list.
-	static $root;
-
-	//	Quick return.
-	if( empty($meta) ){
-		//	Return all root list.
-		return $root;
-	}
-
-	//	Register root path.
-	if( /* $meta and */ $path ){
-
-		//	Replace duplicate slash.
-		$path = str_replace('//', '/', $path);
-
-		//	Check if alias.
-		if( isset($root['alias']) ){
-			//	Check if match alias root.
-			if( strpos($path, $root['alias']) === 0 ){
-				//	Replace to app root.
-				$path = $root['app'] . substr($path, strlen($root['alias']));
-			};
-		};
-
-		//	Register.
-		$root[$meta] = rtrim($path,'/').'/';
-	};
-
-	//	Return meta root path.
-	/*
-	if( $meta ){
-	*/
-		//	...
-		if( empty($root[$meta]) ){
-			throw new \Exception("This meta label has not been set. ($meta)");
-		}
-
-		//	...
-		return $root[$meta] ?? null;
-	/*
-	};
-	*/
-}
+//	Include
+include(__DIR__.'/function/RootPath.php');
 
 /** Compress to meta path from local file path.
  *
