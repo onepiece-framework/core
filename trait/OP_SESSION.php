@@ -31,25 +31,36 @@ trait OP_SESSION
 	 * @updated   2019-04-10
 	 * @return array
 	 */
-	static function &Session($key=null, $val=null)
+	static function & Session($key=null, $val=null)
 	{
 		//	...
-		$app_id = Env::Get(_OP_APP_ID_);
-		$class  = get_called_class();
+		$app_id  = Env::AppID();
 
-		//	...
+		//	OP\UNIT\UnitName --> ['OP','UNIT','UnitName']
+		$explode = explode('\\', get_called_class());
+
+		//	OP\ClassName --> ['OP','CORE','ClassName']
+		if( count($explode) === 2 ){
+			$explode[2] = $explode[1];
+			$explode[1] = 'CORE';
+		}
+
+		//	Reference
+		$session = & $_SESSION[$explode[0]][$explode[1]][$explode[2]][$app_id];
+
+		//	If passed assoc key name.
 		if( $key ){
-			//	...
+			//	If not passed value.
 			if( $val !== null ){
-				$_SESSION[$app_id][$class][$key] = $val;
+				$session[$key] = $val;
 			};
 		};
 
 		//	...
 		if( $key ){
-			return $_SESSION[$app_id][$class][$key];
+			return $session[$key];
 		}else{
-			return $_SESSION[$app_id][$class];
+			return $session;
 		};
 	}
 }
