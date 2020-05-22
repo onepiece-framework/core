@@ -31,44 +31,14 @@ class Notice
 	 */
 	use OP_CORE;
 
-	/** Get/Pop Notice array.
-	 *
-	 * @param	 boolean	 true=Get(First in), false=Pop(Last in)
-	 * @return	 array
-	 */
-	static function _Get(bool $is_get=true) : array
-	{
-		//	...
-		$app_id = Env::Get(_OP_APP_ID_);
-
-		//	...
-		if(!isset($_SESSION[$app_id][__CLASS__]) ){
-			$_SESSION[$app_id][__CLASS__] = [];
-		};
-
-		//	Get
-		$session = &$_SESSION[$app_id][__CLASS__];
-
-		//	Shift
-		if( $is_get ){
-			//	...
-			$notice  = array_shift($session);
-		}else{
-			//	...
-			$notice  = array_pop($session);
-		};
-
-		//	Return
-		return $notice ?? [];
-	}
-
 	/** Get Notice array.
 	 *
 	 * @return	 array
 	 */
 	static function Get() : array
 	{
-		return self::_Get(true);
+		$session = & self::_Session();
+		return array_shift($session);
 	}
 
 	/** Pop Notice array.
@@ -77,7 +47,8 @@ class Notice
 	 */
 	static function Pop() : array
 	{
-		return self::_Get(false);
+		$session = & self::_Session();
+		return array_pop($session);
 	}
 
 	/** Set notice array.
