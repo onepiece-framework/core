@@ -74,22 +74,11 @@ function Decode($value, $charset=null)
 		case 'array':
 			$result = [];
 			foreach( $value as $key => $val ){
-				//	...
-				if( is_string($key) ){
-					$key = html_entity_decode($key, ENT_QUOTES, $charset);
-				}
-
-				//	...
+				$key = is_string($key) ? Decode($key, $charset): $key;
 				$val = Decode($val, $charset);
-
-				//	...
 				$result[$key] = $val;
 			}
-
-			//	...
 			$value = $result;
-
-			//	...
 			break;
 
 		//	...
