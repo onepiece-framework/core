@@ -31,6 +31,24 @@ class Notice
 	 */
 	use OP_CORE;
 
+	/** Get session by reference.
+	 *
+	 * @return array
+	 */
+	static private function & _Session()
+	{
+		//	...
+		$app_id = Env::AppID();
+
+		//	...
+		if(!isset($_SESSION['OP']['CORE']['NOTICE'][$app_id]) ){
+			$_SESSION['OP']['CORE']['NOTICE'][$app_id] = [];
+		};
+
+		//	...
+		return $_SESSION['OP']['CORE']['NOTICE'][$app_id];
+	}
+
 	/** Get Notice array.
 	 *
 	 * @return	 array
@@ -57,16 +75,8 @@ class Notice
 	 */
 	static function Set($e, $backtrace=null)
 	{
-		//	...
-		$app_id = Env::Get(_OP_APP_ID_);
-
-		//	...
-		if(!isset($_SESSION[$app_id][__CLASS__]) ){
-			$_SESSION[$app_id][__CLASS__] = [];
-		};
-
-		//	Get
-		$session = &$_SESSION[$app_id][__CLASS__];
+		//	Get session reference.
+		$session = & self::_Session();
 
 		//	...
 		if( $e instanceof \Throwable ){
@@ -113,16 +123,11 @@ class Notice
 	 */
 	static function Has()
 	{
-		//	...
-		$app_id = Env::Get(_OP_APP_ID_);
+		//	Get session reference.
+		$session = & self::_Session();
 
 		//	...
-		if(!isset($_SESSION[$app_id][__CLASS__]) ){
-			$_SESSION[$app_id][__CLASS__] = [];
-		};
-
-		//	...
-		return count($_SESSION[$app_id][__CLASS__]) ? true: false;
+		return count($session) ? true: false;
 	}
 }
 
