@@ -144,9 +144,20 @@ class Notice
  * @copyright Tomoaki Nagahara All right reserved.
  */
 register_shutdown_function(function(){
+
+	/*
+	if( $notice = Unit::Instantiate('Notice') ){
+		$notice->Auto();
+	}else{
+		while( $notice = Notice::Get() ){
+			var_dump($notice);
+		};
+	};
+	*/
+
 	try{
 		//	...
-		Unit::Singleton('Notice')->Auto();
+		Unit('Notice')->Auto();
 
 	}catch( \Exception $e ){
 		//	...
