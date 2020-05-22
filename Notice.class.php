@@ -95,8 +95,8 @@ class Notice
 		}
 
 		//	...
-		$key		 = Hasha1($message);
-		$timestamp	 = gmdate('Y-m-d H:i:s', time()+date('Z'));
+		$key         = substr(md5($message), 0, 8);
+		$timestamp   = Env::Timestamp();
 
 		//	...
 		$reference	 = isset($session[$key]) ? $session[$key]: null;
