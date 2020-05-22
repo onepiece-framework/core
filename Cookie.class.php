@@ -46,6 +46,11 @@ class Cookie
 	 */
 	static function Get($key, $default=null)
 	{
+		//	Cache feature
+		if( isset( $_SESSION['OP']['CORE']['COOKIE'][$key] ) ){
+			return $_SESSION['OP']['CORE']['COOKIE'][$key];
+		}
+
 		//	...
 		$key = Hasha1($key);
 
@@ -63,6 +68,9 @@ class Cookie
 	 */
 	static function Set($key, $val, $expire=null, $option=null)
 	{
+		//	Cache feature
+		$_SESSION['OP']['CORE']['COOKIE'][$key] = $val;
+
 		//	...
 		$file = $line = null;
 
