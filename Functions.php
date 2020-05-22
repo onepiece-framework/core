@@ -154,9 +154,9 @@ function Encode($value, $charset=null)
  */
 function Hasha1($var, $length=8, $salt=null)
 {
-	//	...
+	//	Can overwrite salt.
 	if( $salt === null ){
-		$salt = Env::Get(_OP_APP_ID_);
+		$salt = Env::AppID();
 	};
 
 	//	...
