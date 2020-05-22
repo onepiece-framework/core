@@ -30,12 +30,20 @@ class Encrypt
 	 */
 	use OP_CORE;
 
+	/** Cipher method
+	 *
+	 * @var string
+	 */
+	const algorithm = 'aes-256-cbc';
+
 	/** Generate Initial vector.
 	 *
 	 */
 	static function _iv()
 	{
-		return substr(Env::Get(_OP_APP_ID_) . ifset($_SERVER["_APP_OPENSSL_IV_"]) . '1234567890123456', 0, 16);
+		$source = $_SERVER["_OP_OPENSSL_IV_"] ?? Env::AppID();
+		$source = md5($source);
+		return substr($source, 0, 16);
 	}
 
 	/** Generate password.
@@ -43,7 +51,9 @@ class Encrypt
 	 */
 	static function _password()
 	{
-		return Env::Get(_OP_APP_ID_) . ifset($_SERVER["_APP_OPENSSL_PASSWORD_"]) . '1234567890123456';
+		$source = $_SERVER["_OP_OPENSSL_PASSWORD_"] ?? Env::AppID();
+		$source = md5($source);
+		return $source;
 	}
 
 	/** Dec is Decoding.
@@ -56,11 +66,9 @@ class Encrypt
 		//	...
 		$iv       = self::_iv();
 		$password = self::_password();
-		$method   = 'aes-256-cbc';
-		$option   = 0;
 
 		//	...
-		return openssl_decrypt($str, $method, $password, $option, $iv);
+		return openssl_decrypt($str, self::algorithm, $password, 0, $iv);
 	}
 
 	/** Enc is Encoding.
@@ -73,10 +81,8 @@ class Encrypt
 		//	...
 		$iv       = self::_iv();
 		$password = self::_password();
-		$method   = 'aes-256-cbc';
-		$option   = 0;
 
 		//	...
-		return openssl_encrypt($str, $method, $password, $option, $iv);
+		return openssl_encrypt($str, self::algorithm, $password, 0, $iv);
 	}
 }
