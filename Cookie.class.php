@@ -38,16 +38,6 @@ class Cookie
 	 */
 	use OP_CORE;
 
-	/** Generate unique key by AppID and original key name.
-	 *
-	 * @param  string $key
-	 * @return string $key
-	 */
-	static function _Key($key)
-	{
-		return Hasha1($key);
-	}
-
 	/** Get cookie value of key.
 	 *
 	 * @param  string $key
@@ -57,7 +47,7 @@ class Cookie
 	static function Get($key, $default=null)
 	{
 		//	...
-		$key = self::_Key($key);
+		$key = Hasha1($key);
 
 		//	...
 		return isset($_COOKIE[$key]) ? unserialize( Encrypt::Dec($_COOKIE[$key]) ): $default;
@@ -83,7 +73,7 @@ class Cookie
 		}
 
 		//	...
-		$key = self::_Key($key);
+		$key = Hasha1($key);
 
 		/** Separate from ICE AGE time.
 		 *  Because expire time is calculate by local browser.
