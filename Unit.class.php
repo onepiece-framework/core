@@ -183,25 +183,3 @@ class Unit
 		return Unit($name);
 	}
 }
-
-/** Unit is factory singleton.
- *
- * @created   2020-03-06
- * @version   1.0
- * @package   core
- * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
- * @copyright Tomoaki Nagahara All right reserved.
- */
-function Unit($name)
-{
-	//	...
-	static $_unit;
-
-	//	...
-	if( empty($_unit[$name]) ){
-		$_unit[$name] = Unit::Instantiate($name);
-	}
-
-	//	...
-	return $_unit[$name];
-}

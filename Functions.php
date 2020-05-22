@@ -16,6 +16,8 @@
 namespace OP;
 
 //	Include
+include(__DIR__.'/function/Load.php');
+include(__DIR__.'/function/Unit.php');
 include(__DIR__.'/function/RootPath.php');
 
 /** Compress to meta path from local file path.
