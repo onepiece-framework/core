@@ -175,10 +175,11 @@ class Unit
 	/** Singleton
 	 *
 	 * @created  2019-09-18
+	 * @deprecated
 	 * @param    string      $name
 	 * @return   object      $unit
 	 */
-	static function & Singleton($name)
+	static function Singleton($name)
 	{
 		return Unit($name);
 	}
