@@ -1,6 +1,5 @@
 <?php
-/**
- * Functions.php
+/** Functions.php
  *
  * @created   2016-11-16
  * @version   1.0
@@ -19,6 +18,8 @@ namespace OP;
 include(__DIR__.'/function/Load.php');
 include(__DIR__.'/function/Unit.php');
 include(__DIR__.'/function/RootPath.php');
+include(__DIR__.'/function/ConvertPath.php');
+include(__DIR__.'/function/ConvertURL-2.php');
 
 /** Compress to meta path from local file path.
  *
