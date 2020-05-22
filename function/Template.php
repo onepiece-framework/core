@@ -22,6 +22,14 @@ namespace OP;
  */
 function Template(string $path, array $args=[]):void
 {
+	//	Trim white space.
+	$path = trim($path);
+
+	//	Check if full path.
+	if( $path[0] === '/' ){
+		throw new \Exception("Template function can not specify the full path from root. ($path)");
+	}
+
 	//	Convert path.
 	$path = ConvertPath($path);
 
