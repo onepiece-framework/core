@@ -56,7 +56,8 @@ class Notice
 	static function Get() : array
 	{
 		$session = & self::_Session();
-		return array_shift($session);
+		$notice  = array_shift($session);
+		return $notice ?? [];
 	}
 
 	/** Pop Notice array.
@@ -66,7 +67,8 @@ class Notice
 	static function Pop() : array
 	{
 		$session = & self::_Session();
-		return array_pop($session);
+		$notice  = array_pop($session);
+		return $notice ?? [];
 	}
 
 	/** Set notice array.
