@@ -51,7 +51,7 @@ function CompressPath($path)
 	return false;
 }
 
-/** Decode
+/** Decode can decode nested array transparent.
  *
  * @param  mixed  $value
  * @param  string $charset
@@ -225,7 +225,9 @@ function Attribute(string $attr)
 function Json($json, $attr)
 {
 	//	HTML Decode
+	/* Decode is convert to &amp; --> &
 	$json = Decode($json);
+	*/
 
 	//	Convert to json.
 	$json = json_encode($json);
