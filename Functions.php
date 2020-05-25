@@ -149,12 +149,16 @@ function Hasha1($var, $length=8, $salt=null)
 		$salt = Env::AppID();
 	};
 
-	//	...
+	/** This change affects the hash value.
 	if( is_string($var) ){
 		//	...
 	}else if( is_array($var) or is_object($var) ){
 		$var = json_encode($var);
 	}
+	*/
+
+	//	To json.
+	$var = json_encode($var);
 
 	//	...
 	return substr(sha1($var . $salt), 0, $length);
