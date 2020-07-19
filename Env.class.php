@@ -296,6 +296,11 @@ class Env
 
 				//	...
 				header($header);
+
+				//	...
+				if( self::$_env['mime'] !== 'text/html' ){
+					self::$_env['layout']['execute'] = false;
+				}
 			}
 		}
 
