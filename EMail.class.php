@@ -1,10 +1,10 @@
 <?php
-/**
- * EMail.class.php
+/** op-core:/EMail.class.php
  *
- * @created   2015-04-08 --> 2016-11-17
+ * @created   2015-04-08
+ * @updated   2016-11-17
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright 2015 (C) Tomoaki Nagahara All right reserved.
  */
@@ -26,9 +26,10 @@ namespace OP;
 	$mail->Send();
  * </pre>
  *
- * @created   2015-04-08 --> 2016-11-17
+ * @created   2015-04-08
+ * @updated   2016-11-17
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright 2015 (C) Tomoaki Nagahara All right reserved.
  */

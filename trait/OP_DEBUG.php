@@ -1,17 +1,16 @@
 <?php
-/**
- * OP_DEBUG.php
+/** op-core:/OP_DEBUG.php
  *
- * @creation  2019-03-20
+ * @created   2019-03-20
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
 /** namespace
  *
- * @creation  2019-03-20
+ * @created   2019-03-20
  */
 namespace OP;
 
@@ -19,9 +18,9 @@ namespace OP;
  *
  *  Put together debug information.
  *
- * @creation  2019-03-20
+ * @created   2019-03-20
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

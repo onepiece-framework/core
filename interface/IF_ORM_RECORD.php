@@ -1,25 +1,24 @@
 <?php
-/**
- * IF_ORM_RECORD.interface.php
+/** op-core:/IF_ORM_RECORD.interface.php
  *
- * @creation  2018-06-29
+ * @created   2018-06-29
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
 /** namespace
  *
- * @creation  2019-03-05
+ * @created   2019-03-05
  */
 namespace OP;
 
 /** IF_ORM_RECORD
  *
- * @creation  2018-06-29
+ * @created   2018-06-29
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -30,7 +29,7 @@ interface IF_ORM_RECORD
 	 *  True: Found saved record.
 	 * False: Empty record. (Do save is create new record.)
 	 *
-	 * @return	 boolean	 $io
+	 * @return  boolean  $io
 	 */
 	public function isFind();
 
@@ -39,13 +38,13 @@ interface IF_ORM_RECORD
 	 *  True: Can save.
 	 * False: Can not save.
 	 *
-	 * @return	 boolean	 $io
+	 * @return  boolean  $io
 	 */
 	public function isValid();
 
 	/** Return already instantiated Form object. (So-call singleton)
 	 *
-	 * @return	 IF_FORM	 $form
+	 * @return  IF_FORM  $form
 	 */
 	public function Form();
 }

@@ -1,10 +1,9 @@
 <?php
-/**
- * Debug.class.php
+/** op-core:/Debug.class.php
  *
  * @created   2019-03-20
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

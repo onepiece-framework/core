@@ -1,10 +1,9 @@
 <?php
-/**
- * IF_ORM.interface.php
+/** op-core:/IF_ORM.interface.php
  *
  * @created   2018-06-29
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -13,7 +12,7 @@
  *
  * @created   2018-06-29
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

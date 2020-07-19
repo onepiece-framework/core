@@ -1,12 +1,10 @@
 <?php
-/**
- * Error.php
+/** op-core:/Error.php
  *
  * @created   2014-02-18
  * @updated   2016-12-07
- *
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

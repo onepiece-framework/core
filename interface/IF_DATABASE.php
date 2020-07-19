@@ -1,25 +1,24 @@
 <?php
-/**
- * IF_DATABASE.interface.php
+/** op-core:/IF_DATABASE.interface.php
  *
- * @creation  2018-04-20
+ * @created   2018-04-20
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
 /** namespace
  *
- * @creation  2019-03-04
+ * @created   2019-03-04
  */
 namespace OP;
 
 /** IF_DATABASE
  *
- * @creation  2018-04-20
+ * @created   2018-04-20
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -31,8 +30,8 @@ interface IF_DATABASE
 	 * $db->PDO()->Query();
 	 * </pre>
 	 *
-	 * @addition 2018-04-20
-	 * @return	\PDO
+	 * @created   2018-04-20
+	 * @return   \PDO
 	 */
 	public function PDO();
 
@@ -56,68 +55,68 @@ interface IF_DATABASE
 
 	/** Connect to database. And instantiate PDO.
 	 *
-	 * @addition 2018-04-20
-	 * @param	 array		 $config
-	 * @return	\PDO
+	 * @created   2018-04-20
+	 * @param     array     $config
+	 * @return   \PDO
 	 */
 	public function Connect($config);
 
 	/** Count number of records at SELECT conditions.
 	 *
-	 * @addition 2018-04-20
-	 * @param	 array		 $config
-	 * @return	 integer	 $count
+	 * @created   2018-04-20
+	 * @param     array     $config
+	 * @return    integer   $count
 	 */
 	public function Count($config);
 
 	/** Execute SELECT SQL.
 	 *
-	 * @addition 2018-04-20
-	 * @param	 array	 $config
+	 * @created   2018-04-20
+	 * @param     array     $config
 	 */
 	public function Select($config);
 
 	/** Execute INSERT SQL.
 	 *
-	 * @addition 2018-04-20
-	 * @param	 array	 $config
+	 * @created   2018-04-20
+	 * @param     array     $config
 	 */
 	public function Insert($config);
 
 	/** Execute UPDATE SQL.
 	 *
-	 * @addition 2018-04-20
-	 * @param	 array	 $config
+	 * @created   2018-04-20
+	 * @param     array     $config
 	 */
 	public function Update($config);
 
 	/** Execute DELETE SQL.
 	 *
-	 * @addition 2018-04-20
-	 * @param	 array	 $config
+	 * @created   2018-04-20
+	 * @param     array     $config
 	 */
 	public function Delete($config);
 
 	/** Quote to SQL at each product.
 	 *
-	 * @addition 2018-04-20
-	 * @param	 array	 $config
+	 * @created   2018-04-20
+	 * @param     array     $config
 	 */
 	public function Quote($config);
 
 	/** Execute to SQL query string. And return records array.
 	 *
-	 * @addition 2018-04-20
-	 * @param	 string	 $SQL
-	 * @param	 string	 $type
-	 * @return	 array	 $record
+	 * @created   2018-04-20
+	 * @param     string    $SQL
+	 * @param     string    $type
+	 * @return    array     $record
 	 */
 	public function SQL(string $SQL, string $type);
 
 	/** Execute Quick Query Language string.
 	 *
-	 * @addition 2018-04-20
-	 * @param	 array	 $config
+	 * @created   2018-04-20
+	 * @param     array     $config
 	 */
 	public function QQL(string $config, array $options);
 }

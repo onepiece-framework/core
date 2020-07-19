@@ -1,10 +1,9 @@
 <?php
-/**
- * Env.class.php
+/** op-core:/Env.class.php
  *
  * @created   2016-06-09
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -25,7 +24,7 @@ use function OP\Encode;
  *
  * @created   2016-06-09
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

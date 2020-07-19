@@ -1,10 +1,9 @@
 <?php
-/**
- * IF_SQL_DCL.interface.php
+/** op-core:/IF_SQL_DCL.interface.php
  *
  * @created   2019-01-08
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -19,7 +18,7 @@ namespace OP;
  *
  * @created   2019-01-08
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

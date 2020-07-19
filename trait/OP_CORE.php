@@ -1,25 +1,24 @@
 <?php
-/**
- * OP_CORE.php
+/** op-core:/OP_CORE.php
  *
- * @creation  2017-02-16
+ * @created   2017-02-16
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
 /** namespace
  *
- * @creation  2019-02-20
+ * @created   2019-02-20
  */
 namespace OP;
 
 /** OP_CORE
  *
- * @creation  2016-12-05
+ * @created   2016-12-05
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

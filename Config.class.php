@@ -1,12 +1,11 @@
 <?php
-/**
- * Config.php
+/** op-core:/Config.php
  *
  * Purpose: Want to combine Env::Get()/Set() and Unit::Config().
  *
  * @created   2019-12-27
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -21,7 +20,7 @@ namespace OP;
  *
  * @created   2019-12-27
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

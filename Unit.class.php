@@ -1,10 +1,9 @@
 <?php
-/**
- * Unit.class.php
+/** op-core:/Unit.class.php
  *
  * @created   2016-11-28
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -36,9 +35,9 @@ use Exception;
  * $val = OP\UNIT\NAME::Get();
  * </pre>
  *
- * @creation  2016-11-28
+ * @created   2016-11-28
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

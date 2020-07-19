@@ -1,25 +1,22 @@
 <?php
-/**
- * Autoloader.class.php
+/** op-core:/Autoloader.class.php
  *
  * @created   2014-11-29  Perhaps did not yet a single file.
  * @updated   2016-06-09  Separate from singe file.
- *
  * @version   2.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
 /** Register autoloder.
  *
- * @created   2014-11-29  Not spl, Autoload was occupied.
- * @updated   2016-06-09  Change to class. became spl.
- * @updated   2019-02-20  Made to extremely simple.
- * @updated   2019-06-13  Load unit automatically.
- *
+ * @created   2014-11-29  Autoloader was not spl yet.
+ * @updated   2016-06-09  Autoloader is change to spl and class.
+ * @updated   2019-02-20  It is no longer a class. Load process is changed to extremely simple.
+ * @updated   2019-06-13  Corresponds to UNIT loading.
  * @version   3.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

@@ -1,13 +1,12 @@
 <?php
-/**
- * Dump.php
+/** op-core:/Dump.php
  *
  * Separate from Functions.php.
  * The "D" function has out of need namespace.
  *
  * @created   2019-02-21
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

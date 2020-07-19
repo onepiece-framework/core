@@ -1,10 +1,9 @@
 <?php
-/**
- * encode.php
+/** op-core:/function/encode.php
  *
  * @created   2019-12-20
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

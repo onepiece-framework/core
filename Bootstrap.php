@@ -1,10 +1,10 @@
 <?php
-/**
- * Bootstrap.php
+/** op-core:/Bootstrap.php
  *
- * @created   2015-12-10 --> 2016-06-09
+ * @created   2015-12-10   op-core(5)
+ * @updated   2016-06-09   op-core(7)
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

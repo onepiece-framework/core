@@ -1,10 +1,9 @@
 <?php
-/**
- * OP_SESSION.php
+/** op-core:/OP_SESSION.php
  *
  * @created   2019-04-10
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -19,7 +18,7 @@ namespace OP;
  *
  * @created   2019-04-10
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */

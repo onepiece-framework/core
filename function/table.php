@@ -3,21 +3,21 @@
  *
  * @created   2019-11-25
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
 /** namespace
  *
- * @creation  2019-11-25
+ * @created   2019-11-25
  */
 namespace OP\FUNC\HTML\TABLE;
 
 /** Display table tag.
  *
- * @created  2019-11-25
- * @param    array       $table
+ * @created   2019-11-25
+ * @param     array       $table
  */
 function _Build($table)
 {

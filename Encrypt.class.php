@@ -1,10 +1,9 @@
 <?php
-/**
- * Encrypt.class.php
+/** op-core:/Encrypt.class.php
  *
  * @created   2017-11-22
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
@@ -19,7 +18,7 @@ namespace OP;
  *
  * @created   2017-11-22
  * @version   1.0
- * @package   core
+ * @package   op-core
  * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
