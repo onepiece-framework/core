@@ -98,13 +98,22 @@ class Env
 		return $_is_localhost;
 	}
 
-	/** Is Http
+	/** Is Http(s) protocol.
 	 *
 	 * @return boolean
 	 */
 	static function isHttp()
 	{
 		return isset($_SERVER['REDIRECT_STATUS']);
+	}
+
+	/** Is HTTPs protocal.
+	 *
+	 * @return boolean
+	 */
+	static function isHTTPs()
+	{
+		return isset($_SERVER['HTTPS']);
 	}
 
 	/** Is Shell
