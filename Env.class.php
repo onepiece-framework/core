@@ -239,6 +239,9 @@ class Env
 
 	/** Get mime from extension.
 	 *
+	 * @created   2019-12-16
+	 * @param     string       $ext
+	 * @return    string       $mime
 	 */
 	static function Ext($ext)
 	{
@@ -275,10 +278,8 @@ class Env
 	{
 		//	...
 		if( $mime ){
-			//	...
-			$file = $line = null;
-
-			//	...
+			/* @var $file null */
+			/* @var $line null */
 			if( headers_sent($file, $line) ){
 				throw new \Exception("Header has already sent. ($file, $line)");
 			}else{
