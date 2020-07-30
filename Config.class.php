@@ -40,6 +40,18 @@ class Config
 	 */
 	static private function _Init($name)
 	{
+		//	Static variable.
+		static $_asset_root, $_config_dir;
+
+		//	Init static variable.
+		if(!$_asset_root ){
+			//	Get asset root path.
+			$_asset_root = RootPath('asset');
+
+			//	Generate config directory.
+			$_config_dir = "{$_asset_root}config/";
+		}
+
 		//	Force lower case.
 		$name = strtolower($name);
 
@@ -52,13 +64,14 @@ class Config
 			//	Include closure function.
 			$include = function($path){ return include($path); };
 
-			//	Get asset root path.
-			$asset_root = RootPath('asset');
-
 			//	Ignore "unit" config. --> Got to infinity loop.
 			if( $name !== 'unit' ){
+
+				//	Generate file path.
+				$path = $_asset_root . "unit/{$name}/config.php";
+
 				//	Check exists.
-				if( file_exists($path = $asset_root . "unit/{$name}/config.php" ) ){
+				if( file_exists($path) ){
 					//	Load the config file that each unit has by default.
 					self::$_config[$name] = $include($path);
 				}
@@ -67,8 +80,11 @@ class Config
 			//	Get current directory.
 			$save_directory = getcwd();
 
+			//	Check if config directory exists.
+			if( file_exists($_config_dir) ){
+
 			//	Chenge config direcotry.
-			chdir("{$asset_root}config/");
+			chdir($_config_dir);
 
 			//	Correspond to overwrite public config at privete local config.
 			//	  --> config.php --> _config.php
@@ -97,6 +113,7 @@ class Config
 
 				//	Flags
 				$fail = true;
+			}
 			}
 
 			//	Recovery save direcotry.
