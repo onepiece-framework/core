@@ -46,6 +46,9 @@ class Config
 		//	Check by class name whether config is initialized.
 		if(!isset(self::$_config[$name]) ){
 
+			//	Initialize to avoid an infinite loop.
+			self::$_config[$name] = [];
+
 			//	Include closure function.
 			$include = function($path){ return include($path); };
 
