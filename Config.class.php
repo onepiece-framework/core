@@ -94,6 +94,12 @@ class Config
 					//	Include config.
 					$config = $include($path);
 
+					//	Check if an array.
+					if( gettype($config) !== 'array' ){
+						Notice::Set("This file does not return an array. `{$path}`");
+						continue;
+					}
+
 					/** About array merge.
 					 *
 					 *  array_replace_recursive() is all replace.
