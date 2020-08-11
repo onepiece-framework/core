@@ -147,7 +147,7 @@ class Config
 		$name = self::_Init($name);
 
 		//	...
-		return self::$_config[$name] ?? null;
+		return self::$_config[$name] ?? [];
 	}
 
 	/** Set
