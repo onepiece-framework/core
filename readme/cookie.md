@@ -5,7 +5,7 @@ Cookie of onepiece-framework
 
 1. Cookie name is encrypted. Yes, End user is not understand.
 1. Cookie value is encrypted. Yes, End user is not modified.
-1. Cookie is separate other class.
+1. Cookie is separate other app. Yes, Not access other app.
 
 ## Usage
 
