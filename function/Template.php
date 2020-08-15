@@ -41,6 +41,8 @@ function Template(string $file, array $args=[])
 	//	Check if meta path.
 	if( strpos($file, ':') ){
 		$file = ConvertPath($file);
+	}else{
+		$file = RootPath('asset') . 'template/' . $file;
 	}
 
 	//	Change real path.
