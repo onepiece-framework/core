@@ -28,13 +28,17 @@ function Load(string $function):void
 	$root = RootPath('asset');
 
 	//	...
-	if( file_exists($path = "{$root}core/function/{$function}.php") ){
-		require_once($path);
-		return;
-	}
-
-	//	...
 	if( file_exists($path = "{$root}function/{$function}.php") ){
 		require_once($path);
+	}else
+
+	//	...
+	if( file_exists($path = "{$root}core/function/{$function}.php") ){
+		require_once($path);
+	}else
+
+	//	...
+	if( true ){
+		throw new \Exception("Not found function file. ($function)");
 	}
 }
