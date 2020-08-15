@@ -66,7 +66,10 @@ function Template(string $file, array $args=[])
 
 	//	Load file.
 	try {
-		(function() use ($path, $args){
+
+		//	Seal to sandbox.
+		call_user_func(function($path, $args){
+
 			//	Swap file name. Because avoid conflicts. --> $args['path']
 			$md5 = 'file_' . md5(microtime());
 			${$md5} = $path;
@@ -79,7 +82,8 @@ function Template(string $file, array $args=[])
 
 			//	Execute file.
 			include(${$md5});
-		});
+		},$path, $args);
+
 	}catch(\Throwable $e){
 		Notice::Set($e);
 	}
