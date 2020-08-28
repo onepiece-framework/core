@@ -106,7 +106,7 @@ class Config
 					 *  array_merge_recursive() is number index is renumbering.
 					 *
 					 */
-					self::$_config[$name] = isset(self::$_config[$name]) ? array_merge(self::$_config[$name], $config) : $config;
+					self::$_config[$name] = isset(self::$_config[$name]) ? array_replace_recursive(self::$_config[$name], $config) : $config;
 
 					//	Escape.
 					continue;
