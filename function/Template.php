@@ -41,18 +41,15 @@ function Template(string $file, array $args=[])
 	//	Check if meta path.
 	if( strpos($file, ':') ){
 		$file = ConvertPath($file);
+	}
+
+	//	Check file exists.
+	if( file_exists($path = realpath($file)) ){
+		//	Relative path.
+	}else if( file_exists($path = RootPath('asset') . 'template/' . $file) ){
+		//	Template path.
 	}else{
-		$file = RootPath('asset') . 'template/' . $file;
-	}
-
-	//	Change real path.
-	if(!$path = realpath($file) ){
 		throw new \Exception("There are no files in this path. ($file)");
-	}
-
-	//	Check if file exists.
-	if(!file_exists($path) ){
-		throw new \Exception("There are no files in this path. ($path)");
 	}
 
 	//	Check if directory include.
