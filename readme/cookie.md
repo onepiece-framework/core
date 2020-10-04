@@ -11,8 +11,8 @@ Cookie of onepiece-framework
 
 ```php
 //  Set cookie value.
-$app->Cookie('count', 1);
+Cookie::Set('count', 1);
 
 //  Get cookie value.
-$app->Cookie('count');
+Cookie::Get('count');
 ```
