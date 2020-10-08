@@ -1,5 +1,5 @@
 <?php
-/** op-core:/OP_CORE.php
+/** op-core:/trait/OP_CORE.php
  *
  * @created   2017-02-16
  * @version   1.0
@@ -54,7 +54,7 @@ trait OP_CORE
 		$message = "This method has not been exists. ({$class}->{$name}({$serial}))";
 
 		//	...
-		Notice::Set($message, debug_backtrace(false));
+		Notice($message, debug_backtrace(false));
 	}
 
 	/** Calling to has not been set static method.
@@ -65,7 +65,7 @@ trait OP_CORE
 	static function __callstatic($name, $args)
 	{
 		$message = "This method has not been exists. ($name)";
-		Notice::Set($message, debug_backtrace(false));
+		Notice($message, debug_backtrace(false));
 	}
 
 	/** Calling to has not been set property.
@@ -75,7 +75,7 @@ trait OP_CORE
 	function __get($name)
 	{
 		$message = "This property has not been exists. ($name)";
-		Notice::Set($message, debug_backtrace(false));
+		Notice($message, debug_backtrace(false));
 	}
 
 	/** Calling to has not been set property.
@@ -86,7 +86,7 @@ trait OP_CORE
 	function __set($name, $args)
 	{
 		$message = "This property has not been exists. ($name)";
-		Notice::Set($message, debug_backtrace(false));
+		Notice($message, debug_backtrace(false));
 	}
 
 	/** Enumerate property names to serialize.
