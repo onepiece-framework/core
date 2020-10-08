@@ -437,6 +437,13 @@ class Env
 		return self::$_env[_OP_APP_ID_];
 	}
 
+	/** Get Request
+	 *
+	 * @created   2020-05-04
+	 * @param     string       $_key
+	 * @param     mixed        $_default
+	 * @return    array
+	 */
 	static function Request($_key=null, $_default=null)
 	{
 		//	...
@@ -449,6 +456,11 @@ class Env
 				$_request = include(__DIR__.'/include/request_cli.php');
 			}else{
 				$_request = include(__DIR__.'/include/request_web.php');
+			}
+
+			//	Why? --> Suppresses duplicate processing.
+			if( $_request === null ){
+				Notice('Returned $_request value is null. (Useless processing is repeated.)', debug_backtrace());
 			}
 
 			//	...
