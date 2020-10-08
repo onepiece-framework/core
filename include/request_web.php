@@ -23,7 +23,18 @@ $_request = [];
 //	...
 switch( $_SERVER['REQUEST_METHOD'] ?? null ){
 	case 'POST':
-		$_request = $_POST;
+		if( $_POST ){
+			$_request = $_POST;
+		}else{
+			switch( $_SERVER['CONTENT_TYPE'] ?? null ){
+				case 'application/json':
+					$_content = file_get_contents("php://input");
+					$_request = json_decode($_content, true);
+					break;
+				default:
+			}
+		}
+
 		break;
 
 	case 'GET':
