@@ -1,6 +1,5 @@
 <?php
-/**
- * include/isAdmin.php
+/** op-core:/include/isAdmin.php
  *
  * @created   2020-04-29
  * @version   1.0
