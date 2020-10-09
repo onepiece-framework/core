@@ -79,7 +79,7 @@ function ConvertURL($url)
 
 	//	Check whether document root path.
 	if( strpos($full_path, $doc_root) !== 0 ){
-		throw new \Exception("This path has not been document root path. ({$full_path})");
+		throw new \Exception("This path has not been document root path. ({$doc_root} !== {$full_path})");
 	};
 
 	//	Generate document root path.
