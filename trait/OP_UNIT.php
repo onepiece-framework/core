@@ -30,6 +30,7 @@ trait OP_UNIT
 	 *  That so-called "Singleton" or "Factory method".
 	 *
 	 * @created
+	 * @deprecated 2020-10-09
 	 * @param     string       $name
 	 * @return    object       IF_UNIT
 	 */
