@@ -51,6 +51,12 @@ class Cookie
 		}
 
 		//	...
+		if( Env::isShell() ){
+			Notice('Cookie can not be used in the shell environment.');
+			return;
+		}
+
+		//	...
 		$key = Hasha1($key);
 
 		//	...
@@ -69,6 +75,12 @@ class Cookie
 	{
 		//	Cache feature
 		$_SESSION['OP']['CORE']['COOKIE'][$key] = $val;
+
+		//	...
+		if( Env::isShell() ){
+			Notice('Cookie can not be used in the shell environment.');
+			return;
+		}
 
 		//	...
 		$file = $line = null;
