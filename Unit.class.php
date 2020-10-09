@@ -100,9 +100,15 @@ class Unit
 	 * @created
 	 * @updated 2019-06-13  To simplified.
 	 * @param   string      $name
+	 * @return  boolean     true is successful.
 	 */
 	static function Load($name)
 	{
+		//	...
+		if( class_exists("\OP\UNIT\{$name}", false) ){
+			return true;
+		}
+
 		//	...
 		if(!$dir = RootPath('asset') . 'unit/' ){
 			throw new Exception('Has not been set meta root of unit.');
