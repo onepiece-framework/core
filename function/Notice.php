@@ -19,7 +19,7 @@ namespace OP;
  * @param     string       $message
  * @param     array        $debug_backtrace
  */
-function Notice($message, $debug_backtrace)
+function Notice($message, $debug_backtrace=null)
 {
-	Notice::Set($message, $debug_backtrace);
+	Notice::Set($message, $debug_backtrace ?? debug_backtrace());
 }
