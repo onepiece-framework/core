@@ -80,17 +80,7 @@ class Env
 
 		//	Check if not init.
 		if( $_is_localhost === null ){
-			//	Check if http.
-			if( self::isHttp() ){
-				//	...
-				$remote_addr = $_SERVER['REMOTE_ADDR'] ?? null;
-
-				//	localhost ip address
-				$_is_localhost = ($remote_addr === '127.0.0.1' or $remote_addr === '::1') ? true : false;
-			}else{
-				//	Shell
-				$_is_localhost = true;
-			}
+			$_is_localhost = include(__DIR__.'/include/isLocalhost.php');
 		}
 
 		//	Return already calced static value.
