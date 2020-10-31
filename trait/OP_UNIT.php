@@ -24,12 +24,22 @@ namespace OP;
  */
 trait OP_UNIT
 {
+	/** App
+	 *
+	 * @deprecated 2020-10-31
+	 * @created   2019-12-13
+	 * @return    UNIT\App
+	 */
+	function App()
+	{
+		return $this->Unit('App');
+	}
+
 	/** Unit
 	 *
 	 *  Always return instantiated instance.
 	 *  That so-called "Singleton" or "Factory method".
 	 *
-	 * @created
 	 * @deprecated 2020-10-09
 	 * @param     string       $name
 	 * @return    object       IF_UNIT
