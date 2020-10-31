@@ -443,9 +443,9 @@ class Env
 		if( $_request === null ){
 			//	In case of shell.
 			if( isset($_SERVER['argv']) ){
-				$_request = include(__DIR__.'/include/request_cli.php');
+				$_request = require_once(__DIR__.'/include/request_cli.php');
 			}else{
-				$_request = include(__DIR__.'/include/request_web.php');
+				$_request = require_once(__DIR__.'/include/request_web.php');
 			}
 
 			//	Why? --> Suppresses duplicate processing.
