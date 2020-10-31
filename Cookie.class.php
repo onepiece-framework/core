@@ -45,15 +45,15 @@ class Cookie
 	 */
 	static function Get($key, $default=null)
 	{
-		//	Cache feature
-		if( isset( $_SESSION['OP']['CORE']['COOKIE'][$key] ) ){
-			return $_SESSION['OP']['CORE']['COOKIE'][$key];
-		}
-
 		//	...
 		if( Env::isShell() ){
 			Notice('Cookie can not be used in the shell environment.');
 			return;
+		}
+
+		//	Cache feature
+		if( isset( $_SESSION['OP']['CORE']['COOKIE'][$key] ) ){
+			return $_SESSION['OP']['CORE']['COOKIE'][$key];
 		}
 
 		//	...
@@ -67,20 +67,20 @@ class Cookie
 	 *
 	 * @param  string         $key
 	 * @param  mixed          $val
-	 * @param  mixed          $expire
+	 * @param  mixed          $expire 2020-12-31, 86400(60*60*24)
 	 * @param  array          $option
 	 * @return boolean|string $date
 	 */
 	static function Set($key, $val, $expire=null, $option=null)
 	{
-		//	Cache feature
-		$_SESSION['OP']['CORE']['COOKIE'][$key] = $val;
-
 		//	...
 		if( Env::isShell() ){
 			Notice('Cookie can not be used in the shell environment.');
 			return;
 		}
+
+		//	Cache feature
+		$_SESSION['OP']['CORE']['COOKIE'][$key] = $val;
 
 		//	...
 		$file = $line = null;
