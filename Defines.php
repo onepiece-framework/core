@@ -60,6 +60,13 @@ define('_OP_DEVELOPER_MAIL_', 'DEVELOPER_MAIL', false);
  */
 define('_OP_DENY_IP_', substr(md5(__FILE__), 0, 10), false);
 
+/** If is shell not do blacklist check.
+ *
+ */
+if( isset($_SERVER['SHELL']) ){
+	return;
+}
+
 /** If empty host name or user agent.
  *
  */
@@ -72,5 +79,6 @@ if( empty($_SERVER['HTTP_HOST']) or empty($_SERVER['HTTP_USER_AGENT']) ){
  * @created   2020-05-11
  */
 if( $_SESSION[_OP_DENY_IP_] ?? null ){
+	var_dump($_SESSION[_OP_DENY_IP_]);
 	exit("Your IP-Adderss in blacklist.");
 }
