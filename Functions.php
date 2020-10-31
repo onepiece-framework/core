@@ -25,6 +25,7 @@ namespace OP;
 include(__DIR__.'/function/Load.php');
 include(__DIR__.'/function/Unit.php');
 include(__DIR__.'/function/encode.php');
+include(__DIR__.'/function/Notice.php');
 include(__DIR__.'/function/RootPath.php');
 include(__DIR__.'/function/ConvertPath.php');
 include(__DIR__.'/function/ConvertURL-2.php');
