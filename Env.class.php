@@ -154,6 +154,17 @@ class Env
 		Config::Set($key, $var);
 	}
 
+	/** Get/Set language code.
+	 *
+	 * @deprecated 2020-10-31
+	 * @param      string       $lang
+	 * @return     string       $lang
+	 */
+	static function Lang($lang=null)
+	{
+		return self::Language($lang);
+	}
+
 	/** Get/Set Language.
 	 *
 	 * @created 2019-04-27
