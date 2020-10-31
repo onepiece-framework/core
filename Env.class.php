@@ -237,6 +237,16 @@ class Env
 			$country  = $counfig['country']  ?? null;
 			return "{$language}{$separate}{$country}";
 		}
+
+		/*
+		//	...
+		if( empty(self::$_env['locale']) ){
+			$locale = Cookie::Get('locale') ?? self::$_env['g11n']['default'] ?? 'en:US';
+		};
+
+		//	...
+		return $locale;
+		*/
 	}
 
 	/** Get/Set charset.
