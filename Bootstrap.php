@@ -64,7 +64,7 @@ if(!session_id() and empty($_SERVER['SHELL']) ){
 /** Register autoloader.
  *
  */
-include(__DIR__.'/Autoloader.php');
+include_once(__DIR__.'/Autoloader.php');
 
 /** Include Error hendler.
  *
@@ -90,3 +90,8 @@ include_once(__DIR__.'/D.php');
  *
  */
 include_once(__DIR__.'/trait/OP_CORE.php');
+
+/** Include JSON submitted process.
+ *
+ */
+include_once(__DIR__.'/include/json.php');
