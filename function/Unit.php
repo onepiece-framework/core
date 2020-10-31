@@ -22,12 +22,10 @@ namespace OP;
  * </pre>
  *
  * @created   2020-03-06
- * @version   1.0
- * @package   core
- * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
- * @copyright Tomoaki Nagahara All right reserved.
+ * @param     string       $unit_name
+ * @return    IF_UNIT
  */
-function & Unit($name)
+function & Unit($name):IF_UNIT
 {
 	//	...
 	static $_unit;
