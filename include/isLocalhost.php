@@ -4,7 +4,7 @@
  * @created   2020-10-17
  * @version   1.0
  * @package   op-core
- * @author    Tomoaki Nagahara<tomoaki.nagahara@gmail.com>
+ * @author    Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
  * @copyright Tomoaki Nagahara All right reserved.
  */
 
