@@ -170,6 +170,12 @@ function Attribute(string $attr)
 				$key = 'id';
 				continue 2;
 
+			case '?':
+				if( $result['tag'] === 'a' ){
+					$key = 'href';
+				}
+				break;
+
 			case ' ':
 				continue 2;
 
@@ -245,12 +251,17 @@ function Html($string, $attr=null, $escape=true)
 	}
 
 	//	...
+	if( $tag === 'a' ){
+		$href = $attr['href'] ?? $string;
+	}
+
+	//	...
 	$attr = $id    ? " id='$id'"      :'';
 	$attr.= $class ? " class='$class'":'';
 
 	//	...
 	if( $tag === 'a' ){
-		$attr = ' href="' . $string . '"';
+		$attr = ' href="' . $href . '"';
 		printf('<%s%s>%s</%s>'.PHP_EOL, $tag, $attr, $string, $tag);
 	}else{
 		printf('<%s%s>%s</%s>'.PHP_EOL, $tag, $attr, $string, $tag);
