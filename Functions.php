@@ -192,7 +192,7 @@ function Attribute(string $attr)
 	}
 
 	//	...
-	return $result;
+	return Encode($result);
 }
 
 /** Output secure JSON.
