@@ -445,7 +445,7 @@ class Env
 		}
 
 		//	...
-		return self::$_env[_OP_APP_ID_];
+		return self::$_env[_OP_APP_ID_] ?? null;
 	}
 
 	/** Get Request
