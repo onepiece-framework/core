@@ -65,7 +65,7 @@ function Template(string $file, array $args=[])
 	try {
 
 		//	Seal to sandbox.
-		call_user_func(function($path, $args){
+		$result = call_user_func(function($path, $args){
 
 			//	Swap file name. Because avoid conflicts. --> $args['path']
 			$md5 = 'file_' . md5(microtime());
@@ -78,7 +78,7 @@ function Template(string $file, array $args=[])
 			};
 
 			//	Execute file.
-			include(${$md5});
+			return include(${$md5});
 		},$path, $args);
 
 	}catch(\Throwable $e){
@@ -90,4 +90,7 @@ function Template(string $file, array $args=[])
 		//	Recovery save direcotry.
 		chdir($save_directory);
 	}
+
+	//	Return result.
+	return $result ?? null;
 }
