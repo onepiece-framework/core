@@ -133,6 +133,7 @@ function Hasha1($var, $length=8, $salt=null)
 
 /** ifset
  *
+ * @deprecated 2020-11-19
  * @see    http://qiita.com/devneko/items/ee83854eb422c352abc8
  * @param  mixed $check
  * @param  mixed $alternate
