@@ -448,14 +448,14 @@ class Env
 		return self::$_env[_OP_APP_ID_] ?? null;
 	}
 
-	/** Get Request
+	/** Get request value.
 	 *
 	 * @created   2020-05-04
-	 * @param     string       $_key
-	 * @param     mixed        $_default
-	 * @return    array
+	 * @param     string       $key
+	 * @param     mixed        $default
+	 * @return    mixed        $request
 	 */
-	static function Request($_key=null, $_default=null)
+	static function Request($key=null, $default=null)
 	{
 		//	...
 		static $_request = null;
@@ -479,6 +479,6 @@ class Env
 		}
 
 		//	...
-		return empty($_key) ? $_request: ($_request[$_key] ?? $_default);
+		return empty($key) ? $_request: ($_request[$key] ?? $default);
 	}
 }
