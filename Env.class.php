@@ -185,9 +185,10 @@ class Env
 
 		if( $lang ){
 			Config::Set('locale', ['language'=>$lang]);
-		}else{
-			return Config::Get('locale')['language'] ?? null;
 		}
+
+		//	...
+		return Config::Get('locale')['language'] ?? null;
 	}
 
 	/** Get/Set Country.
@@ -208,12 +209,12 @@ class Env
 		};
 		*/
 
-
 		if( $country ){
 			Config::Set('locale', ['country'=>$country]);
-		}else{
-			return Config::Get('locale')['country'] ?? null;
 		}
+
+		//	...
+		return Config::Get('locale')['country'] ?? null;
 	}
 
 	/** Get/Set Locale.
@@ -246,8 +247,10 @@ class Env
 			$separate = $counfig['separate'] ?? ':';
 			$language = $counfig['language'] ?? null;
 			$country  = $counfig['country']  ?? null;
-			return "{$language}{$separate}{$country}";
 		}
+
+		//	...
+		return "{$language}{$separate}{$country}";
 
 		/*
 		//	...
